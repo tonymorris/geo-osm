@@ -1,0 +1,9 @@
+<way id="27776903" visible="true" timestamp="2009-05-31T13:39:15Z" version="3" changeset="1368552" user="Matt" uid="70">
+  <nd ref="304994979"/>
+  <nd ref="319408587"/>
+  <nd ref="319408586"/>
+  <nd ref="304994980"/>
+  <nd ref="304994981"/>
+  <tag k="access" v="private"/>
+  <tag k="highway" v="service"/>
+</way>

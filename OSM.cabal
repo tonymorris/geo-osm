@@ -1,0 +1,65 @@
+Name:                OSM
+Version:             0.1
+License:             BSD3
+License-File:        LICENSE
+Synopsis:            Parse OpenStreetMap files
+Description:         Parse OpenStreetMap http:\/\/osm.org/ files using HXT into data structures.
+                     The Geo.OSM module is the core module that exports all others.
+Category:            Utils
+Author:              Tony Morris
+Maintainer:          tmorris@tmorris.net
+Copyright:           2009 Tony Morris
+build-type:          Simple
+cabal-version:       >= 1.2
+extra-source-files:  Example.hs, MountBarney.osm
+
+Flag small_base
+  Description:     Choose the new, split-up base package.
+
+Library
+  if flag(small_base)
+    Build-Depends: base < 4 && >= 3, hxt, containers
+  else
+    Build-Depends: base < 3, hxt, containers
+
+  GHC-Options:    -Wall
+  Exposed-Modules: Geo.OSM
+                   Geo.OSM.Tag
+                   Geo.OSM.Nd
+                   Geo.OSM.NWRCommon
+                   Geo.OSM.MemberType
+                   Geo.OSM.Member
+                   Geo.OSM.Way
+                   Geo.OSM.Node
+                   Geo.OSM.Relation
+                   Geo.OSM.Bounds
+                   Geo.OSM.Bound
+                   Geo.OSM.NodeWayRelation
+                   Geo.OSM.OSM
+                   Geo.OSM.Util
+                   Geo.OSM.Accessor.K
+                   Geo.OSM.Accessor.V
+                   Geo.OSM.Accessor.Ref
+                   Geo.OSM.Accessor.Mtype
+                   Geo.OSM.Accessor.Role
+                   Geo.OSM.Accessor.Id
+                   Geo.OSM.Accessor.Tags
+                   Geo.OSM.Accessor.Changeset
+                   Geo.OSM.Accessor.Visible
+                   Geo.OSM.Accessor.User
+                   Geo.OSM.Accessor.Uid
+                   Geo.OSM.Accessor.Timestamp
+                   Geo.OSM.Accessor.Nds
+                   Geo.OSM.Accessor.Lat
+                   Geo.OSM.Accessor.Lon
+                   Geo.OSM.Accessor.Members
+                   Geo.OSM.Accessor.Minlat
+                   Geo.OSM.Accessor.Maxlat
+                   Geo.OSM.Accessor.Minlon
+                   Geo.OSM.Accessor.Maxlon
+                   Geo.OSM.Accessor.Origin
+                   Geo.OSM.Accessor.Box
+                   Geo.OSM.Accessor.Version
+                   Geo.OSM.Accessor.Generator
+                   Geo.OSM.Accessor.BoundOrs
+                   Geo.OSM.Accessor.NodeWayRelations

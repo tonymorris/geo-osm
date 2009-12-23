@@ -1,0 +1,21 @@
+<relation id='94468' timestamp='2009-07-17T05:59:57Z' uid='84644' user='Ash Kyd' visible='true' version='2' changeset='1850518'>
+  <member type='way' ref='31718120' role='outer' />
+  <member type='way' ref='32198798' role='outer' />
+  <member type='way' ref='32242493' role='outer' />
+  <member type='way' ref='32242494' role='outer' />
+  <member type='way' ref='32242495' role='outer' />
+  <member type='way' ref='37751684' role='outer' />
+  <member type='way' ref='32242496' role='outer' />
+  <tag k='au.gov.abs:NAME_2006' v='Fitzgibbon (Brisbane City)' />
+  <tag k='au.gov.abs:reviewed' v='no' />
+  <tag k='au.gov.abs:SSC_2006' v='31219' />
+  <tag k='admin_level' v='10' />
+  <tag k='source' v='ABS_2006' />
+  <tag k='name' v='Fitzgibbon' />
+  <tag k='is_in' v='Queensland, Australia' />
+  <tag k='type' v='multipolygon' />
+  <tag k='old_name' v='Brisbane City' />
+  <tag k='au.gov.abs:STATE_2006' v='3' />
+  <tag k='boundary' v='administrative' />
+  <tag k='attribution' v='Based on Australian Bureau of Statistics data' />
+</relation>
