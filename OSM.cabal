@@ -12,7 +12,7 @@ Maintainer:          code@tmorris.net
 Copyright:           2009 Tony Morris
 build-type:          Simple
 cabal-version:       >= 1.2
-extra-source-files:  Example.hs, MountBarney.osm
+extra-source-files:  etc/Example.hs, etc/MountBarney.osm
 
 Flag small_base
   Description:     Choose the new, split-up base package.

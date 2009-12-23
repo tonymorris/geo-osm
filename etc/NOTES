@@ -1,5 +1,0 @@
-runX (xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)] "osm.xml")
-
-http://wiki.openstreetmap.org/wiki/API_v0.6/DTD
-http://wiki.openstreetmap.org/wiki/.osma
-
