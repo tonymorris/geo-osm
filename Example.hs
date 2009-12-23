@@ -1,6 +1,6 @@
 import Geo.OSM
 
--- Return all nodes tagged as camp-sites (tourism=camp_site) in the give OSM file.
+-- Return all nodes tagged as camp-sites (tourism=camp_site) in the given OSM file.
 campSites :: FilePath -> IO [Node]
 campSites f = let p = filter ("tourism" `hasTagValue` "camp_site") . (nodes =<<)
               in fmap p (runX (xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)] f))
