@@ -5,7 +5,7 @@ module Geo.OSM.Bound(
                     ) where
 
 import Text.XML.HXT.Arrow
-import Geo.OSM.Util
+import Text.XML.HXT.Extras
 import Geo.OSM.Accessor.Box
 import Geo.OSM.Accessor.Origin
 

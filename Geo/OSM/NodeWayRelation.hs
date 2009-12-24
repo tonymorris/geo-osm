@@ -11,10 +11,10 @@ module Geo.OSM.NodeWayRelation(
                               ) where
 
 import Text.XML.HXT.Arrow
+import Text.XML.HXT.Extras
 import Geo.OSM.Node
 import Geo.OSM.Way
 import Geo.OSM.Relation
-import Geo.OSM.Util
 
 -- | The @node@, @way@, or @relation@ element of a OSM file.
 data NodeWayRelation = N Node | W Way | R Relation

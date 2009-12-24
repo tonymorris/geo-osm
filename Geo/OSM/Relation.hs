@@ -5,9 +5,9 @@ module Geo.OSM.Relation(
                        ) where
 
 import Text.XML.HXT.Arrow
+import Text.XML.HXT.Extras
 import Geo.OSM.Member
 import Geo.OSM.NWRCommon
-import Geo.OSM.Util
 import Geo.OSM.Tag
 import Geo.OSM.Accessor.Id
 import Geo.OSM.Accessor.Tags

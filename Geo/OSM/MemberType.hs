@@ -8,9 +8,9 @@ module Geo.OSM.MemberType(
                          ) where
 
 import Text.XML.HXT.Arrow
+import Text.XML.HXT.Extras
 import Control.Applicative
 import Data.Char
-import Geo.OSM.Util
 
 -- | The @type@ attribute of a @member@ element of a OSM file.
 data MemberType = WayType | NodeType | RelationType

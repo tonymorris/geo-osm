@@ -5,10 +5,10 @@ module Geo.OSM.OSM(
                   ) where
 
 import Text.XML.HXT.Arrow
+import Text.XML.HXT.Extras
 import Geo.OSM.NodeWayRelation
 import Geo.OSM.Bound
 import Geo.OSM.Bounds
-import Geo.OSM.Util
 import Geo.OSM.Accessor.Version
 import Geo.OSM.Accessor.Generator
 import Geo.OSM.Accessor.BoundOrs

@@ -5,7 +5,7 @@ module Geo.OSM.Nd(
                  ) where
 
 import Text.XML.HXT.Arrow
-import Geo.OSM.Util
+import Text.XML.HXT.Extras
 import Geo.OSM.Accessor.Ref
 
 -- | The @nd@ element of a OSM file.

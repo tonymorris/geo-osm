@@ -5,7 +5,7 @@ module Geo.OSM.Tag(
                   ) where
 
 import Text.XML.HXT.Arrow
-import Geo.OSM.Util
+import Text.XML.HXT.Extras
 import Geo.OSM.Accessor.K
 import Geo.OSM.Accessor.V
 

@@ -5,10 +5,10 @@ module Geo.OSM.NWRCommon(
                         ) where
 
 import Text.XML.HXT.Arrow
+import Text.XML.HXT.Extras
 import Control.Applicative
 import Data.Char
 import Geo.OSM.Tag
-import Geo.OSM.Util
 import Geo.OSM.Accessor.Id
 import Geo.OSM.Accessor.Tags
 import Geo.OSM.Accessor.Changeset

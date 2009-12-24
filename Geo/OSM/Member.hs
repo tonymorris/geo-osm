@@ -5,8 +5,8 @@ module Geo.OSM.Member(
                      ) where
 
 import Text.XML.HXT.Arrow
+import Text.XML.HXT.Extras
 import Geo.OSM.MemberType
-import Geo.OSM.Util
 import Geo.OSM.Accessor.Mtype
 import Geo.OSM.Accessor.Ref
 import Geo.OSM.Accessor.Role
