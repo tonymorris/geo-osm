@@ -1,7 +1,8 @@
 -- | The @osm@ element of a OSM file, which is the root element.
 module Data.Geo.OSM.OSM(
                     OSM,
-                    osm
+                    osm,
+                    readOsmFile
                   ) where
 
 import Text.XML.HXT.Arrow
@@ -49,3 +50,8 @@ osm :: String -- ^ The @version@ attribute.
        -> [NodeWayRelation] -- ^ The @node@, @way@ or @relation@ elements.
        -> OSM
 osm = OSM
+
+-- | Reads an OSM file into a list of @OSM@ values removing whitespace.
+readOsmFile :: FilePath -> IO [OSM]
+readOsmFile = runX . xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)]
+

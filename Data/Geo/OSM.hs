@@ -78,7 +78,3 @@ import Data.Geo.OSM.Accessor.User
 import Data.Geo.OSM.Accessor.Version
 import Data.Geo.OSM.Accessor.V
 import Data.Geo.OSM.Accessor.Visible
-
--- | Reads an OSM file into a list of @OSM@ values removing whitespace.
-readOsmFile :: FilePath -> IO [OSM]
-readOsmFile = runX . xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)]
