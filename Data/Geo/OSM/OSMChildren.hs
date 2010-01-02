@@ -11,7 +11,7 @@ import Data.Geo.OSM.ChangesetE
 import Data.Geo.OSM.NodeWayRelation
 
 -- | The children elements of the @osm@ element of a OSM file.
-data OSMChildren = UserE UserE | Preferences Preferences | GpxFile GpxFile | Api Api | ChangesetE ChangesetE | NWR NodeWayRelation
+data OSMChildren = UserE UserE | Preferences Preferences | GpxFile GpxFile | Api Api | ChangesetE ChangesetE | NWR [NodeWayRelation]
   deriving Eq
 
 instance XmlPickler OSMChildren where
@@ -25,7 +25,7 @@ instance XmlPickler OSMChildren where
                                                         xpWrap (GpxFile, \(GpxFile f) -> f) xpickle,
                                                         xpWrap (Api, \(Api a) -> a) xpickle,
                                                         xpWrap (ChangesetE, \(ChangesetE c) -> c) xpickle,
-                                                        xpWrap (NWR, \(NWR k) -> k) xpickle]
+                                                        xpWrap (NWR, \(NWR k) -> k) (xpList xpickle)]
 
 instance Show OSMChildren where
   show = showPickled []
@@ -46,8 +46,8 @@ osmApi = Api
 osmChangeset :: ChangesetE -> OSMChildren
 osmChangeset = ChangesetE
 
--- | A @node@, @way@ or @relation@ element.
-osmNodeWayRelation :: NodeWayRelation -> OSMChildren
+-- | A list of @node@, @way@ or @relation@ elements.
+osmNodeWayRelation :: [NodeWayRelation] -> OSMChildren
 osmNodeWayRelation = NWR
 
 -- | Folds OSM child elements (catamorphism).
@@ -57,7 +57,7 @@ foldOSMChildren
      -> (GpxFile -> a) -- ^ If a @gpx_file@ element.
      -> (Api -> a) -- ^ If a @api@ element.
      -> (ChangesetE -> a) -- ^ If a @changeset@ element.
-     -> (NodeWayRelation -> a) -- ^ If a @node@, @way@ or @relation@ element.
+     -> ([NodeWayRelation] -> a) -- ^ If a list of @node@, @way@ or @relation@ elements.
      -> OSMChildren
      -> a
 foldOSMChildren z _ _ _ _ _ (UserE u) = z u
