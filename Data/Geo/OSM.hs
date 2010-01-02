@@ -1,6 +1,7 @@
 -- | OpenStreetMap API v0.6 DTD <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM(
                 module Text.XML.HXT.Arrow,
+                module Data.Geo.OSM.Api,
                 module Data.Geo.OSM.Area,
                 module Data.Geo.OSM.Bound,
                 module Data.Geo.OSM.Bounds,
@@ -17,7 +18,7 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Tracepoints,
                 module Data.Geo.OSM.VersionE,
                 module Data.Geo.OSM.Way,
-                module Data.Geo.OSM.Waynode,
+                module Data.Geo.OSM.Waynodes,
                 module Data.Geo.OSM.Accessor.BoundOrs,
                 module Data.Geo.OSM.Accessor.Box,
                 module Data.Geo.OSM.Accessor.Changeset,
@@ -52,6 +53,7 @@ module Data.Geo.OSM(
 
 
 import Text.XML.HXT.Arrow
+import Data.Geo.OSM.Api
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
@@ -68,7 +70,7 @@ import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Way
-import Data.Geo.OSM.Waynode
+import Data.Geo.OSM.Waynodes
 import Data.Geo.OSM.Accessor.BoundOrs
 import Data.Geo.OSM.Accessor.Box
 import Data.Geo.OSM.Accessor.Changeset
