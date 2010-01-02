@@ -66,7 +66,7 @@ foldOSMChildren
      -> (Api -> a) -- ^ If a @api@ element.
      -> (ChangesetE -> a) -- ^ If a @changeset@ element.
      -> ([NodeWayRelation] -> a) -- ^ If a list of @node@, @way@ or @relation@ elements.
-     -> OSMChildren
+     -> OSMChildren -- ^ The disjunctive type of child elements.
      -> a
 foldOSMChildren z _ _ _ _ _ (UserE u) = z u
 foldOSMChildren _ z _ _ _ _ (Preferences p) = z p
