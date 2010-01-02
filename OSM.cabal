@@ -28,6 +28,7 @@ Library
                    Data.Geo.OSM.Bound
                    Data.Geo.OSM.Bounds
                    Data.Geo.OSM.ChangesetE
+                   Data.Geo.OSM.Home
                    Data.Geo.OSM.Nd
                    Data.Geo.OSM.Node
                    Data.Geo.OSM.NodeWayRelation
@@ -71,4 +72,5 @@ Library
                    Data.Geo.OSM.Accessor.V
                    Data.Geo.OSM.Accessor.Version
                    Data.Geo.OSM.Accessor.Visible
+                   Data.Geo.OSM.Accessor.Zoom
                    Data.Geo.OSM.Example.CampSites

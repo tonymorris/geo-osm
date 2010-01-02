@@ -5,6 +5,7 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Bound,
                 module Data.Geo.OSM.Bounds,
                 module Data.Geo.OSM.ChangesetE,
+                module Data.Geo.OSM.Home,
                 module Data.Geo.OSM.Member,
                 module Data.Geo.OSM.MemberType,
                 module Data.Geo.OSM.Nd,
@@ -45,7 +46,8 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Accessor.User,
                 module Data.Geo.OSM.Accessor.Version,
                 module Data.Geo.OSM.Accessor.V,
-                module Data.Geo.OSM.Accessor.Visible
+                module Data.Geo.OSM.Accessor.Visible,
+                module Data.Geo.OSM.Accessor.Zoom
               ) where
 
 
@@ -54,6 +56,7 @@ import Data.Geo.OSM.Area
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
 import Data.Geo.OSM.ChangesetE
+import Data.Geo.OSM.Home
 import Data.Geo.OSM.Member
 import Data.Geo.OSM.MemberType
 import Data.Geo.OSM.Nd
@@ -95,3 +98,4 @@ import Data.Geo.OSM.Accessor.User
 import Data.Geo.OSM.Accessor.Version
 import Data.Geo.OSM.Accessor.V
 import Data.Geo.OSM.Accessor.Visible
+import Data.Geo.OSM.Accessor.Zoom
