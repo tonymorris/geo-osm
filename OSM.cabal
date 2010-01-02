@@ -1,5 +1,5 @@
 Name:                OSM
-Version:             0.3
+Version:             0.4.0
 License:             BSD3
 License-File:        LICENSE
 Synopsis:            Parse OpenStreetMap files
