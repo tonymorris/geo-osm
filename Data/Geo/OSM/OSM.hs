@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
+
 -- | The @osm@ element of a OSM file, which is the root element. <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM.OSM(
                     OSM,
@@ -29,7 +31,7 @@ instance XmlPickler OSM where
 instance Show OSM where
   show = showPickled []
 
-instance Version OSM where
+instance Version OSM String where
   version (OSM x _ _ _) = x
   setVersion a (OSM _ b c d) = osm a b c d
 
