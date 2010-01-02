@@ -13,7 +13,8 @@ newtype Tracepoints = Tracepoints String
   deriving Eq
 
 -- | Constructs a @tracepoints@ with per_page.
-tracepoints :: String -> Tracepoints
+tracepoints :: String -- ^ The @per_page@ attribute.
+               -> Tracepoints
 tracepoints = Tracepoints
 
 instance XmlPickler Tracepoints where

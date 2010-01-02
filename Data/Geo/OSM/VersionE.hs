@@ -14,7 +14,9 @@ data VersionE = VersionE String String
   deriving Eq
 
 -- | Constructs a @version@ with minimum and maximum.
-versionE :: String -> String -> VersionE
+versionE :: String -- ^ The @minimum@ attribute.
+            -> String -- ^ The @maximum@ attribute.
+            -> VersionE
 versionE = VersionE
 
 instance XmlPickler VersionE where

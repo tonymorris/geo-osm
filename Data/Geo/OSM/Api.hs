@@ -1,6 +1,6 @@
 {-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
 
--- | The @home@ element of a OSM file.
+-- | The @api@ element of a OSM file.
 module Data.Geo.OSM.Api(
                          Api,
                          api
@@ -22,7 +22,11 @@ data Api = Api VersionE Area Tracepoints Waynodes
   deriving Eq
 
 -- | Constructs a @api@ with version, area, tracepoints and waynodes.
-api :: VersionE -> Area -> Tracepoints -> Waynodes -> Api
+api :: VersionE -- ^ The @version@ element.
+       -> Area -- ^ The @area@ element.
+       -> Tracepoints -- ^ The @tracepoints@ element.
+       -> Waynodes -- ^ The @waynodes@ element.
+       -> Api
 api = Api
 
 instance XmlPickler Api where

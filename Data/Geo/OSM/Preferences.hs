@@ -14,7 +14,8 @@ newtype Preferences = Preferences [Tag]
   deriving Eq
 
 -- | Constructs a @preferences@ with tags.
-preferences :: [Tag] -> Preferences
+preferences :: [Tag] -- ^ The list of tags (@tag@ elements).
+               -> Preferences
 preferences = Preferences
 
 instance XmlPickler Preferences where

@@ -16,7 +16,10 @@ data UserE = UserE (Maybe Home) String String
   deriving Eq
 
 -- | Constructs a @user@ with an optional home, display_name and account_created.
-userE :: (Maybe Home) -> String -> String -> UserE
+userE :: Maybe Home -- ^ The @home@ element.
+         -> String -- ^ The @display_name@ attribute.
+         -> String -- ^ The @account_created@ attribute.
+         -> UserE
 userE = UserE
 
 instance XmlPickler UserE where

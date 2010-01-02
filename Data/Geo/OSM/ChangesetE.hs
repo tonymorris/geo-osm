@@ -14,7 +14,8 @@ newtype ChangesetE = ChangesetE [Tag]
   deriving Eq
 
 -- | Constructs a @changeset@ with tags.
-changesetE :: [Tag] -> ChangesetE
+changesetE :: [Tag] -- ^ The list of tags (@tag@ elements).
+              -> ChangesetE
 changesetE = ChangesetE
 
 instance XmlPickler ChangesetE where

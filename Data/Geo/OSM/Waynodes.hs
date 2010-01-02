@@ -13,7 +13,8 @@ newtype Waynodes = Waynodes String
   deriving Eq
 
 -- | Constructs a @waynodes@ with maximum.
-waynodes :: String -> Waynodes
+waynodes :: String -- ^ The @maximum@ attribute.
+            -> Waynodes
 waynodes = Waynodes
 
 instance XmlPickler Waynodes where

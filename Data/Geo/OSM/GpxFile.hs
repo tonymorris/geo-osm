@@ -24,14 +24,14 @@ data GpxFile = GpxFile String String String String String Bool Bool String
 
 -- | Constructs a @gpx_file@ with an id, name, lat, lon, user, public, pending and timestamp.
 gpxFile
-  :: String -- ^ The id.
-     -> String -- ^ The name.
-     -> String -- ^ The lat.
-     -> String -- ^ The lon.
-     -> String -- ^ The user.
-     -> Bool -- ^ The public.
-     -> Bool -- ^ The pending.
-     -> String -- ^ The timestamp.
+  :: String -- ^ The @id@ attribute.
+     -> String -- ^ The @name@ attribute.
+     -> String -- ^ The @lat@ attribute.
+     -> String -- ^ The @lon@ attribute.
+     -> String -- ^ The @user@ attribute.
+     -> Bool -- ^ The @public@ attribute.
+     -> Bool -- ^ The @pending@ attribute.
+     -> String -- ^ The @timestamp@ attribute.
      -> GpxFile
 gpxFile = GpxFile
 

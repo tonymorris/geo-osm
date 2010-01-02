@@ -15,7 +15,10 @@ data Home = Home String String String
   deriving Eq
 
 -- | Constructs a @home@ with lat, lon and zoom.
-home :: String -> String -> String -> Home
+home :: String -- ^ The @lat@ attribute.
+        -> String -- ^ The @lon@ attribute.
+        -> String -- ^ The @zoom@ attribute.
+        -> Home
 home = Home
 
 instance XmlPickler Home where

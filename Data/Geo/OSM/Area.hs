@@ -13,7 +13,8 @@ newtype Area = Area String
   deriving Eq
 
 -- | Constructs a @area@ with maximum.
-area :: String -> Area
+area :: String -- ^ The @area@ element.
+        -> Area
 area = Area
 
 instance XmlPickler Area where
