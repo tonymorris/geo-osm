@@ -7,3 +7,6 @@ class Generator a where
 
   setGenerator' :: String -> a -> a
   setGenerator' = setGenerator . return
+
+  usingGenerator :: a -> (Maybe String -> Maybe String) -> a
+  usingGenerator = generator `using` setGenerator

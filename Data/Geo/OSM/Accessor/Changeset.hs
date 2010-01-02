@@ -7,3 +7,6 @@ class Changeset a where
 
   setChangeset' :: String -> a -> a
   setChangeset' = setChangeset . return
+
+  usingChangeset :: a -> (Maybe String -> Maybe String) -> a
+  usingChangeset = changeset `using` setChangeset

@@ -13,3 +13,6 @@ class BoundOrs a where
 
   setBounds :: Bounds -> a -> a
   setBounds = setBoundOrs . Just . Right
+
+  usingBoundOrs :: a -> (Maybe (Either Bound Bounds) -> Maybe (Either Bound Bounds)) -> a
+  usingBoundOrs = boundOrs `using` setBoundOrs
