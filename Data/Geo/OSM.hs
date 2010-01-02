@@ -13,17 +13,22 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Node,
                 module Data.Geo.OSM.NodeWayRelation,
                 module Data.Geo.OSM.OSM,
+                module Data.Geo.OSM.Preferences,
                 module Data.Geo.OSM.Relation,
                 module Data.Geo.OSM.Tag,
                 module Data.Geo.OSM.Tracepoints,
+                module Data.Geo.OSM.UserE,
                 module Data.Geo.OSM.VersionE,
                 module Data.Geo.OSM.Way,
                 module Data.Geo.OSM.Waynodes,
+                module Data.Geo.OSM.Accessor.AccountCreated,
                 module Data.Geo.OSM.Accessor.Ar,
                 module Data.Geo.OSM.Accessor.BoundOrs,
                 module Data.Geo.OSM.Accessor.Box,
                 module Data.Geo.OSM.Accessor.Changeset,
+                module Data.Geo.OSM.Accessor.DisplayName,
                 module Data.Geo.OSM.Accessor.Generator,
+                module Data.Geo.OSM.Accessor.Hm,
                 module Data.Geo.OSM.Accessor.Id,
                 module Data.Geo.OSM.Accessor.K,
                 module Data.Geo.OSM.Accessor.Lat,
@@ -68,17 +73,22 @@ import Data.Geo.OSM.Nd
 import Data.Geo.OSM.Node
 import Data.Geo.OSM.NodeWayRelation
 import Data.Geo.OSM.OSM
+import Data.Geo.OSM.Preferences
 import Data.Geo.OSM.Relation
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Tracepoints
+import Data.Geo.OSM.UserE
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Waynodes
+import Data.Geo.OSM.Accessor.AccountCreated
 import Data.Geo.OSM.Accessor.Ar
 import Data.Geo.OSM.Accessor.BoundOrs
 import Data.Geo.OSM.Accessor.Box
 import Data.Geo.OSM.Accessor.Changeset
+import Data.Geo.OSM.Accessor.DisplayName
 import Data.Geo.OSM.Accessor.Generator
+import Data.Geo.OSM.Accessor.Hm
 import Data.Geo.OSM.Accessor.Id
 import Data.Geo.OSM.Accessor.K
 import Data.Geo.OSM.Accessor.Lat

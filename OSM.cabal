@@ -37,18 +37,23 @@ Library
                    Data.Geo.OSM.MemberType
                    Data.Geo.OSM.Member
                    Data.Geo.OSM.OSM
+                   Data.Geo.OSM.Preferences
                    Data.Geo.OSM.Relation
                    Data.Geo.OSM.Tag
                    Data.Geo.OSM.Tracepoints
+                   Data.Geo.OSM.UserE
                    Data.Geo.OSM.VersionE
                    Data.Geo.OSM.Way
                    Data.Geo.OSM.Waynodes
                    Data.Geo.OSM.Accessor.Accessor
+                   Data.Geo.OSM.Accessor.AccountCreated
                    Data.Geo.OSM.Accessor.Ar
                    Data.Geo.OSM.Accessor.BoundOrs
                    Data.Geo.OSM.Accessor.Box
                    Data.Geo.OSM.Accessor.Changeset
+                   Data.Geo.OSM.Accessor.DisplayName
                    Data.Geo.OSM.Accessor.Generator
+                   Data.Geo.OSM.Accessor.Hm
                    Data.Geo.OSM.Accessor.Id
                    Data.Geo.OSM.Accessor.K
                    Data.Geo.OSM.Accessor.Lat
