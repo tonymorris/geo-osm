@@ -44,11 +44,13 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Accessor.Role,
                 module Data.Geo.OSM.Accessor.Tags,
                 module Data.Geo.OSM.Accessor.Timestamp,
+                module Data.Geo.OSM.Accessor.Tpoints,
                 module Data.Geo.OSM.Accessor.Uid,
                 module Data.Geo.OSM.Accessor.User,
                 module Data.Geo.OSM.Accessor.Version,
                 module Data.Geo.OSM.Accessor.V,
                 module Data.Geo.OSM.Accessor.Visible,
+                module Data.Geo.OSM.Accessor.Wnodes,
                 module Data.Geo.OSM.Accessor.Zoom
               ) where
 
@@ -97,9 +99,11 @@ import Data.Geo.OSM.Accessor.Ref
 import Data.Geo.OSM.Accessor.Role
 import Data.Geo.OSM.Accessor.Tags
 import Data.Geo.OSM.Accessor.Timestamp
+import Data.Geo.OSM.Accessor.Tpoints
 import Data.Geo.OSM.Accessor.Uid
 import Data.Geo.OSM.Accessor.User
 import Data.Geo.OSM.Accessor.Version
 import Data.Geo.OSM.Accessor.V
 import Data.Geo.OSM.Accessor.Visible
+import Data.Geo.OSM.Accessor.Wnodes
 import Data.Geo.OSM.Accessor.Zoom

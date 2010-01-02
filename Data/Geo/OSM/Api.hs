@@ -11,6 +11,8 @@ import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.Waynodes
 import Data.Geo.OSM.Accessor.Version
 import Data.Geo.OSM.Accessor.Ar
+import Data.Geo.OSM.Accessor.Tpoints
+import Data.Geo.OSM.Accessor.Wnodes
 
 -- | The @api@ element of a OSM file.
 data Api = Api VersionE Area Tracepoints Waynodes
@@ -33,3 +35,11 @@ instance Version Api VersionE where
 instance Ar Api where
   ar (Api _ x _ _) = x
   setAr b (Api a _ c d) = api a b c d
+
+instance Tpoints Api where
+  tpoints (Api _ _ x _) = x
+  setTpoints c (Api a b _ d) = api a b c d
+
+instance Wnodes Api where
+  wnodes (Api _ _ _ x) = x
+  setWnodes d (Api a b c _) = api a b c d

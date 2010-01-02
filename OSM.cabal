@@ -69,10 +69,12 @@ Library
                    Data.Geo.OSM.Accessor.Role
                    Data.Geo.OSM.Accessor.Tags
                    Data.Geo.OSM.Accessor.Timestamp
+                   Data.Geo.OSM.Accessor.Tpoints
                    Data.Geo.OSM.Accessor.User
                    Data.Geo.OSM.Accessor.Uid
                    Data.Geo.OSM.Accessor.V
                    Data.Geo.OSM.Accessor.Version
                    Data.Geo.OSM.Accessor.Visible
+                   Data.Geo.OSM.Accessor.Wnodes
                    Data.Geo.OSM.Accessor.Zoom
                    Data.Geo.OSM.Example.CampSites
