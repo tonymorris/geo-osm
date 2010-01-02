@@ -1,5 +1,8 @@
 -- | The @changeset@ element of a OSM file.
-module Data.Geo.OSM.ChangesetE where
+module Data.Geo.OSM.ChangesetE(
+                                ChangesetE,
+                                changesetE
+                              ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

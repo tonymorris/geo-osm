@@ -1,7 +1,10 @@
 {-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
 
 -- | The @home@ element of a OSM file.
-module Data.Geo.OSM.Api where
+module Data.Geo.OSM.Api(
+                         Api,
+                         api
+                       ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

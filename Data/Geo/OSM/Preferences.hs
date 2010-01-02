@@ -1,5 +1,8 @@
 -- | The @preferences@ element of a OSM file.
-module Data.Geo.OSM.Preferences where
+module Data.Geo.OSM.Preferences(
+                                 Preferences,
+                                 preferences
+                               ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

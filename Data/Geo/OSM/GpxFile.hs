@@ -1,7 +1,10 @@
 {-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
 
 -- | The @gpx_file@ element of a OSM file.
-module Data.Geo.OSM.GpxFile where
+module Data.Geo.OSM.GpxFile(
+                             GpxFile,
+                             gpxFile
+                           ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

@@ -1,5 +1,8 @@
 -- | The @waynodes@ element of a OSM file.
-module Data.Geo.OSM.Waynodes where
+module Data.Geo.OSM.Waynodes(
+                              Waynodes,
+                              waynodes
+                            ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

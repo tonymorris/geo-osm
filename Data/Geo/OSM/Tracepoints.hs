@@ -1,5 +1,8 @@
 -- | The @tracepoints@ element of a OSM file.
-module Data.Geo.OSM.Tracepoints where
+module Data.Geo.OSM.Tracepoints(
+                                 Tracepoints,
+                                 tracepoints
+                               ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

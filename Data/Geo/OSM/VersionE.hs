@@ -1,5 +1,8 @@
 -- | The @version@ element of a OSM file.
-module Data.Geo.OSM.VersionE where
+module Data.Geo.OSM.VersionE(
+                               VersionE,
+                               versionE
+                            ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras
