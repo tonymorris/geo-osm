@@ -10,7 +10,7 @@ import Data.Geo.OSM.Accessor.Maximum
 data VersionE = VersionE String String
   deriving Eq
 
--- | Constructs a @version@ with tags.
+-- | Constructs a @version@ with minimum and maximum.
 versionE :: String -> String -> VersionE
 versionE = VersionE
 

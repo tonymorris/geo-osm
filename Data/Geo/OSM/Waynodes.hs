@@ -9,7 +9,7 @@ import Data.Geo.OSM.Accessor.Maximum
 newtype Waynodes = Waynodes String
   deriving Eq
 
--- | Constructs a @waynodes@ with tags.
+-- | Constructs a @waynodes@ with maximum.
 waynodes :: String -> Waynodes
 waynodes = Waynodes
 

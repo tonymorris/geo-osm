@@ -9,7 +9,7 @@ import Data.Geo.OSM.Accessor.Maximum
 newtype Area = Area String
   deriving Eq
 
--- | Constructs a @area@ with tags.
+-- | Constructs a @area@ with maximum.
 area :: String -> Area
 area = Area
 

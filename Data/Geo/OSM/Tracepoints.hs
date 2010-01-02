@@ -9,7 +9,7 @@ import Data.Geo.OSM.Accessor.PerPage
 newtype Tracepoints = Tracepoints String
   deriving Eq
 
--- | Constructs a @tracepoints@ with tags.
+-- | Constructs a @tracepoints@ with per_page.
 tracepoints :: String -> Tracepoints
 tracepoints = Tracepoints
 

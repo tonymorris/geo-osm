@@ -18,7 +18,7 @@ import Data.Geo.OSM.Accessor.Wnodes
 data Api = Api VersionE Area Tracepoints Waynodes
   deriving Eq
 
--- | Constructs a @version@ with tags.
+-- | Constructs a @api@ with version, area, tracepoints and waynodes.
 api :: VersionE -> Area -> Tracepoints -> Waynodes -> Api
 api = Api
 
