@@ -1,6 +1,8 @@
 -- | Values with a @generator@ optional string accessor.
 module Data.Geo.OSM.Accessor.Generator where
 
+import Data.Geo.OSM.Accessor.Accessor
+
 class Generator a where
   generator :: a -> Maybe String
   setGenerator :: Maybe String -> a -> a

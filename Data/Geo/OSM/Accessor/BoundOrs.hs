@@ -15,4 +15,4 @@ class BoundOrs a where
   setBounds = setBoundOrs . Just . Right
 
   usingBoundOrs :: a -> (Maybe (Either Bound Bounds) -> Maybe (Either Bound Bounds)) -> a
-  usingBoundOrs = boundOrs `using` setBoundOrs
+  usingBoundOrs a f = setBoundOrs (f (boundOrs a Nothing (Just . Left) (Just . Right))) a
