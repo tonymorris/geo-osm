@@ -25,42 +25,42 @@ Library
 
   GHC-Options:    -Wall
   Exposed-Modules: Data.Geo.OSM
-                   Data.Geo.OSM.Tag
+                   Data.Geo.OSM.Bound
+                   Data.Geo.OSM.Bounds
                    Data.Geo.OSM.Nd
+                   Data.Geo.OSM.Node
+                   Data.Geo.OSM.NodeWayRelation
                    Data.Geo.OSM.NWRCommon
                    Data.Geo.OSM.MemberType
                    Data.Geo.OSM.Member
-                   Data.Geo.OSM.Way
-                   Data.Geo.OSM.Node
-                   Data.Geo.OSM.Relation
-                   Data.Geo.OSM.Bounds
-                   Data.Geo.OSM.Bound
-                   Data.Geo.OSM.NodeWayRelation
                    Data.Geo.OSM.OSM
-                   Data.Geo.OSM.Accessor.K
-                   Data.Geo.OSM.Accessor.V
-                   Data.Geo.OSM.Accessor.Ref
-                   Data.Geo.OSM.Accessor.Mtype
-                   Data.Geo.OSM.Accessor.Role
-                   Data.Geo.OSM.Accessor.Id
-                   Data.Geo.OSM.Accessor.Tags
+                   Data.Geo.OSM.Relation
+                   Data.Geo.OSM.Tag
+                   Data.Geo.OSM.Way
+                   Data.Geo.OSM.Accessor.Accessor
+                   Data.Geo.OSM.Accessor.BoundOrs
+                   Data.Geo.OSM.Accessor.Box
                    Data.Geo.OSM.Accessor.Changeset
-                   Data.Geo.OSM.Accessor.Visible
-                   Data.Geo.OSM.Accessor.User
-                   Data.Geo.OSM.Accessor.Uid
-                   Data.Geo.OSM.Accessor.Timestamp
-                   Data.Geo.OSM.Accessor.Nds
+                   Data.Geo.OSM.Accessor.Generator
+                   Data.Geo.OSM.Accessor.Id
+                   Data.Geo.OSM.Accessor.K
                    Data.Geo.OSM.Accessor.Lat
                    Data.Geo.OSM.Accessor.Lon
                    Data.Geo.OSM.Accessor.Members
-                   Data.Geo.OSM.Accessor.Minlat
                    Data.Geo.OSM.Accessor.Maxlat
-                   Data.Geo.OSM.Accessor.Minlon
                    Data.Geo.OSM.Accessor.Maxlon
-                   Data.Geo.OSM.Accessor.Origin
-                   Data.Geo.OSM.Accessor.Box
-                   Data.Geo.OSM.Accessor.Version
-                   Data.Geo.OSM.Accessor.Generator
-                   Data.Geo.OSM.Accessor.BoundOrs
+                   Data.Geo.OSM.Accessor.Minlat
+                   Data.Geo.OSM.Accessor.Minlon
+                   Data.Geo.OSM.Accessor.Mtype
+                   Data.Geo.OSM.Accessor.Nds
                    Data.Geo.OSM.Accessor.NodeWayRelations
-                   Data.Geo.OSM.Accessor.Accessor
+                   Data.Geo.OSM.Accessor.Origin
+                   Data.Geo.OSM.Accessor.Ref
+                   Data.Geo.OSM.Accessor.Role
+                   Data.Geo.OSM.Accessor.Tags
+                   Data.Geo.OSM.Accessor.Timestamp
+                   Data.Geo.OSM.Accessor.User
+                   Data.Geo.OSM.Accessor.Uid
+                   Data.Geo.OSM.Accessor.V
+                   Data.Geo.OSM.Accessor.Version
+                   Data.Geo.OSM.Accessor.Visible
