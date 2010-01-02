@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
+
 -- | The @home@ element of a OSM file.
 module Data.Geo.OSM.Api where
 
@@ -7,6 +9,8 @@ import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.Waynodes
+import Data.Geo.OSM.Accessor.Version
+import Data.Geo.OSM.Accessor.Ar
 
 -- | The @api@ element of a OSM file.
 data Api = Api VersionE Area Tracepoints Waynodes
@@ -21,3 +25,11 @@ instance XmlPickler Api where
 
 instance Show Api where
   show = showPickled []
+
+instance Version Api VersionE where
+  version (Api x _ _ _) = x
+  setVersion a (Api _ b c d) = api a b c d
+
+instance Ar Api where
+  ar (Api _ x _ _) = x
+  setAr b (Api a _ c d) = api a b c d

@@ -44,6 +44,7 @@ Library
                    Data.Geo.OSM.Way
                    Data.Geo.OSM.Waynodes
                    Data.Geo.OSM.Accessor.Accessor
+                   Data.Geo.OSM.Accessor.Ar
                    Data.Geo.OSM.Accessor.BoundOrs
                    Data.Geo.OSM.Accessor.Box
                    Data.Geo.OSM.Accessor.Changeset

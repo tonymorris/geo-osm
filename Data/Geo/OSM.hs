@@ -19,6 +19,7 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.VersionE,
                 module Data.Geo.OSM.Way,
                 module Data.Geo.OSM.Waynodes,
+                module Data.Geo.OSM.Accessor.Ar,
                 module Data.Geo.OSM.Accessor.BoundOrs,
                 module Data.Geo.OSM.Accessor.Box,
                 module Data.Geo.OSM.Accessor.Changeset,
@@ -71,6 +72,7 @@ import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Waynodes
+import Data.Geo.OSM.Accessor.Ar
 import Data.Geo.OSM.Accessor.BoundOrs
 import Data.Geo.OSM.Accessor.Box
 import Data.Geo.OSM.Accessor.Changeset
