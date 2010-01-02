@@ -4,7 +4,7 @@ License:             BSD3
 License-File:        LICENSE
 Synopsis:            Parse OpenStreetMap files
 Description:         Parse OpenStreetMap http:\/\/osm.org/ files using HXT into data structures.
-                     The Geo.OSM module is the core module that exports all others.
+                     The Data.Geo.OSM module is the core module that exports all others.
 Homepage:            http://code.google.com/p/geo-osm/
 Category:            Utils
 Author:              Tony Morris
