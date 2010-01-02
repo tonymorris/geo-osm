@@ -60,7 +60,7 @@ instance User Node where
 
 instance Uid Node where
   uid (Node _ _ x) = uid x
-  setUid c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+  setUid c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
 
 instance Timestamp Node where
   timestamp (Node _ _ x) = timestamp x
