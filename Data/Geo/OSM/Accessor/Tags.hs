@@ -13,6 +13,9 @@ class Tags a where
   tags :: a -> [Tag]
   setTags :: [Tag] -> a -> a
 
+  setTag :: Tag -> a -> a
+  setTag = setTags . return
+
 tagMap :: (Tags a) => a -> M.Map String String
 tagMap = M.fromList . map (k &&& v) . tags
 

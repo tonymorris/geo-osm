@@ -10,6 +10,9 @@ class NodeWayRelations a where
   nwrs :: a -> [NodeWayRelation]
   setNwrs :: [NodeWayRelation] -> a -> a
 
+  setNwr :: NodeWayRelation -> a -> a
+  setNwr = setNwrs . return
+
 nodes :: (NodeWayRelations a) => a -> [Node]
 nodes k = nwrs k >>= \t -> foldNodeWayRelation t return (const []) (const [])
 

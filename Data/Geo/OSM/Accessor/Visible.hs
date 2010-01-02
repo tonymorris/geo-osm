@@ -4,3 +4,9 @@ module Data.Geo.OSM.Accessor.Visible where
 class Visible a where
   visible :: a -> Bool
   setVisible :: Bool -> a -> a
+
+  makeVisible :: a -> a
+  makeVisible = setVisible True
+
+  makeInvisible :: a -> a
+  makeInvisible = setVisible False

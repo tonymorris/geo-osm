@@ -6,3 +6,6 @@ import Data.Geo.OSM.Member
 class Members a where
   members :: a -> [Member]
   setMembers :: [Member] -> a -> a
+
+  setMember :: Member -> a -> a
+  setMember = setMembers . return

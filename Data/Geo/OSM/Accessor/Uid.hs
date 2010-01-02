@@ -4,3 +4,6 @@ module Data.Geo.OSM.Accessor.Uid where
 class Uid a where
   uid :: a -> Maybe String
   setUid :: Maybe String -> a -> a
+
+  setUid' :: String -> a -> a
+  setUid' = setUid . return
