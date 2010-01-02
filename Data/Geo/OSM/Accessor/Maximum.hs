@@ -1,4 +1,4 @@
--- | Values with a @minimum@ string accessor.
+-- | Values with a @maximum@ string accessor.
 module Data.Geo.OSM.Accessor.Maximum where
 
 import Data.Geo.OSM.Accessor.Accessor

@@ -59,6 +59,7 @@ Library
                    Data.Geo.OSM.Accessor.Nds
                    Data.Geo.OSM.Accessor.NodeWayRelations
                    Data.Geo.OSM.Accessor.Origin
+                   Data.Geo.OSM.Accessor.PerPage
                    Data.Geo.OSM.Accessor.Ref
                    Data.Geo.OSM.Accessor.Role
                    Data.Geo.OSM.Accessor.Tags

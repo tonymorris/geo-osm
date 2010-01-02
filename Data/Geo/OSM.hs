@@ -23,15 +23,18 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Accessor.K,
                 module Data.Geo.OSM.Accessor.Lat,
                 module Data.Geo.OSM.Accessor.Lon,
+                module Data.Geo.OSM.Accessor.Maximum,
                 module Data.Geo.OSM.Accessor.Maxlat,
                 module Data.Geo.OSM.Accessor.Maxlon,
                 module Data.Geo.OSM.Accessor.Members,
+                module Data.Geo.OSM.Accessor.Minimum,
                 module Data.Geo.OSM.Accessor.Minlat,
                 module Data.Geo.OSM.Accessor.Minlon,
                 module Data.Geo.OSM.Accessor.Mtype,
                 module Data.Geo.OSM.Accessor.Nds,
                 module Data.Geo.OSM.Accessor.NodeWayRelations,
                 module Data.Geo.OSM.Accessor.Origin,
+                module Data.Geo.OSM.Accessor.PerPage,
                 module Data.Geo.OSM.Accessor.Ref,
                 module Data.Geo.OSM.Accessor.Role,
                 module Data.Geo.OSM.Accessor.Tags,
@@ -78,6 +81,7 @@ import Data.Geo.OSM.Accessor.Mtype
 import Data.Geo.OSM.Accessor.Nds
 import Data.Geo.OSM.Accessor.NodeWayRelations
 import Data.Geo.OSM.Accessor.Origin
+import Data.Geo.OSM.Accessor.PerPage
 import Data.Geo.OSM.Accessor.Ref
 import Data.Geo.OSM.Accessor.Role
 import Data.Geo.OSM.Accessor.Tags
