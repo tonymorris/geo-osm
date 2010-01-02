@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+
 -- | The @node@ element of a OSM file.
 module Data.Geo.OSM.Node(
                      Node,
@@ -54,7 +56,7 @@ instance Visible Node where
   visible (Node _ _ x) = visible x
   setVisible c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
 
-instance User Node where
+instance User Node (Maybe String) where
   user (Node _ _ x) = user x
   setUser c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
 
@@ -62,7 +64,7 @@ instance Uid Node where
   uid (Node _ _ x) = uid x
   setUid c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
 
-instance Timestamp Node where
+instance Timestamp Node (Maybe String) where
   timestamp (Node _ _ x) = timestamp x
   setTimestamp c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
 

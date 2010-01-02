@@ -6,6 +6,7 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Bound,
                 module Data.Geo.OSM.Bounds,
                 module Data.Geo.OSM.ChangesetE,
+                module Data.Geo.OSM.GpxFile,
                 module Data.Geo.OSM.Home,
                 module Data.Geo.OSM.Member,
                 module Data.Geo.OSM.MemberType,
@@ -41,9 +42,11 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.Accessor.Minlat,
                 module Data.Geo.OSM.Accessor.Minlon,
                 module Data.Geo.OSM.Accessor.Mtype,
+                module Data.Geo.OSM.Accessor.Name,
                 module Data.Geo.OSM.Accessor.Nds,
                 module Data.Geo.OSM.Accessor.NodeWayRelations,
                 module Data.Geo.OSM.Accessor.Origin,
+                module Data.Geo.OSM.Accessor.Pending,
                 module Data.Geo.OSM.Accessor.PerPage,
                 module Data.Geo.OSM.Accessor.Ref,
                 module Data.Geo.OSM.Accessor.Role,
@@ -66,6 +69,7 @@ import Data.Geo.OSM.Area
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
 import Data.Geo.OSM.ChangesetE
+import Data.Geo.OSM.GpxFile
 import Data.Geo.OSM.Home
 import Data.Geo.OSM.Member
 import Data.Geo.OSM.MemberType
@@ -101,9 +105,11 @@ import Data.Geo.OSM.Accessor.Minimum
 import Data.Geo.OSM.Accessor.Minlat
 import Data.Geo.OSM.Accessor.Minlon
 import Data.Geo.OSM.Accessor.Mtype
+import Data.Geo.OSM.Accessor.Name
 import Data.Geo.OSM.Accessor.Nds
 import Data.Geo.OSM.Accessor.NodeWayRelations
 import Data.Geo.OSM.Accessor.Origin
+import Data.Geo.OSM.Accessor.Pending
 import Data.Geo.OSM.Accessor.PerPage
 import Data.Geo.OSM.Accessor.Ref
 import Data.Geo.OSM.Accessor.Role

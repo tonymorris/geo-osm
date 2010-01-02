@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+
 -- | The @relation@ element of a OSM file.
 module Data.Geo.OSM.Relation(
                          Relation,
@@ -50,7 +52,7 @@ instance Visible Relation where
   visible (Relation _ x) = visible x
   setVisible c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
 
-instance User Relation where
+instance User Relation (Maybe String) where
   user (Relation _ x) = user x
   setUser c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
 
@@ -58,7 +60,7 @@ instance Uid Relation where
   uid (Relation _ x) = uid x
   setUid c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
 
-instance Timestamp Relation where
+instance Timestamp Relation (Maybe String) where
   timestamp (Relation _ x) = timestamp x
   setTimestamp c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
 

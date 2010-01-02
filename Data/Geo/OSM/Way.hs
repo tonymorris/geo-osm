@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+
 -- | The @way@ element of a OSM file.
 module Data.Geo.OSM.Way(
                     Way,
@@ -50,7 +52,7 @@ instance Visible Way where
   visible (Way _ x) = visible x
   setVisible c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
 
-instance User Way where
+instance User Way (Maybe String) where
   user (Way _ x) = user x
   setUser c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
 
@@ -58,7 +60,7 @@ instance Uid Way where
   uid (Way _ x) = uid x
   setUid c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
 
-instance Timestamp Way where
+instance Timestamp Way (Maybe String) where
   timestamp (Way _ x) = timestamp x
   setTimestamp c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
 

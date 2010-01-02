@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+
 -- | The common attributes between the @node@, @way@ and @relation@ elements.
 module Data.Geo.OSM.NWRCommon(
                           NWRCommon,
@@ -51,7 +53,7 @@ instance Visible NWRCommon where
   visible (NWRCommon _ _ _ x _ _) = x
   setVisible d (NWRCommon a b c _ e f) = nwrCommon a b c d e f
 
-instance User NWRCommon where
+instance User NWRCommon (Maybe String) where
   user (NWRCommon _ _ _ _ (x, _) _) = x
   setUser e (NWRCommon a b c d ee f) = nwrCommon a b c d ((first . const) e ee) f
 
@@ -59,7 +61,7 @@ instance Uid NWRCommon where
   uid (NWRCommon _ _ _ _ (_, x) _) = x
   setUid e (NWRCommon a b c d ee f) = nwrCommon a b c d ((second . const) e ee) f
 
-instance Timestamp NWRCommon where
+instance Timestamp NWRCommon (Maybe String) where
   timestamp (NWRCommon _ _ _ _ _ x) = x
   setTimestamp f (NWRCommon a b c d e _) = nwrCommon a b c d e f
 

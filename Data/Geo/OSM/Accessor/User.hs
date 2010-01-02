@@ -1,14 +1,13 @@
+{-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies #-}
+
 -- | Values with a @user@ optional string accessor.
 module Data.Geo.OSM.Accessor.User where
 
 import Data.Geo.OSM.Accessor.Accessor
 
-class User a where
-  user :: a -> Maybe String
-  setUser :: Maybe String -> a -> a
+class User a b | a -> b where
+  user :: a -> b
+  setUser :: b -> a -> a
 
-  setUser' :: String -> a -> a
-  setUser' = setUser . return
-
-  usingUser :: a -> (Maybe String -> Maybe String) -> a
+  usingUser :: a -> (b -> b) -> a
   usingUser = user `using` setUser

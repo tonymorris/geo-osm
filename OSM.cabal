@@ -29,6 +29,7 @@ Library
                    Data.Geo.OSM.Bound
                    Data.Geo.OSM.Bounds
                    Data.Geo.OSM.ChangesetE
+                   Data.Geo.OSM.GpxFile
                    Data.Geo.OSM.Home
                    Data.Geo.OSM.Nd
                    Data.Geo.OSM.Node
@@ -66,10 +67,13 @@ Library
                    Data.Geo.OSM.Accessor.Minlat
                    Data.Geo.OSM.Accessor.Minlon
                    Data.Geo.OSM.Accessor.Mtype
+                   Data.Geo.OSM.Accessor.Name
                    Data.Geo.OSM.Accessor.Nds
                    Data.Geo.OSM.Accessor.NodeWayRelations
                    Data.Geo.OSM.Accessor.Origin
+                   Data.Geo.OSM.Accessor.Pending
                    Data.Geo.OSM.Accessor.PerPage
+                   Data.Geo.OSM.Accessor.Public
                    Data.Geo.OSM.Accessor.Ref
                    Data.Geo.OSM.Accessor.Role
                    Data.Geo.OSM.Accessor.Tags
