@@ -3,3 +3,4 @@ module Data.Geo.OSM.Accessor.Minlat where
 
 class Minlat a where
   minlat :: a -> String
+  setMinlat :: String -> a -> a

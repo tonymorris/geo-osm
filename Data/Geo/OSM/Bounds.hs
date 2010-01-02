@@ -25,18 +25,23 @@ instance Show Bounds where
 
 instance Minlat Bounds where
   minlat (Bounds x _ _ _ _) = x
+  setMinlat a (Bounds _ b c d e) = bounds a b c d e
 
 instance Minlon Bounds where
   minlon (Bounds _ x _ _ _) = x
+  setMinlon b (Bounds a _ c d e) = bounds a b c d e
 
 instance Maxlat Bounds where
   maxlat (Bounds _ _ x _ _) = x
+  setMaxlat c (Bounds a b _ d e) = bounds a b c d e
 
 instance Maxlon Bounds where
   maxlon (Bounds _ _ _ x _) = x
+  setMaxlon d (Bounds a b c _ e) = bounds a b c d e
 
 instance Origin Bounds where
   origin (Bounds _ _ _ _ x) = x
+  setOrigin e (Bounds a b c d _) = bounds a b c d e
 
 -- | Constructs a bounds with a minlat, minlon, maxlat, maxlon and origin attributes.
 bounds :: String -- ^ The @minlat@ attribute.

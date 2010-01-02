@@ -9,7 +9,6 @@ module Data.Geo.OSM.MemberType(
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras
-import Control.Applicative
 import Data.Char
 
 -- | The @type@ attribute of a @member@ element of a OSM file.
@@ -27,10 +26,10 @@ foldMemberType NodeType _ x _ = x
 foldMemberType RelationType _ _ x = x
 
 instance XmlPickler MemberType where
-  xpickle = xpWrapMaybe (\s -> case toLower <$> s of "way" -> Just WayType
-                                                     "node" -> Just NodeType
-                                                     "relation" -> Just RelationType
-                                                     _ -> Nothing,
+  xpickle = xpWrapMaybe (\s -> case fmap toLower s of "way" -> Just WayType
+                                                      "node" -> Just NodeType
+                                                      "relation" -> Just RelationType
+                                                      _ -> Nothing,
                          \t -> case t of WayType -> "way"
                                          NodeType -> "node"
                                          RelationType -> "relation") (xpAttr "type" xpText)

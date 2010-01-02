@@ -32,27 +32,35 @@ instance Show Way where
 
 instance Nds Way where
   nds (Way x _) = x
+  setNds a (Way _ c) = Way a c
 
 instance Id Way where
   id (Way _ x) = id x
+  setId c (Way a cc) = Way a (nwrCommon c (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Tags Way where
   tags (Way _ x) = tags x
+  setTags c (Way a cc) = Way a (nwrCommon (id cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Changeset Way where
   changeset (Way _ x) = changeset x
+  setChangeset c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Visible Way where
   visible (Way _ x) = visible x
+  setVisible c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
 
 instance User Way where
   user (Way _ x) = user x
+  setUser c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
 
 instance Uid Way where
   uid (Way _ x) = uid x
+  setUid c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
 
 instance Timestamp Way where
   timestamp (Way _ x) = timestamp x
+  setTimestamp c (Way a cc) = Way a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
 
 -- | Constructs a way with a list of nds, id, list of tags, changeset, visible, user&uid and timestamp.
 way :: [Nd] -- ^ The list of nds (@nd@ elements).

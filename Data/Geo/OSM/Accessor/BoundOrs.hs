@@ -6,3 +6,4 @@ import Data.Geo.OSM.Bounds
 
 class BoundOrs a where
   boundOrs :: a -> x -> (Bound -> x) -> (Bounds -> x) -> x
+  setBoundOrs :: Maybe (Either Bound Bounds) -> a -> a

@@ -21,9 +21,11 @@ instance Show Tag where
 
 instance K Tag where
   k (Tag x _) = x
+  setK a (Tag _ b) = tag a b
 
 instance V Tag where
   v (Tag _ x) = x
+  setV b (Tag a _) = tag a b
 
 -- | Constructs a tag with a key and value.
 tag :: String -- ^ The key (@k@ attribute).

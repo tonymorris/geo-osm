@@ -3,3 +3,4 @@ module Data.Geo.OSM.Accessor.Timestamp where
 
 class Timestamp a where
   timestamp :: a -> Maybe String
+  setTimestamp :: Maybe String -> a -> a

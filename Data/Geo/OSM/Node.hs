@@ -32,30 +32,39 @@ instance Show Node where
 
 instance Lat Node where
   lat (Node x _ _) = x
+  setLat a (Node _ b c) = Node a b c
 
 instance Lon Node where
   lon (Node _ x _) = x
+  setLon b (Node a _ c) = Node a b c
 
 instance Id Node where
   id (Node _ _ x) = id x
+  setId c (Node a b cc) = Node a b (nwrCommon c (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Tags Node where
   tags (Node _ _ x) = tags x
+  setTags c (Node a b cc) = Node a b (nwrCommon (id cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Changeset Node where
   changeset (Node _ _ x) = changeset x
+  setChangeset c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Visible Node where
   visible (Node _ _ x) = visible x
+  setVisible c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
 
 instance User Node where
   user (Node _ _ x) = user x
+  setUser c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
 
 instance Uid Node where
   uid (Node _ _ x) = uid x
+  setUid c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Timestamp Node where
   timestamp (Node _ _ x) = timestamp x
+  setTimestamp c (Node a b cc) = Node a b (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
 
 -- | Constructs a node with a lat, lon, id, list of tags, changeset, visible, user&uid and timestamp.
 node :: String -- ^ The @lat@ attribute.

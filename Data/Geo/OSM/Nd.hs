@@ -20,6 +20,7 @@ instance Show Nd where
 
 instance Ref Nd where
   ref (Nd x) = x
+  setRef a (Nd _) = nd a
 
 -- | Constructs a nd with a ref.
 nd :: String -- ^ The @ref@ attribute.

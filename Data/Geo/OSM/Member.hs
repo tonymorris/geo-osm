@@ -24,12 +24,15 @@ instance Show Member where
 
 instance Mtype Member where
   mtype (Member x _ _) = x
+  setMtype a (Member _ b c) = member a b c
 
 instance Ref Member where
   ref (Member _ x _) = x
+  setRef b (Member a _ c) = member a b c
 
 instance Role Member where
   role (Member _ _ x) = x
+  setRole c (Member a b _) = member a b c
 
 -- | Constructs a member with a type, ref and role.
 member :: MemberType -- ^ The member @type@ attribute.

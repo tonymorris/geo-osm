@@ -8,6 +8,7 @@ import Data.Geo.OSM.Relation
 
 class NodeWayRelations a where
   nwrs :: a -> [NodeWayRelation]
+  setNwrs :: [NodeWayRelation] -> a -> a
 
 nodes :: (NodeWayRelations a) => a -> [Node]
 nodes k = nwrs k >>= \t -> foldNodeWayRelation t return (const []) (const [])

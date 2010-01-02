@@ -3,3 +3,4 @@ module Data.Geo.OSM.Accessor.Maxlon where
 
 class Maxlon a where
   maxlon :: a -> String
+  setMaxlon :: String -> a -> a

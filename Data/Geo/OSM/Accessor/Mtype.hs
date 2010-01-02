@@ -5,3 +5,4 @@ import Data.Geo.OSM.MemberType
 
 class Mtype a where
   mtype :: a -> MemberType
+  setMtype :: MemberType -> a -> a

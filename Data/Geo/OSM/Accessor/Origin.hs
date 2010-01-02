@@ -3,3 +3,4 @@ module Data.Geo.OSM.Accessor.Origin where
 
 class Origin a where
   origin :: a -> Maybe String
+  setOrigin :: Maybe String -> a -> a

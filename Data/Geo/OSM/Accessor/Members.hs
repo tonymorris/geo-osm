@@ -5,3 +5,4 @@ import Data.Geo.OSM.Member
 
 class Members a where
   members :: a -> [Member]
+  setMembers :: [Member] -> a -> a

@@ -3,3 +3,4 @@ module Data.Geo.OSM.Accessor.Role where
 
 class Role a where
   role :: a -> String
+  setRole :: String -> a -> a

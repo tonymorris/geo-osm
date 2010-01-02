@@ -3,3 +3,4 @@ module Data.Geo.OSM.Accessor.V where
 
 class V a where
   v :: a -> String
+  setV :: String -> a -> a

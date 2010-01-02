@@ -37,24 +37,31 @@ instance Show NWRCommon where
 
 instance Id NWRCommon where
   id (NWRCommon x _ _ _ _ _) = x
+  setId a (NWRCommon _ b c d e f) = nwrCommon a b c d e f
 
 instance Tags NWRCommon where
   tags (NWRCommon _ x _ _ _ _) = x
+  setTags b (NWRCommon a _ c d e f) = nwrCommon a b c d e f
 
 instance Changeset NWRCommon where
   changeset (NWRCommon _ _ x _ _ _) = x
+  setChangeset c (NWRCommon a b _ d e f) = nwrCommon a b c d e f
 
 instance Visible NWRCommon where
   visible (NWRCommon _ _ _ x _ _) = x
+  setVisible d (NWRCommon a b c _ e f) = nwrCommon a b c d e f
 
 instance User NWRCommon where
   user (NWRCommon _ _ _ _ (x, _) _) = x
+  setUser e (NWRCommon a b c d ee f) = nwrCommon a b c d ((first . const) e ee) f
 
 instance Uid NWRCommon where
   uid (NWRCommon _ _ _ _ (_, x) _) = x
+  setUid e (NWRCommon a b c d ee f) = nwrCommon a b c d ((second . const) e ee) f
 
 instance Timestamp NWRCommon where
   timestamp (NWRCommon _ _ _ _ _ x) = x
+  setTimestamp f (NWRCommon a b c d e _) = nwrCommon a b c d e f
 
 -- | Constructs with id, list of tags, changeset, visible, user&uid and timestamp.
 nwrCommon :: String -- ^ The @id@ attribute.

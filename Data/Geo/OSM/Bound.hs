@@ -21,9 +21,11 @@ instance Show Bound where
 
 instance Box Bound where
   box (Bound x _) = x
+  setBox a (Bound _ b) = bound a b
 
 instance Origin Bound where
   origin (Bound _ x) = x
+  setOrigin b (Bound a _) = bound a b
 
 -- | Constructs a bound with a box and origin attributes.
 bound :: String -- ^ The @box@ attribute.
