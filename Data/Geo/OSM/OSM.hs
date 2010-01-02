@@ -20,7 +20,7 @@ data OSM = OSM String (Maybe String) (Maybe (Either Bound Bounds)) [NodeWayRelat
   deriving Eq
 
 instance XmlPickler OSM where
-  xpickle = xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> OSM version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
+  xpickle = xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> osm version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
               (xp4Tuple (xpAttr "version" xpText)
                         (xpOption (xpAttr "generator" xpText))
                         (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))

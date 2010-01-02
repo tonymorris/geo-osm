@@ -22,7 +22,7 @@ data NWRCommon = NWRCommon String [Tag] (Maybe String) Bool (Maybe String, Maybe
   deriving Eq
 
 instance XmlPickler NWRCommon where
-  xpickle = xpWrap (\(a, b, c, d, e, f) -> NWRCommon a b c d e f, \(NWRCommon a b c d e f) -> (a, b, c, d, e, f))
+  xpickle = xpWrap (\(a, b, c, d, e, f) -> nwrCommon a b c d e f, \(NWRCommon a b c d e f) -> (a, b, c, d, e, f))
               (xp6Tuple (xpAttr "id" xpText)
                         (xpList xpickle)
                         (xpOption (xpAttr "changeset" xpText))

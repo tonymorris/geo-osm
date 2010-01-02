@@ -26,6 +26,7 @@ Library
   Exposed-Modules: Data.Geo.OSM
                    Data.Geo.OSM.Bound
                    Data.Geo.OSM.Bounds
+                   Data.Geo.OSM.ChangesetE
                    Data.Geo.OSM.Nd
                    Data.Geo.OSM.Node
                    Data.Geo.OSM.NodeWayRelation

@@ -17,7 +17,7 @@ data Bounds = Bounds String String String String (Maybe String)
   deriving Eq
 
 instance XmlPickler Bounds where
-  xpickle = xpElem "bounds" (xpWrap (\(minlat', minlon', maxlat', maxlon', origin') -> Bounds minlat' minlon' maxlat' maxlon' origin', \(Bounds minlat' minlon' maxlat' maxlon' origin') -> (minlat', minlon', maxlat', maxlon', origin'))
+  xpickle = xpElem "bounds" (xpWrap (\(minlat', minlon', maxlat', maxlon', origin') -> bounds minlat' minlon' maxlat' maxlon' origin', \(Bounds minlat' minlon' maxlat' maxlon' origin') -> (minlat', minlon', maxlat', maxlon', origin'))
                               (xp5Tuple (xpAttr "minlat" xpText) (xpAttr "minlon" xpText) (xpAttr "maxlat" xpText) (xpAttr "maxlon" xpText) (xpOption (xpAttr "origin" xpText))))
 
 instance Show Bounds where

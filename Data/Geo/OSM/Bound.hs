@@ -14,7 +14,7 @@ data Bound = Bound String (Maybe String)
   deriving Eq
 
 instance XmlPickler Bound where
-  xpickle = xpElem "bound" (xpWrap (uncurry Bound, \(Bound b o) -> (b, o)) (xpPair (xpAttr "box" xpText) (xpOption (xpAttr "origin" xpText))))
+  xpickle = xpElem "bound" (xpWrap (uncurry bound, \(Bound b o) -> (b, o)) (xpPair (xpAttr "box" xpText) (xpOption (xpAttr "origin" xpText))))
 
 instance Show Bound where
   show = showPickled []

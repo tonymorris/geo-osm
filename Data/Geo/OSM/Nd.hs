@@ -13,7 +13,7 @@ newtype Nd = Nd String
   deriving Eq
 
 instance XmlPickler Nd where
-  xpickle = xpElem "nd" (xpWrap (Nd, \(Nd r) -> r) (xpAttr "ref" xpText))
+  xpickle = xpElem "nd" (xpWrap (nd, \(Nd r) -> r) (xpAttr "ref" xpText))
 
 instance Show Nd where
   show = showPickled []

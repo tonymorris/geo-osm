@@ -3,6 +3,7 @@ module Data.Geo.OSM(
                 module Text.XML.HXT.Arrow,
                 module Data.Geo.OSM.Bound,
                 module Data.Geo.OSM.Bounds,
+                module Data.Geo.OSM.ChangesetE,
                 module Data.Geo.OSM.Member,
                 module Data.Geo.OSM.MemberType,
                 module Data.Geo.OSM.Nd,
@@ -44,6 +45,7 @@ module Data.Geo.OSM(
 import Text.XML.HXT.Arrow
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
+import Data.Geo.OSM.ChangesetE
 import Data.Geo.OSM.Member
 import Data.Geo.OSM.MemberType
 import Data.Geo.OSM.Nd

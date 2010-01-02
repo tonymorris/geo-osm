@@ -14,7 +14,7 @@ data Tag = Tag String String
   deriving Eq
 
 instance XmlPickler Tag where
-  xpickle = xpElem "tag" (xpWrap (uncurry Tag, \(Tag k' v') -> (k', v')) (xpPair (xpAttr "k" xpText) (xpAttr "v" xpText)))
+  xpickle = xpElem "tag" (xpWrap (uncurry tag, \(Tag k' v') -> (k', v')) (xpPair (xpAttr "k" xpText) (xpAttr "v" xpText)))
 
 instance Show Tag where
   show = showPickled []

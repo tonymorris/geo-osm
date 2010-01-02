@@ -16,7 +16,7 @@ data Member = Member MemberType String String
   deriving Eq
 
 instance XmlPickler Member where
-  xpickle = xpElem "member" (xpWrap (\(mtype', mref', mrole') -> Member mtype' mref' mrole', \(Member mtype' mref' mrole') -> (mtype', mref', mrole'))
+  xpickle = xpElem "member" (xpWrap (\(mtype', mref', mrole') -> member mtype' mref' mrole', \(Member mtype' mref' mrole') -> (mtype', mref', mrole'))
                               (xpTriple xpickle (xpAttr "ref" xpText) (xpAttr "role" xpText)))
 
 instance Show Member where
