@@ -1,6 +1,8 @@
 -- | Values with a @visible@ boolean accessor.
 module Data.Geo.OSM.Accessor.Visible where
 
+import Data.Geo.OSM.Accessor.Accessor
+
 class Visible a where
   visible :: a -> Bool
   setVisible :: Bool -> a -> a
@@ -10,3 +12,6 @@ class Visible a where
 
   makeInvisible :: a -> a
   makeInvisible = setVisible False
+
+  usingVisible :: a -> (Bool -> Bool) -> a
+  usingVisible = visible `using` setVisible

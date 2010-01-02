@@ -2,6 +2,7 @@
 module Data.Geo.OSM.Accessor.Nds where
 
 import Data.Geo.OSM.Nd
+import Data.Geo.OSM.Accessor.Accessor
 
 class Nds a where
   nds :: a -> [Nd]
@@ -9,3 +10,6 @@ class Nds a where
 
   setNd :: Nd -> a -> a
   setNd = setNds . return
+
+  usingNds :: a -> ([Nd] -> [Nd]) -> a
+  usingNds = nds `using` setNds

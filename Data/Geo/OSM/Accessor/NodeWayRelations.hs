@@ -5,6 +5,7 @@ import Data.Geo.OSM.NodeWayRelation
 import Data.Geo.OSM.Node
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Relation
+import Data.Geo.OSM.Accessor.Accessor
 
 class NodeWayRelations a where
   nwrs :: a -> [NodeWayRelation]
@@ -12,6 +13,9 @@ class NodeWayRelations a where
 
   setNwr :: NodeWayRelation -> a -> a
   setNwr = setNwrs . return
+
+  usingNwrs :: a -> ([NodeWayRelation] -> [NodeWayRelation]) -> a
+  usingNwrs = nwrs `using` setNwrs
 
 nodes :: (NodeWayRelations a) => a -> [Node]
 nodes k = nwrs k >>= \t -> foldNodeWayRelation t return (const []) (const [])

@@ -8,6 +8,7 @@ import qualified Data.Map as M
 import Control.Arrow
 import Data.Foldable
 import Prelude hiding (any)
+import Data.Geo.OSM.Accessor.Accessor
 
 class Tags a where
   tags :: a -> [Tag]
@@ -15,6 +16,9 @@ class Tags a where
 
   setTag :: Tag -> a -> a
   setTag = setTags . return
+
+  usingTags :: a -> ([Tag] -> [Tag]) -> a
+  usingTags = tags `using` setTags
 
 tagMap :: (Tags a) => a -> M.Map String String
 tagMap = M.fromList . map (k &&& v) . tags
