@@ -15,12 +15,12 @@ data OSMChildren = UserE UserE | Preferences Preferences | GpxFile GpxFile | Api
   deriving Eq
 
 instance XmlPickler OSMChildren where
-  xpickle = xpAlt (\r -> case r of UserE u       -> 0
-                                   Preferences p -> 1
-                                   GpxFile f     -> 2
-                                   Api a         -> 3
-                                   ChangesetE c  -> 4
-                                   NWR k         -> 5) [xpWrap (UserE, \(UserE u) -> u) xpickle,
+  xpickle = xpAlt (\r -> case r of UserE _       -> 0
+                                   Preferences _ -> 1
+                                   GpxFile _     -> 2
+                                   Api _         -> 3
+                                   ChangesetE _  -> 4
+                                   NWR _         -> 5) [xpWrap (UserE, \(UserE u) -> u) xpickle,
                                                         xpWrap (Preferences, \(Preferences p) -> p) xpickle,
                                                         xpWrap (GpxFile, \(GpxFile f) -> f) xpickle,
                                                         xpWrap (Api, \(Api a) -> a) xpickle,
