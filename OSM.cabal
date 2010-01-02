@@ -37,6 +37,7 @@ Library
                    Data.Geo.OSM.OSM
                    Data.Geo.OSM.Relation
                    Data.Geo.OSM.Tag
+                   Data.Geo.OSM.Tracepoints
                    Data.Geo.OSM.VersionE
                    Data.Geo.OSM.Way
                    Data.Geo.OSM.Accessor.Accessor

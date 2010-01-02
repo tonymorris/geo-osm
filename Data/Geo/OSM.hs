@@ -13,6 +13,7 @@ module Data.Geo.OSM(
                 module Data.Geo.OSM.OSM,
                 module Data.Geo.OSM.Relation,
                 module Data.Geo.OSM.Tag,
+                module Data.Geo.OSM.Tracepoints,
                 module Data.Geo.OSM.VersionE,
                 module Data.Geo.OSM.Way,
                 module Data.Geo.OSM.Accessor.BoundOrs,
@@ -60,6 +61,7 @@ import Data.Geo.OSM.NodeWayRelation
 import Data.Geo.OSM.OSM
 import Data.Geo.OSM.Relation
 import Data.Geo.OSM.Tag
+import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Accessor.BoundOrs
