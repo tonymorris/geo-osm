@@ -24,6 +24,7 @@ Library
 
   GHC-Options:    -Wall
   Exposed-Modules: Data.Geo.OSM
+                   Data.Geo.OSM.Area
                    Data.Geo.OSM.Bound
                    Data.Geo.OSM.Bounds
                    Data.Geo.OSM.ChangesetE
@@ -36,6 +37,7 @@ Library
                    Data.Geo.OSM.OSM
                    Data.Geo.OSM.Relation
                    Data.Geo.OSM.Tag
+                   Data.Geo.OSM.VersionE
                    Data.Geo.OSM.Way
                    Data.Geo.OSM.Accessor.Accessor
                    Data.Geo.OSM.Accessor.BoundOrs
@@ -47,8 +49,10 @@ Library
                    Data.Geo.OSM.Accessor.Lat
                    Data.Geo.OSM.Accessor.Lon
                    Data.Geo.OSM.Accessor.Members
+                   Data.Geo.OSM.Accessor.Maximum
                    Data.Geo.OSM.Accessor.Maxlat
                    Data.Geo.OSM.Accessor.Maxlon
+                   Data.Geo.OSM.Accessor.Minimum
                    Data.Geo.OSM.Accessor.Minlat
                    Data.Geo.OSM.Accessor.Minlon
                    Data.Geo.OSM.Accessor.Mtype
