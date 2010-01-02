@@ -1,5 +1,13 @@
 -- | The children elements of the @osm@ element of a OSM file.
-module Data.Geo.OSM.OSMChildren where
+module Data.Geo.OSM.OSMChildren(
+                                 OSMChildren,
+                                 osmUser,
+                                 osmGpxFile,
+                                 osmApi,
+                                 osmChangeset,
+                                 osmNodeWayRelation,
+                                 foldOSMChildren
+                               ) where
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras

@@ -9,7 +9,7 @@ module Data.Geo.OSM.OSM(
 
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras
-import Data.Geo.OSM.NodeWayRelation
+import Data.Geo.OSM.OSMChildren
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
 import Data.Geo.OSM.Accessor.Version
@@ -18,7 +18,7 @@ import Data.Geo.OSM.Accessor.BoundOrs
 import Data.Geo.OSM.Accessor.NodeWayRelations
 
 -- | The @osm@ element of a OSM file, which is the root element.
-data OSM = OSM String (Maybe String) (Maybe (Either Bound Bounds)) [NodeWayRelation]
+data OSM = OSM String (Maybe String) (Maybe (Either Bound Bounds)) OSMChildren
   deriving Eq
 
 instance XmlPickler OSM where
@@ -26,7 +26,7 @@ instance XmlPickler OSM where
               (xp4Tuple (xpAttr "version" xpText)
                         (xpOption (xpAttr "generator" xpText))
                         (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))
-                        (xpList1 xpickle)))
+                        xpickle))
 
 instance Show OSM where
   show = showPickled []
@@ -46,14 +46,15 @@ instance BoundOrs OSM where
   setBoundOrs c (OSM a b _ d) = osm a b c d
 
 instance NodeWayRelations OSM where
-  nwrs (OSM _ _ _ x) = x
-  setNwrs d (OSM a b c _) = osm a b c d
+  nwrs (OSM _ _ _ x) = let t = const []
+                       in foldOSMChildren t t t t t id x
+  setNwrs d (OSM a b c _) = osm a b c (osmNodeWayRelation d)
 
 -- | Constructs a osm with a version, bound or bounds, and node attributes and way or relation elements.
 osm :: String -- ^ The @version@ attribute.
        -> Maybe String -- ^ The @generator@ attribute.
        -> Maybe (Either Bound Bounds) -- ^ The @bound@ or @bounds@ elements.
-       -> [NodeWayRelation] -- ^ The @node@, @way@ or @relation@ elements.
+       -> OSMChildren -- ^ The child elements.
        -> OSM
 osm = OSM
 
