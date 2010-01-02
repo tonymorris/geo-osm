@@ -1,3 +1,4 @@
+-- | OpenStreetMap API v0.6 DTD <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM(
                 module Text.XML.HXT.Arrow,
                 module Data.Geo.OSM.Bound,

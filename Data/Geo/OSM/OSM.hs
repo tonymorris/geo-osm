@@ -1,4 +1,4 @@
--- | The @osm@ element of a OSM file, which is the root element.
+-- | The @osm@ element of a OSM file, which is the root element. <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM.OSM(
                     OSM,
                     osm,
