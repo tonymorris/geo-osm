@@ -4,7 +4,7 @@ import Data.Geo.OSM
 import Data.List
 
 -- Updates the given OSM file with a new OSM file by replacing specific suffixes of ways tagged with "name".
--- e.g. A way such as name="George St" will become name="George Street".
+-- e.g. A way such as name="George St" will become name="George Street" and name="Wickham Tce" will become name="Wickham Terrace".
 wayTags :: FilePath -> FilePath -> IO ()
 wayTags = flip interactsOSM [" St"  ==> " Street",
                              " Pl"  ==> " Place",
