@@ -23,6 +23,9 @@ class Tags a where
   usingTag :: a -> (Tag -> Tag) -> a
   usingTag = (. map) . usingTags
 
+  usingTag' :: a -> ((String, String) -> (String, String)) -> a
+  usingTag' a f = usingTag a (\t -> uncurry tag (f (k t, v t)))
+
 tagMap :: (Tags a) => a -> M.Map String String
 tagMap = M.fromList . map (k &&& v) . tags
 
