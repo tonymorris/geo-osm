@@ -13,3 +13,6 @@ class Hm a where
 
   usingHm :: a -> (Maybe Home -> Maybe Home) -> a
   usingHm = hm `using` setHm
+
+  usingHm' :: a -> (Home -> Home) -> a
+  usingHm' = (. fmap) . usingHm

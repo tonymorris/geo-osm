@@ -12,3 +12,6 @@ class Changeset a where
 
   usingChangeset :: a -> (Maybe String -> Maybe String) -> a
   usingChangeset = changeset `using` setChangeset
+
+  usingChangeset' :: a -> (String -> String) -> a
+  usingChangeset' = (. fmap) . usingChangeset

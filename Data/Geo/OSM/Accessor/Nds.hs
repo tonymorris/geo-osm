@@ -13,3 +13,6 @@ class Nds a where
 
   usingNds :: a -> ([Nd] -> [Nd]) -> a
   usingNds = nds `using` setNds
+
+  usingNd :: a -> (Nd -> Nd) -> a
+  usingNd = (. map) . usingNds

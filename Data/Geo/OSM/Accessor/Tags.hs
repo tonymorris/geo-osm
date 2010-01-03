@@ -20,6 +20,9 @@ class Tags a where
   usingTags :: a -> ([Tag] -> [Tag]) -> a
   usingTags = tags `using` setTags
 
+  usingTag :: a -> (Tag -> Tag) -> a
+  usingTag = (. map) . usingTags
+
 tagMap :: (Tags a) => a -> M.Map String String
 tagMap = M.fromList . map (k &&& v) . tags
 

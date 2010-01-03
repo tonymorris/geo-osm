@@ -12,3 +12,6 @@ class Origin a where
 
   usingOrigin :: a -> (Maybe String -> Maybe String) -> a
   usingOrigin = origin `using` setOrigin
+
+  usingOrigin' :: a -> (String -> String) -> a
+  usingOrigin' = (. fmap) . usingOrigin

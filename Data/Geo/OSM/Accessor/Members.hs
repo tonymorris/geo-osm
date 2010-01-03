@@ -13,3 +13,6 @@ class Members a where
 
   usingMembers :: a -> ([Member] -> [Member]) -> a
   usingMembers = members `using` setMembers
+
+  usingMember :: a -> (Member -> Member) -> a
+  usingMember = (. map) . usingMembers

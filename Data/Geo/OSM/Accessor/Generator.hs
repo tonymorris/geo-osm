@@ -12,3 +12,6 @@ class Generator a where
 
   usingGenerator :: a -> (Maybe String -> Maybe String) -> a
   usingGenerator = generator `using` setGenerator
+
+  usingGenerator' :: a -> (String -> String) -> a
+  usingGenerator' = (. fmap) . usingGenerator

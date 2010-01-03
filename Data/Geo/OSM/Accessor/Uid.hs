@@ -12,3 +12,6 @@ class Uid a where
 
   usingUid :: a -> (Maybe String -> Maybe String) -> a
   usingUid = uid `using` setUid
+
+  usingUid' :: a -> (String -> String) -> a
+  usingUid' = (. fmap) . usingUid
