@@ -20,6 +20,15 @@ class NodeWayRelations a where
   usingNwr :: a -> (NodeWayRelation -> NodeWayRelation) -> a
   usingNwr = (. map) . usingNwrs
 
+  usingNode :: a -> (Node -> Node) -> a
+  usingNode a f = usingNwr a (\p -> foldNodeWayRelation p (node' . f) way' relation')
+
+  usingWay :: a -> (Way -> Way) -> a
+  usingWay a f = usingNwr a (\p -> foldNodeWayRelation p node' (way' . f) relation')
+
+  usingRelation :: a -> (Relation -> Relation) -> a
+  usingRelation a f = usingNwr a (\p -> foldNodeWayRelation p node' way' (relation' . f))
+
 nodes :: (NodeWayRelations a) => a -> [Node]
 nodes k = nwrs k >>= \t -> foldNodeWayRelation t return (const []) (const [])
 
