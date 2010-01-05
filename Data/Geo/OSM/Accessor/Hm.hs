@@ -11,8 +11,8 @@ class Hm a where
   setHm' :: Home -> a -> a
   setHm' = setHm . return
 
-  usingHm :: a -> (Maybe Home -> Maybe Home) -> a
+  usingHm :: (Maybe Home -> Maybe Home) -> a -> a
   usingHm = hm `using` setHm
 
-  usingHm' :: a -> (Home -> Home) -> a
-  usingHm' = (. fmap) . usingHm
+  usingHm' :: (Home -> Home) -> a -> a
+  usingHm' = usingHm . fmap

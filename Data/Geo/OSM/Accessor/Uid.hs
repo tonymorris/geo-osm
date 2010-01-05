@@ -10,8 +10,8 @@ class Uid a where
   setUid' :: String -> a -> a
   setUid' = setUid . return
 
-  usingUid :: a -> (Maybe String -> Maybe String) -> a
+  usingUid :: (Maybe String -> Maybe String) -> a -> a
   usingUid = uid `using` setUid
 
-  usingUid' :: a -> (String -> String) -> a
-  usingUid' = (. fmap) . usingUid
+  usingUid' :: (String -> String) -> a -> a
+  usingUid' = usingUid . fmap

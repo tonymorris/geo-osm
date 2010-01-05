@@ -10,8 +10,8 @@ class Generator a where
   setGenerator' :: String -> a -> a
   setGenerator' = setGenerator . return
 
-  usingGenerator :: a -> (Maybe String -> Maybe String) -> a
+  usingGenerator :: (Maybe String -> Maybe String) -> a -> a
   usingGenerator = generator `using` setGenerator
 
-  usingGenerator' :: a -> (String -> String) -> a
-  usingGenerator' = (. fmap) . usingGenerator
+  usingGenerator' :: (String -> String) -> a -> a
+  usingGenerator' = usingGenerator . fmap

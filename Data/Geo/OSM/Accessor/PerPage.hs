@@ -7,5 +7,5 @@ class PerPage a where
   perPage :: a -> String
   setPerPage :: String -> a -> a
 
-  usingPerPage :: a -> (String -> String) -> a
+  usingPerPage :: (String -> String) -> a -> a
   usingPerPage = perPage `using` setPerPage

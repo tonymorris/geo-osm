@@ -8,5 +8,5 @@ class Tpoints a where
   tpoints :: a -> Tracepoints
   setTpoints :: Tracepoints -> a -> a
 
-  usingTpoints :: a -> (Tracepoints -> Tracepoints) -> a
+  usingTpoints :: (Tracepoints -> Tracepoints) -> a -> a
   usingTpoints = tpoints `using` setTpoints

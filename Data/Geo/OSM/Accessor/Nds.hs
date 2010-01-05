@@ -11,8 +11,8 @@ class Nds a where
   setNd :: Nd -> a -> a
   setNd = setNds . return
 
-  usingNds :: a -> ([Nd] -> [Nd]) -> a
+  usingNds :: ([Nd] -> [Nd]) -> a -> a
   usingNds = nds `using` setNds
 
-  usingNd :: a -> (Nd -> Nd) -> a
-  usingNd = (. map) . usingNds
+  usingNd :: (Nd -> Nd) -> a -> a
+  usingNd = usingNds . map

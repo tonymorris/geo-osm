@@ -8,5 +8,5 @@ class Id a where
   id :: a -> String
   setId :: String -> a -> a
 
-  updateId :: a -> (String -> String) -> a
+  updateId :: (String -> String) -> a -> a
   updateId = id `using` setId

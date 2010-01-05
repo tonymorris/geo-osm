@@ -10,8 +10,8 @@ class Origin a where
   setOrigin' :: String -> a -> a
   setOrigin' = setOrigin . return
 
-  usingOrigin :: a -> (Maybe String -> Maybe String) -> a
+  usingOrigin :: (Maybe String -> Maybe String) -> a -> a
   usingOrigin = origin `using` setOrigin
 
-  usingOrigin' :: a -> (String -> String) -> a
-  usingOrigin' = (. fmap) . usingOrigin
+  usingOrigin' :: (String -> String) -> a -> a
+  usingOrigin' = usingOrigin . fmap

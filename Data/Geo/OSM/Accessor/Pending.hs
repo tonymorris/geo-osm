@@ -7,5 +7,5 @@ class Pending a where
   pending :: a -> Bool
   setPending :: Bool -> a -> a
 
-  usingPending :: a -> (Bool -> Bool) -> a
+  usingPending :: (Bool -> Bool) -> a -> a
   usingPending = pending `using` setPending

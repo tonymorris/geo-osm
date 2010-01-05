@@ -7,5 +7,5 @@ class Ref a where
   ref :: a -> String
   setRef :: String -> a -> a
 
-  usingRef :: a -> (String -> String) -> a
+  usingRef :: (String -> String) -> a -> a
   usingRef = ref `using` setRef

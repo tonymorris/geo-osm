@@ -7,5 +7,5 @@ class Minlat a where
   minlat :: a -> String
   setMinlat :: String -> a -> a
 
-  usingMinlat :: a -> (String -> String) -> a
+  usingMinlat :: (String -> String) -> a -> a
   usingMinlat = minlat `using` setMinlat

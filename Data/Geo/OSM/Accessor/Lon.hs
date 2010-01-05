@@ -7,5 +7,5 @@ class Lon a where
   lon :: a -> String
   setLon :: String -> a -> a
 
-  usingLon :: a -> (String -> String) -> a
+  usingLon :: (String -> String) -> a -> a
   usingLon = lon `using` setLon

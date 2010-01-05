@@ -9,5 +9,5 @@ class Version a b | a -> b where
   version :: a -> b
   setVersion :: b -> a -> a
 
-  usingVersion :: a -> (b -> b) -> a
+  usingVersion :: (b -> b) -> a -> a
   usingVersion = version `using` setVersion

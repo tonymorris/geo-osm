@@ -7,5 +7,5 @@ class K a where
   k :: a -> String
   setK :: String -> a -> a
 
-  usingK :: a -> (String -> String) -> a
+  usingK :: (String -> String) -> a -> a
   usingK = k `using` setK

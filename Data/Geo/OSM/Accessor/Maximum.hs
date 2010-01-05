@@ -8,5 +8,5 @@ class Maximum a where
   maximum :: a -> String
   setMaximum :: String -> a -> a
 
-  usingMaximum :: a -> (String -> String) -> a
+  usingMaximum :: (String -> String) -> a -> a
   usingMaximum = maximum  `using` setMaximum

@@ -11,8 +11,8 @@ class Members a where
   setMember :: Member -> a -> a
   setMember = setMembers . return
 
-  usingMembers :: a -> ([Member] -> [Member]) -> a
+  usingMembers :: ([Member] -> [Member]) -> a -> a
   usingMembers = members `using` setMembers
 
-  usingMember :: a -> (Member -> Member) -> a
-  usingMember = (. map) . usingMembers
+  usingMember :: (Member -> Member) -> a -> a
+  usingMember = usingMembers . map

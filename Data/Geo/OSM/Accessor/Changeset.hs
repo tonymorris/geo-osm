@@ -10,8 +10,8 @@ class Changeset a where
   setChangeset' :: String -> a -> a
   setChangeset' = setChangeset . return
 
-  usingChangeset :: a -> (Maybe String -> Maybe String) -> a
+  usingChangeset :: (Maybe String -> Maybe String) -> a -> a
   usingChangeset = changeset `using` setChangeset
 
-  usingChangeset' :: a -> (String -> String) -> a
-  usingChangeset' = (. fmap) . usingChangeset
+  usingChangeset' :: (String -> String) -> a -> a
+  usingChangeset' = usingChangeset . fmap

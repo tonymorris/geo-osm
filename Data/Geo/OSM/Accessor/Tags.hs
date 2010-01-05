@@ -17,14 +17,14 @@ class Tags a where
   setTag :: Tag -> a -> a
   setTag = setTags . return
 
-  usingTags :: a -> ([Tag] -> [Tag]) -> a
+  usingTags :: ([Tag] -> [Tag]) -> a -> a
   usingTags = tags `using` setTags
 
-  usingTag :: a -> (Tag -> Tag) -> a
-  usingTag = (. map) . usingTags
+  usingTag :: (Tag -> Tag) -> a -> a
+  usingTag = usingTags . map
 
-  usingTag' :: a -> ((String, String) -> (String, String)) -> a
-  usingTag' a f = usingTag a (\t -> uncurry tag (f (k t, v t)))
+  usingTag' :: ((String, String) -> (String, String)) -> a -> a
+  usingTag' f a = usingTag (\t -> uncurry tag (f (k t, v t))) a
 
 tagMap :: (Tags a) => a -> M.Map String String
 tagMap = M.fromList . map (k &&& v) . tags

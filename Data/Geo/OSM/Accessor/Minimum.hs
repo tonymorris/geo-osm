@@ -8,5 +8,5 @@ class Minimum a where
   minimum :: a -> String
   setMinimum :: String -> a -> a
 
-  usingMinimum :: a -> (String -> String) -> a
+  usingMinimum :: (String -> String) -> a -> a
   usingMinimum = minimum  `using` setMinimum

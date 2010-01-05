@@ -7,5 +7,5 @@ class Minlon a where
   minlon :: a -> String
   setMinlon :: String -> a -> a
 
-  usingMinlon :: a -> (String -> String) -> a
+  usingMinlon :: (String -> String) -> a -> a
   usingMinlon = minlon `using` setMinlon

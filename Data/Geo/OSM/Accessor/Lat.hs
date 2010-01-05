@@ -7,5 +7,5 @@ class Lat a where
   lat :: a -> String
   setLat :: String -> a -> a
 
-  usingLat :: a -> (String -> String) -> a
+  usingLat :: (String -> String) -> a -> a
   usingLat = lat `using` setLat

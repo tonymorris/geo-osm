@@ -7,5 +7,5 @@ class Maxlon a where
   maxlon :: a -> String
   setMaxlon :: String -> a -> a
 
-  usingMaxlon :: a -> (String -> String) -> a
+  usingMaxlon :: (String -> String) -> a -> a
   usingMaxlon = maxlon `using` setMaxlon

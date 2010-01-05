@@ -7,5 +7,5 @@ class Name a where
   name :: a -> String
   setName :: String -> a -> a
 
-  usingName :: a -> (String -> String) -> a
+  usingName :: (String -> String) -> a -> a
   usingName = name `using` setName

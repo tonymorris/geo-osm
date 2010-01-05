@@ -8,5 +8,5 @@ class Ar a where
   ar :: a -> Area
   setAr :: Area -> a -> a
 
-  usingArea :: a -> (Area -> Area) -> a
+  usingArea :: (Area -> Area) -> a -> a
   usingArea = ar `using` setAr

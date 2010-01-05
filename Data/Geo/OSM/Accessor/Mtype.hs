@@ -8,5 +8,5 @@ class Mtype a where
   mtype :: a -> MemberType
   setMtype :: MemberType -> a -> a
 
-  usingMtype :: a -> (MemberType -> MemberType) -> a
+  usingMtype :: (MemberType -> MemberType) -> a -> a
   usingMtype = mtype `using` setMtype

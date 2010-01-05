@@ -7,5 +7,5 @@ class Zoom a where
   zoom :: a -> String
   setZoom :: String -> a -> a
 
-  usingZoom :: a -> (String -> String) -> a
+  usingZoom :: (String -> String) -> a -> a
   usingZoom = zoom  `using` setZoom

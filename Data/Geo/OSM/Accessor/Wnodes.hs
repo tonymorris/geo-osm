@@ -8,5 +8,5 @@ class Wnodes a where
   wnodes :: a -> Waynodes
   setWnodes :: Waynodes -> a -> a
 
-  usingWnodes :: a -> (Waynodes -> Waynodes) -> a
+  usingWnodes :: (Waynodes -> Waynodes) -> a -> a
   usingWnodes = wnodes `using` setWnodes

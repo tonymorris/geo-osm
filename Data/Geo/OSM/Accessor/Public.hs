@@ -7,5 +7,5 @@ class Public a where
   public :: a -> Bool
   setPublic :: Bool -> a -> a
 
-  usingPublic :: a -> (Bool -> Bool) -> a
+  usingPublic :: (Bool -> Bool) -> a -> a
   usingPublic = public `using` setPublic

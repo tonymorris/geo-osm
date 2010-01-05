@@ -7,5 +7,5 @@ class AccountCreated a where
   accountCreated :: a -> String
   setAccountCreated :: String -> a -> a
 
-  usingAccountCreated :: a -> (String -> String) -> a
+  usingAccountCreated :: (String -> String) -> a -> a
   usingAccountCreated = accountCreated `using` setAccountCreated

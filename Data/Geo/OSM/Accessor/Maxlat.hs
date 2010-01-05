@@ -7,5 +7,5 @@ class Maxlat a where
   maxlat :: a -> String
   setMaxlat :: String -> a -> a
 
-  usingMaxlat :: a -> (String -> String) -> a
+  usingMaxlat :: (String -> String) -> a -> a
   usingMaxlat = maxlat  `using` setMaxlat

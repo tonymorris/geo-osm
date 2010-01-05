@@ -7,5 +7,5 @@ class Role a where
   role :: a -> String
   setRole :: String -> a -> a
 
-  usingRole :: a -> (String -> String) -> a
+  usingRole :: (String -> String) -> a -> a
   usingRole = role `using` setRole

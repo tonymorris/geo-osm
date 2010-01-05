@@ -9,5 +9,5 @@ class Timestamp a b | a -> b where
   timestamp :: a -> b
   setTimestamp :: b -> a -> a
 
-  usingTimestamp :: a -> (b -> b) -> a
+  usingTimestamp :: (b -> b) -> a -> a
   usingTimestamp = timestamp `using` setTimestamp

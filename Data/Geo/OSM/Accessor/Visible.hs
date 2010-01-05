@@ -13,5 +13,5 @@ class Visible a where
   makeInvisible :: a -> a
   makeInvisible = setVisible False
 
-  usingVisible :: a -> (Bool -> Bool) -> a
+  usingVisible :: (Bool -> Bool) -> a -> a
   usingVisible = visible `using` setVisible

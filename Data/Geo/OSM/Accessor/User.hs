@@ -9,5 +9,5 @@ class User a b | a -> b where
   user :: a -> b
   setUser :: b -> a -> a
 
-  usingUser :: a -> (b -> b) -> a
+  usingUser :: (b -> b) -> a -> a
   usingUser = user `using` setUser
