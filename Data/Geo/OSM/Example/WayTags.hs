@@ -17,7 +17,7 @@ wayTags = flip interactsOSM [" St"  ==> " Street",
          -> String -- The new suffix.
          -> a -- The OSM value.
          -> a -- The new OSM value.
-(==>) x = flip usingWay . flip usingTag' . (\y (k, v) ->
+(==>) x = usingWay . usingTag' . (\y (k, v) ->
   let v' = reverse v
   in (k, if k == "name" && reverse x `isPrefixOf` v'
             then reverse (reverse y ++ drop (length x) v')
