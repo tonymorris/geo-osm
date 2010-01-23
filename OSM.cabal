@@ -1,5 +1,5 @@
 Name:                OSM
-Version:             0.4.0
+Version:             0.4.1
 License:             BSD3
 License-File:        LICENSE
 Synopsis:            Parse OpenStreetMap files
@@ -18,9 +18,9 @@ Flag small_base
 
 Library
   if flag(small_base)
-    Build-Depends: base < 4 && >= 3, hxt, hxt-extras, containers
+    Build-Depends: base < 5 && >= 3, hxt, hxt-extras, containers
   else
-    Build-Depends: base < 3, hxt, hxt-extras, containers
+    Build-Depends: base < 5 && >= 3, hxt, hxt-extras, containers 
 
   GHC-Options:    -Wall
   Exposed-Modules: Data.Geo.OSM
