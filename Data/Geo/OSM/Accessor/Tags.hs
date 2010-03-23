@@ -24,7 +24,7 @@ class Tags a where
   usingTag = usingTags . map
 
   usingTag' :: ((String, String) -> (String, String)) -> a -> a
-  usingTag' f a = usingTag (\t -> uncurry tag (f (k t, v t))) a
+  usingTag' f = usingTag (\t -> uncurry tag (f (k t, v t)))
 
 tagMap :: (Tags a) => a -> M.Map String String
 tagMap = M.fromList . map (k &&& v) . tags

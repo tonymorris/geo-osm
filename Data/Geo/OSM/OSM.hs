@@ -75,7 +75,7 @@ readOsmFile = runX . xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace
 
 -- | Reads 0 or more OSM files into a list of @OSM@ values removing whitespace.
 readOsmFiles :: [FilePath] -> IO [OSM]
-readOsmFiles = fmap join . (mapM readOsmFile)
+readOsmFiles = fmap join . mapM readOsmFile
 
 -- | Reads a OSM file, executes the given function on the XML, then writes the given file.
 interactOSMIO' :: Attributes -- ^ The options for reading the OSM file.
@@ -147,4 +147,4 @@ sum' :: [a -> a] -> a -> a
 sum' = foldl' (.) id
 
 sumIO' :: (Monad m) => [a -> m a] -> a -> m a
-sumIO' x = foldl' (>=>) return x
+sumIO' = foldl' (>=>) return
