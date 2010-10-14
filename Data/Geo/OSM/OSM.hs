@@ -81,7 +81,8 @@ osm :: String -- ^ The @version@ attribute.
        -> Maybe (Either Bound Bounds) -- ^ The @bound@ or @bounds@ elements.
        -> OSMChildren -- ^ The child elements.
        -> OSM
-osm = OSM
+osm =
+  OSM
 
 -- | Reads an OSM file into a list of @OSM@ values removing whitespace.
 readOsmFile ::
