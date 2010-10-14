@@ -38,7 +38,7 @@ gpxFile =
 
 instance XmlPickler GpxFile where
   xpickle = let b = xpWrapMaybe (\s -> case fmap toLower s
-                                       of "true"  hg-> Just True
+                                       of "true"  -> Just True
                                           "false" -> Just False
                                           _       -> Nothing, fmap toLower . show)
             in xpElem "gpx_file" (xpWrap (\(id'', name', lat', lon', user', public', pending', timestamp') -> gpxFile id'' name' lat' lon' user' public' pending' timestamp', \(GpxFile id'' name' lat' lon' user' public' pending' timestamp') -> (id'', name', lat', lon', user', public', pending', timestamp')) (xp8Tuple (xpAttr "id" xpText) (xpAttr "name" xpText) (xpAttr "lat" xpText) (xpAttr "lon" xpText) (xpAttr "user" xpText) (xpDefault False (b (xpAttr "public" xpText))) (xpDefault False (b (xpAttr "pending" xpText))) (xpAttr "timestamp" xpText)))
