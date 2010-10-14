@@ -36,33 +36,44 @@ data OSM = OSM String (Maybe String) (Maybe (Either Bound Bounds)) OSMChildren
   deriving Eq
 
 instance XmlPickler OSM where
-  xpickle = xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> osm version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
-              (xp4Tuple (xpAttr "version" xpText)
-                        (xpOption (xpAttr "generator" xpText))
-                        (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))
-                        xpickle))
+  xpickle =
+    xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> osm version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
+      (xp4Tuple (xpAttr "version" xpText)
+                (xpOption (xpAttr "generator" xpText))
+                (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))
+                xpickle))
 
 instance Show OSM where
-  show = showPickled []
+  show =
+    showPickled []
 
 instance Version OSM String where
-  version (OSM x _ _ _) = x
-  setVersion a (OSM _ b c d) = osm a b c d
+  version (OSM x _ _ _) =
+    x
+  setVersion a (OSM _ b c d) =
+    osm a b c d
 
 instance Generator OSM where
-  generator (OSM _ x _ _) = x
-  setGenerator b (OSM a _  c d) = osm a b c d
+  generator (OSM _ x _ _) =
+    x
+  setGenerator b (OSM a _  c d) =
+    osm a b c d
 
 instance BoundOrs OSM where
-  boundOrs (OSM _ _ x _) n b bs = case x of Nothing -> n
-                                            Just (Left b') -> b b'
-                                            Just (Right b') -> bs b'
-  setBoundOrs c (OSM a b _ d) = osm a b c d
+  boundOrs (OSM _ _ x _) n b bs =
+    case x
+    of Nothing -> n
+       Just (Left b') -> b b'
+       Just (Right b') -> bs b'
+  setBoundOrs c (OSM a b _ d) =
+    osm a b c d
 
 instance NodeWayRelations OSM where
-  nwrs (OSM _ _ _ x) = let t = const []
-                       in foldOSMChildren t t t t t id x
-  setNwrs d (OSM a b c _) = osm a b c (osmNodeWayRelation d)
+  nwrs (OSM _ _ _ x) =
+    let t = const []
+    in foldOSMChildren t t t t t id x
+  setNwrs d (OSM a b c _) =
+    osm a b c (osmNodeWayRelation d)
 
 -- | Constructs a osm with a version, bound or bounds, and node attributes and way or relation elements.
 osm :: String -- ^ The @version@ attribute.
@@ -157,8 +168,8 @@ interactOSM ::
   -> FilePath -- ^ The OSM file to read.
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
-interactOSM f from =
-  interactOSMIO (return . f) from
+interactOSM f =
+  interactOSMIO (return . f)
 
 -- | Reads a OSM file removing whitespace, executes the given functions on the XML, then writes the given file with indentation.
 interactsOSM ::
@@ -168,7 +179,7 @@ interactsOSM ::
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
 interactsOSM =
-  interactOSM  . sum'
+  interactOSM . sum'
 
 -- not exported
 
