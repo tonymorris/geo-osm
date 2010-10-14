@@ -5,8 +5,8 @@ import Data.Geo.OSM.Accessor.Accessor
 import Prelude hiding (id)
 
 class Id a where
-  id :: a -> String
+  id' :: a -> String
   setId :: String -> a -> a
 
   updateId :: (String -> String) -> a -> a
-  updateId = id `using` setId
+  updateId = id' `using` setId

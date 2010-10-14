@@ -38,7 +38,7 @@ instance Show NWRCommon where
   show = showPickled []
 
 instance Id NWRCommon where
-  id (NWRCommon x _ _ _ _ _) = x
+  id' (NWRCommon x _ _ _ _ _) = x
   setId a (NWRCommon _ b c d e f) = nwrCommon a b c d e f
 
 instance Tags NWRCommon where

@@ -45,7 +45,7 @@ instance Show GpxFile where
   show = showPickled []
 
 instance Id GpxFile where
-  id (GpxFile x _ _ _ _ _ _ _) = x
+  id' (GpxFile x _ _ _ _ _ _ _) = x
   setId a (GpxFile _ b c d e f g h) = gpxFile a b c d e f g h
 
 instance Name GpxFile where

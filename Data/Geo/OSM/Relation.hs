@@ -37,32 +37,32 @@ instance Members Relation where
   setMembers a (Relation _ c) = Relation a c
 
 instance Id Relation where
-  id (Relation _ x) = id x
+  id' (Relation _ x) = id' x
   setId c (Relation a cc) = Relation a (nwrCommon c (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Tags Relation where
   tags (Relation _ x) = tags x
-  setTags c (Relation a cc) = Relation a (nwrCommon (id cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+  setTags c (Relation a cc) = Relation a (nwrCommon (id' cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Changeset Relation where
   changeset (Relation _ x) = changeset x
-  setChangeset c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
+  setChangeset c (Relation a cc) = Relation a (nwrCommon (id' cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
 
 instance Visible Relation where
   visible (Relation _ x) = visible x
-  setVisible c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
+  setVisible c (Relation a cc) = Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
 
 instance User Relation (Maybe String) where
   user (Relation _ x) = user x
-  setUser c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
+  setUser c (Relation a cc) = Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
 
 instance Uid Relation where
   uid (Relation _ x) = uid x
-  setUid c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
+  setUid c (Relation a cc) = Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
 
 instance Timestamp Relation (Maybe String) where
   timestamp (Relation _ x) = timestamp x
-  setTimestamp c (Relation a cc) = Relation a (nwrCommon (id cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
+  setTimestamp c (Relation a cc) = Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
 
 -- | Constructs a relation with a list of members, id, list of tags, changeset, visible, user&uid and timestamp.
 relation :: [Member] -- ^ The list of members (@member@ elements).
