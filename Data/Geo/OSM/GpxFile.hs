@@ -33,7 +33,8 @@ gpxFile
      -> Bool -- ^ The @pending@ attribute.
      -> String -- ^ The @timestamp@ attribute.
      -> GpxFile
-gpxFile = GpxFile
+gpxFile =
+  GpxFile
 
 instance XmlPickler GpxFile where
   xpickle = let b = xpWrapMaybe (\s -> case fmap toLower s of "true" -> Just True
