@@ -6,10 +6,10 @@ import Data.List
 -- Updates the given OSM file with a new OSM file by replacing specific suffixes of ways tagged with "name".
 -- e.g. A way such as name="George St" will become name="George Street" and name="Wickham Tce" will become name="Wickham Terrace".
 wayTags :: FilePath -> FilePath -> IO ()
-wayTags = flip interactsOSM [" St"  ==> " Street",
-                             " Pl"  ==> " Place",
-                             " Tce" ==> " Terrace",
-                             " Cct" ==> " Circuit"]
+wayTags = interactsOSM [" St"  ==> " Street",
+                        " Pl"  ==> " Place",
+                        " Tce" ==> " Terrace",
+                        " Cct" ==> " Circuit"]
 
 -- Updates the a given name suffix with a new suffix
 (==>) :: (NodeWayRelations a)
