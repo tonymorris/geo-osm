@@ -16,10 +16,12 @@ module Data.Geo.OSM.OSM(
                     interactsOSM'
                   ) where
 
+import Prelude hiding (mapM, foldr)
 import Text.XML.HXT.Arrow
 import Text.XML.HXT.Extras
-import Control.Monad
-import Data.List
+import Control.Monad hiding (mapM)
+import Data.Foldable
+import Data.Traversable
 import Data.Geo.OSM.OSMChildren
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
@@ -27,6 +29,7 @@ import Data.Geo.OSM.Accessor.Version
 import Data.Geo.OSM.Accessor.Generator
 import Data.Geo.OSM.Accessor.BoundOrs
 import Data.Geo.OSM.Accessor.NodeWayRelations
+import Data.Monoid
 
 -- | The @osm@ element of a OSM file, which is the root element.
 data OSM = OSM String (Maybe String) (Maybe (Either Bound Bounds)) OSMChildren
@@ -70,81 +73,117 @@ osm :: String -- ^ The @version@ attribute.
 osm = OSM
 
 -- | Reads an OSM file into a list of @OSM@ values removing whitespace.
-readOsmFile :: FilePath -> IO [OSM]
-readOsmFile = runX . xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)]
+readOsmFile ::
+  FilePath
+  -> IO [OSM]
+readOsmFile =
+  runX . xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)]
 
 -- | Reads 0 or more OSM files into a list of @OSM@ values removing whitespace.
-readOsmFiles :: [FilePath] -> IO [OSM]
-readOsmFiles = fmap join . mapM readOsmFile
+readOsmFiles ::
+  [FilePath]
+  -> IO [OSM]
+readOsmFiles =
+  fmap join . mapM readOsmFile
 
 -- | Reads a OSM file, executes the given function on the XML, then writes the given file.
-interactOSMIO' :: Attributes -- ^ The options for reading the OSM file.
-                  -> FilePath -- ^ The OSM file to read.
-                  -> (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
-                  -> Attributes -- ^ The options for writing the OSM file.
-                  -> FilePath -- ^ The OSM file to write.
-                  -> IO ()
-interactOSMIO' froma from f toa to = runX (xunpickleDocument (xpickle :: PU OSM) froma from >>> arrIO f >>> xpickleDocument (xpickle :: PU OSM) toa to) >> return ()
+interactOSMIO' ::
+  (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
+  -> Attributes -- ^ The options for reading the OSM file.
+  -> FilePath -- ^ The OSM file to read.
+  -> Attributes -- ^ The options for writing the OSM file.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactOSMIO' f froma from toa to =
+  runX (xunpickleDocument (xpickle :: PU OSM) froma from >>> arrIO f >>> xpickleDocument (xpickle :: PU OSM) toa to) >> return ()
 
 -- | Reads a OSM file, executes the given functions on the XML, then writes the given file.
-interactsOSMIO' :: Attributes -- ^ The options for reading the OSM file.
-                   -> FilePath -- ^ The OSM file to read.
-                   -> [OSM -> IO OSM] -- ^ The function to execute on the XML that is read.
-                   -> Attributes -- ^ The options for writing the OSM file.
-                   -> FilePath -- ^ The OSM file to write.
-                   -> IO ()
-interactsOSMIO' froma from = interactOSMIO' froma from . sumIO'
+interactsOSMIO' ::
+  Foldable t =>
+  t (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
+  -> Attributes -- ^ The options for reading the OSM file.
+  -> FilePath -- ^ The OSM file to read.
+  -> Attributes -- ^ The options for writing the OSM file.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactsOSMIO' =
+  interactOSMIO' . sumM
 
 -- | Reads a OSM file removing whitespace, executes the given function on the XML, then writes the given file with indentation.
-interactOSMIO :: FilePath -- ^ The OSM file to read.
-                 -> (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
-                 -> FilePath -- ^ The OSM file to write.
-                 -> IO ()
-interactOSMIO from f = interactOSMIO' [(a_remove_whitespace, v_1)] from f [(a_indent, v_1)]
+interactOSMIO ::
+  (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
+  -> FilePath -- ^ The OSM file to read.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactOSMIO f from =
+  interactOSMIO' f [(a_remove_whitespace, v_1)] from [(a_indent, v_1)]
 
 -- | Reads a OSM file removing whitespace, executes the given functions on the XML, then writes the given file with indentation.
-interactsOSMIO :: FilePath -- ^ The OSM file to read.
-                  -> [OSM -> IO OSM] -- ^ The function to execute on the XML that is read.
-                  -> FilePath -- ^ The OSM file to write.
-                  -> IO ()
-interactsOSMIO from = interactOSMIO from . sumIO'
+interactsOSMIO ::
+  Foldable t =>
+  t (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
+  -> FilePath -- ^ The OSM file to read.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactsOSMIO =
+  interactOSMIO . sumM
 
 -- | Reads a OSM file, executes the given function on the XML, then writes the given file.
-interactOSM' :: Attributes -- ^ The options for reading the OSM file.
-                -> FilePath -- ^ The OSM file to read.
-                -> (OSM -> OSM) -- ^ The function to execute on the XML that is read.
-                -> Attributes -- ^ The options for writing the OSM file.
-                -> FilePath -- ^ The OSM file to write.
-                -> IO ()
-interactOSM' froma from f = interactOSMIO' froma from (return . f)
+interactOSM' ::
+  (OSM -> OSM) -- ^ The function to execute on the XML that is read.
+  -> Attributes -- ^ The options for reading the OSM file.
+  -> FilePath -- ^ The OSM file to read.
+  -> Attributes -- ^ The options for writing the OSM file.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactOSM' f =
+  interactOSMIO' (return . f)
 
 -- | Reads a OSM file, executes the given functions on the XML, then writes the given file.
-interactsOSM' :: Attributes -- ^ The options for reading the OSM file.
-                 -> FilePath -- ^ The OSM file to read.
-                 -> [OSM -> OSM] -- ^ The functions to execute on the XML that is read.
-                 -> Attributes -- ^ The options for writing the OSM file.
-                 -> FilePath -- ^ The OSM file to write.
-                 -> IO ()
-interactsOSM' froma from = interactOSM' froma from . sum'
+interactsOSM' ::
+  Foldable t =>
+  t (OSM -> OSM) -- ^ The functions to execute on the XML that is read.
+  -> Attributes -- ^ The options for reading the OSM file.
+  -> FilePath -- ^ The OSM file to read.
+  -> Attributes -- ^ The options for writing the OSM file.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactsOSM' =
+  interactOSM' . sum'
 
 -- | Reads a OSM file removing whitespace, executes the given function on the XML, then writes the given file with indentation.
-interactOSM :: FilePath -- ^ The OSM file to read.
-               -> (OSM -> OSM) -- ^ The function to execute on the XML that is read.
-               -> FilePath -- ^ The OSM file to write.
-               -> IO ()
-interactOSM from f = interactOSMIO from (return . f)
+interactOSM ::
+  (OSM -> OSM) -- ^ The function to execute on the XML that is read.
+  -> FilePath -- ^ The OSM file to read.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactOSM f from =
+  interactOSMIO (return . f) from
 
 -- | Reads a OSM file removing whitespace, executes the given functions on the XML, then writes the given file with indentation.
-interactsOSM :: FilePath -- ^ The OSM file to read.
-                -> [OSM -> OSM] -- ^ The function to execute on the XML that is read.
-                -> FilePath -- ^ The OSM file to write.
-                -> IO ()
-interactsOSM from = interactOSM from . sum'
+interactsOSM ::
+  Foldable t =>
+  t (OSM -> OSM) -- ^ The function to execute on the XML that is read.
+  -> FilePath -- ^ The OSM file to read.
+  -> FilePath -- ^ The OSM file to write.
+  -> IO ()
+interactsOSM =
+  interactOSM  . sum'
 
 -- not exported
 
-sum' :: [a -> a] -> a -> a
-sum' = foldl' (.) id
+sum' ::
+  Foldable t =>
+  t (a -> a)
+  -> a
+  -> a
+sum' =
+  appEndo . foldMap Endo
 
-sumIO' :: (Monad m) => [a -> m a] -> a -> m a
-sumIO' = foldl' (>=>) return
+sumM ::
+  (Monad m, Foldable t) =>
+  t (a -> m a)
+  -> a
+  -> m a
+sumM =
+  foldr (>=>) return
