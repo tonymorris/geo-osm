@@ -4,7 +4,7 @@ module Data.Geo.OSM.Member(
                        member
                      ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.MemberType
 import Data.Geo.OSM.Accessor.Mtype

@@ -4,7 +4,8 @@ module Data.Geo.OSM.VersionE(
                                versionE
                             ) where
 
-import Text.XML.HXT.Arrow
+
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Minimum
 import Data.Geo.OSM.Accessor.Maximum

@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
 
 -- | The @osm@ element of a OSM file, which is the root element. <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM.OSM(
@@ -17,7 +17,8 @@ module Data.Geo.OSM.OSM(
                   ) where
 
 import Prelude hiding (mapM, foldr)
-import Text.XML.HXT.Arrow
+
+import Text.XML.HXT.Core
 import Text.XML.HXT.Extras
 import Control.Monad hiding (mapM)
 import Data.Foldable
@@ -89,7 +90,7 @@ readOsmFile ::
   FilePath
   -> IO [OSM]
 readOsmFile =
-  runX . xunpickleDocument (xpickle :: PU OSM) [(a_remove_whitespace, v_1)]
+  runX . xunpickleDocument (xpickle :: PU OSM) ([withRemoveWS yes, withFileMimeType v_1]) -- FIXME v_1?
 
 -- | Reads 0 or more OSM files into a list of @OSM@ values removing whitespace.
 readOsmFiles ::
@@ -101,9 +102,9 @@ readOsmFiles =
 -- | Reads a OSM file, executes the given function on the XML, then writes the given file.
 interactOSMIO' ::
   (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
-  -> Attributes -- ^ The options for reading the OSM file.
+  -> SysConfigList -- ^ The options for reading the OSM file.
   -> FilePath -- ^ The OSM file to read.
-  -> Attributes -- ^ The options for writing the OSM file.
+  -> SysConfigList -- ^ The options for writing the OSM file.
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
 interactOSMIO' f froma from toa to =
@@ -113,9 +114,9 @@ interactOSMIO' f froma from toa to =
 interactsOSMIO' ::
   Foldable t =>
   t (OSM -> IO OSM) -- ^ The function to execute on the XML that is read.
-  -> Attributes -- ^ The options for reading the OSM file.
+  -> SysConfigList -- ^ The options for reading the OSM file.
   -> FilePath -- ^ The OSM file to read.
-  -> Attributes -- ^ The options for writing the OSM file.
+  -> SysConfigList -- ^ The options for writing the OSM file.
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
 interactsOSMIO' =
@@ -128,7 +129,7 @@ interactOSMIO ::
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
 interactOSMIO f from =
-  interactOSMIO' f [(a_remove_whitespace, v_1)] from [(a_indent, v_1)]
+  interactOSMIO' f [withRemoveWS yes, withFileMimeType v_1] from [withIndent yes, withFileMimeType v_1]
 
 -- | Reads a OSM file removing whitespace, executes the given functions on the XML, then writes the given file with indentation.
 interactsOSMIO ::
@@ -143,9 +144,9 @@ interactsOSMIO =
 -- | Reads a OSM file, executes the given function on the XML, then writes the given file.
 interactOSM' ::
   (OSM -> OSM) -- ^ The function to execute on the XML that is read.
-  -> Attributes -- ^ The options for reading the OSM file.
+  -> SysConfigList -- ^ The options for reading the OSM file.
   -> FilePath -- ^ The OSM file to read.
-  -> Attributes -- ^ The options for writing the OSM file.
+  -> SysConfigList -- ^ The options for writing the OSM file.
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
 interactOSM' f =
@@ -155,9 +156,9 @@ interactOSM' f =
 interactsOSM' ::
   Foldable t =>
   t (OSM -> OSM) -- ^ The functions to execute on the XML that is read.
-  -> Attributes -- ^ The options for reading the OSM file.
+  -> SysConfigList -- ^ The options for reading the OSM file.
   -> FilePath -- ^ The OSM file to read.
-  -> Attributes -- ^ The options for writing the OSM file.
+  -> SysConfigList -- ^ The options for writing the OSM file.
   -> FilePath -- ^ The OSM file to write.
   -> IO ()
 interactsOSM' =

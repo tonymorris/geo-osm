@@ -6,7 +6,7 @@ module Data.Geo.OSM.Api(
                          api
                        ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Area

@@ -7,7 +7,7 @@ module Data.Geo.OSM.MemberType(
                            relationType
                          ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Char
 

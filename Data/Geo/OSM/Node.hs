@@ -6,7 +6,7 @@ module Data.Geo.OSM.Node(
                      node
                    ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.NWRCommon
 import Data.Geo.OSM.Tag

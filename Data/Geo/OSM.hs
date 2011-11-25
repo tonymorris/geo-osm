@@ -1,6 +1,5 @@
 -- | OpenStreetMap API v0.6 DTD <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM(
-                module Text.XML.HXT.Arrow,
                 module Data.Geo.OSM.Api,
                 module Data.Geo.OSM.Area,
                 module Data.Geo.OSM.Bound,
@@ -64,7 +63,7 @@ module Data.Geo.OSM(
               ) where
 
 
-import Text.XML.HXT.Arrow
+
 import Data.Geo.OSM.Api
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Bound

@@ -4,7 +4,7 @@ module Data.Geo.OSM.Preferences(
                                  preferences
                                ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Accessor.Tags

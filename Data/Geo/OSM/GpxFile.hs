@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
 
 -- | The @gpx_file@ element of a OSM file.
 module Data.Geo.OSM.GpxFile(
@@ -6,7 +6,7 @@ module Data.Geo.OSM.GpxFile(
                              gpxFile
                            ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Char
 import Data.Geo.OSM.Accessor.Id

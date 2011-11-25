@@ -6,8 +6,8 @@ module Data.Geo.OSM.NWRCommon(
                           nwrCommon
                         ) where
 
-import Text.XML.HXT.Arrow
-import Text.XML.HXT.Extras
+import Control.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Control.Applicative
 import Data.Char
 import Data.Geo.OSM.Tag

@@ -4,7 +4,8 @@ module Data.Geo.OSM.Tracepoints(
                                  tracepoints
                                ) where
 
-import Text.XML.HXT.Arrow
+
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.PerPage
 

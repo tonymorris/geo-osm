@@ -9,7 +9,7 @@ module Data.Geo.OSM.OSMChildren(
                                  foldOSMChildren
                                ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.UserE
 import Data.Geo.OSM.Preferences

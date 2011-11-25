@@ -4,7 +4,7 @@ module Data.Geo.OSM.Home(
                           home
                         ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Lat
 import Data.Geo.OSM.Accessor.Lon

@@ -6,7 +6,7 @@ module Data.Geo.OSM.Relation(
                          relation
                        ) where
 
-import Text.XML.HXT.Arrow
+import Text.XML.HXT.Arrow.Pickle
 import Text.XML.HXT.Extras
 import Data.Geo.OSM.Member
 import Data.Geo.OSM.NWRCommon
