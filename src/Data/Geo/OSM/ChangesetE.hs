@@ -5,7 +5,6 @@ module Data.Geo.OSM.ChangesetE(
                               ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Accessor.Tags
 

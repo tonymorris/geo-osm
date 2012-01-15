@@ -5,7 +5,6 @@ module Data.Geo.OSM.UserE(
                          ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Home
 import Data.Geo.OSM.Accessor.Hm
 import Data.Geo.OSM.Accessor.DisplayName

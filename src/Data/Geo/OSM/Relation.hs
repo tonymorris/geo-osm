@@ -7,7 +7,6 @@ module Data.Geo.OSM.Relation(
                        ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Member
 import Data.Geo.OSM.NWRCommon
 import Data.Geo.OSM.Tag

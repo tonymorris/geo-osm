@@ -5,7 +5,6 @@ module Data.Geo.OSM.Home(
                         ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Lat
 import Data.Geo.OSM.Accessor.Lon
 import Data.Geo.OSM.Accessor.Zoom

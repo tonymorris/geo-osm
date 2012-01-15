@@ -7,7 +7,6 @@ module Data.Geo.OSM.GpxFile(
                            ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Char
 import Data.Geo.OSM.Accessor.Id
 import Data.Geo.OSM.Accessor.Name

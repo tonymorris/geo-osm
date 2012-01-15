@@ -19,7 +19,6 @@ module Data.Geo.OSM.OSM(
 import Prelude hiding (mapM, foldr)
 
 import Text.XML.HXT.Core
-import Text.XML.HXT.Extras
 import Control.Monad hiding (mapM)
 import Data.Foldable
 import Data.Traversable

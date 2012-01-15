@@ -5,7 +5,6 @@ module Data.Geo.OSM.Nd(
                  ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Ref
 
 -- | The @nd@ element of a OSM file.

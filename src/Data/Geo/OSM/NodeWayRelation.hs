@@ -11,7 +11,6 @@ module Data.Geo.OSM.NodeWayRelation(
                               ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Node
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Relation

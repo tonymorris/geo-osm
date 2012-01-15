@@ -6,7 +6,6 @@ module Data.Geo.OSM.Tag(
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.K
 import Data.Geo.OSM.Accessor.V
 

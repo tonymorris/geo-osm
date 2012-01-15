@@ -6,7 +6,6 @@ module Data.Geo.OSM.Waynodes(
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Maximum
 
 -- | The @waynodes@ element of a OSM file.

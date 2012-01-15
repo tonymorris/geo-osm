@@ -5,7 +5,6 @@ module Data.Geo.OSM.Bounds(
                      ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Minlat
 import Data.Geo.OSM.Accessor.Maxlat
 import Data.Geo.OSM.Accessor.Minlon

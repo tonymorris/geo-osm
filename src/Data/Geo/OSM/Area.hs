@@ -5,7 +5,6 @@ module Data.Geo.OSM.Area(
                         ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Maximum
 
 -- | The @area@ element of a OSM file.

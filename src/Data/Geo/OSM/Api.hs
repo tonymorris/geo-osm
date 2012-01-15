@@ -7,7 +7,6 @@ module Data.Geo.OSM.Api(
                        ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Tracepoints

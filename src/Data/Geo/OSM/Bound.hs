@@ -5,7 +5,6 @@ module Data.Geo.OSM.Bound(
                     ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.Box
 import Data.Geo.OSM.Accessor.Origin
 

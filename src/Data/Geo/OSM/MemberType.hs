@@ -8,7 +8,6 @@ module Data.Geo.OSM.MemberType(
                          ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Char
 
 -- | The @type@ attribute of a @member@ element of a OSM file.

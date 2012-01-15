@@ -7,7 +7,6 @@ module Data.Geo.OSM.Way(
                   ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Nd
 import Data.Geo.OSM.NWRCommon
 import Data.Geo.OSM.Tag

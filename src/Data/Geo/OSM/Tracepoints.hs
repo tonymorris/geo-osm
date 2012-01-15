@@ -6,7 +6,6 @@ module Data.Geo.OSM.Tracepoints(
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Text.XML.HXT.Extras
 import Data.Geo.OSM.Accessor.PerPage
 
 -- | The @tracepoints@ element of a OSM file.

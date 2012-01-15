@@ -1,0 +1,8 @@
+:set -isrc
+:m + Test.QuickCheck
+:l Data.Geo.OSM
+:m + Data.Geo.OSM
+:set prompt ">> "
+:set -Wall
+:set -fno-warn-name-shadowing
+
