@@ -9,14 +9,16 @@ module Data.Geo.OSM.GpxFile
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Char
-import Data.Geo.OSM.Accessor.Id
-import Data.Geo.OSM.Accessor.Name
-import Data.Geo.OSM.Accessor.Lat
-import Data.Geo.OSM.Accessor.Lon
-import Data.Geo.OSM.Accessor.User
-import Data.Geo.OSM.Accessor.Public
-import Data.Geo.OSM.Accessor.Pending
-import Data.Geo.OSM.Accessor.Timestamp
+import Data.Geo.OSM.Lens.IdL
+import Data.Geo.OSM.Lens.NameL
+import Data.Geo.OSM.Lens.LatL
+import Data.Geo.OSM.Lens.LonL
+import Data.Geo.OSM.Lens.UserL
+import Data.Geo.OSM.Lens.PublicL
+import Data.Geo.OSM.Lens.PendingL
+import Data.Geo.OSM.Lens.TimestampL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @gpx_file@ element of a OSM file.
 data GpxFile =
@@ -49,50 +51,35 @@ instance Show GpxFile where
   show =
     showPickled []
 
-instance Id GpxFile where
-  id' (GpxFile x _ _ _ _ _ _ _) =
-    x
-  setId a (GpxFile _ b c d e f g h) =
-    gpxFile a b c d e f g h
+instance IdL GpxFile where
+  idL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\id -> GpxFile id name lat lon user public pending timestamp) id
 
-instance Name GpxFile where
-  name (GpxFile _ x _ _ _ _ _ _) =
-    x
-  setName b (GpxFile a _ c d e f g h) =
-    gpxFile a b c d e f g h
+instance NameL GpxFile where
+  nameL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\name -> GpxFile id name lat lon user public pending timestamp) name
 
-instance Lat GpxFile where
-  lat (GpxFile _ _ x _ _ _ _ _) =
-    x
-  setLat c (GpxFile a b _ d e f g h) =
-    gpxFile a b c d e f g h
+instance LatL GpxFile where
+  latL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\lat -> GpxFile id name lat lon user public pending timestamp) lat
 
-instance Lon GpxFile where
-  lon (GpxFile _ _ _ x _ _ _ _) =
-    x
-  setLon d (GpxFile a b c _ e f g h) =
-    gpxFile a b c d e f g h
+instance LonL GpxFile where
+  lonL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\lon -> GpxFile id name lat lon user public pending timestamp) lon
 
-instance User GpxFile String where
-  user (GpxFile _ _ _ _ x _ _ _) =
-    x
-  setUser e (GpxFile a b c d _ f g h) =
-    gpxFile a b c d e f g h
+instance UserL GpxFile String where
+  userL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\user -> GpxFile id name lat lon user public pending timestamp) user
 
-instance Public GpxFile where
-  public (GpxFile _ _ _ _ _ x _ _) =
-    x
-  setPublic f (GpxFile a b c d e _ g h) =
-    gpxFile a b c d e f g h
+instance PublicL GpxFile where
+  publicL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\public -> GpxFile id name lat lon user public pending timestamp) public
 
-instance Pending GpxFile where
-  pending (GpxFile _ _ _ _ _ _ x _) =
-    x
-  setPending g (GpxFile a b c d e f _ h) =
-    gpxFile a b c d e f g h
+instance PendingL GpxFile where
+  pendingL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\pending -> GpxFile id name lat lon user public pending timestamp) pending
 
-instance Timestamp GpxFile String where
-  timestamp (GpxFile _ _ _ _ _ _ _ x) =
-    x
-  setTimestamp h (GpxFile a b c d e f g _) =
-    gpxFile a b c d e f g h
+instance TimestampL GpxFile String where
+  timestampL =
+    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\timestamp -> GpxFile id name lat lon user public pending timestamp) timestamp
+

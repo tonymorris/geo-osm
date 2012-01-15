@@ -6,9 +6,11 @@ module Data.Geo.OSM.Home
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Lat
-import Data.Geo.OSM.Accessor.Lon
-import Data.Geo.OSM.Accessor.Zoom
+import Data.Geo.OSM.Lens.LatL
+import Data.Geo.OSM.Lens.LonL
+import Data.Geo.OSM.Lens.ZoomL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @home@ element of a OSM file.
 data Home =
@@ -32,20 +34,15 @@ instance Show Home where
   show =
     showPickled []
 
-instance Lat Home where
-  lat (Home x _ _) =
-    x
-  setLat a (Home _ b c) =
-    home a b c
+instance LatL Home where
+  latL =
+    Lens $ \(Home lat lon zoom) -> store (\lat -> Home lat lon zoom) lat
 
-instance Lon Home where
-  lon (Home _ x _) =
-    x
-  setLon b (Home a _ c) =
-    home a b c
+instance LonL Home where
+  lonL =
+    Lens $ \(Home lat lon zoom) -> store (\lon -> Home lat lon zoom) lon
 
-instance Zoom Home where
-  zoom (Home _ _ x) =
-    x
-  setZoom c (Home a b _) =
-    home a b c
+instance ZoomL Home where
+  zoomL =
+    Lens $ \(Home lat lon zoom) -> store (\zoom -> Home lat lon zoom) zoom
+

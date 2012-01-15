@@ -6,8 +6,10 @@ module Data.Geo.OSM.Bound
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Box
-import Data.Geo.OSM.Accessor.Origin
+import Data.Geo.OSM.Lens.BoxL
+import Data.Geo.OSM.Lens.OriginL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @bound@ element of a OSM file.
 data Bound =
@@ -22,17 +24,13 @@ instance Show Bound where
   show =
     showPickled []
 
-instance Box Bound where
-  box (Bound x _) =
-    x
-  setBox a (Bound _ b) =
-    bound a b
+instance BoxL Bound where
+  boxL =
+    Lens $ \(Bound box origin) -> store (\box -> Bound box origin) box
 
-instance Origin Bound where
-  origin (Bound _ x) =
-    x
-  setOrigin b (Bound a _) =
-    bound a b
+instance OriginL Bound where
+  originL =
+    Lens $ \(Bound box origin) -> store (\origin -> Bound box origin) origin
 
 -- | Constructs a bound with a box and origin attributes.
 bound ::

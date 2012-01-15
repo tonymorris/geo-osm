@@ -6,7 +6,9 @@ module Data.Geo.OSM.Nd
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Ref
+import Data.Geo.OSM.Lens.RefL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @nd@ element of a OSM file.
 newtype Nd =
@@ -21,11 +23,9 @@ instance Show Nd where
   show = 
     showPickled []
 
-instance Ref Nd where
-  ref (Nd x) =
-    x
-  setRef a (Nd _) =
-    nd a
+instance RefL Nd where
+  refL =
+    Lens $ \(Nd ref) -> store (\ref -> Nd ref) ref
 
 -- | Constructs a nd with a ref.
 nd ::

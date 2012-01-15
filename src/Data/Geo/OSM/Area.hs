@@ -6,7 +6,9 @@ module Data.Geo.OSM.Area
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Maximum
+import Data.Geo.OSM.Lens.MaximumL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @area@ element of a OSM file.
 newtype Area =
@@ -28,8 +30,6 @@ instance Show Area where
   show =
     showPickled []
 
-instance Maximum Area where
-  maximum (Area x) =
-    x
-  setMaximum a (Area _) =
-    area a
+instance MaximumL Area where
+  maximumL =
+    Lens $ \(Area maximum) -> store (\maximum -> Area maximum) maximum
