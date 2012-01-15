@@ -7,7 +7,9 @@ module Data.Geo.OSM.Tracepoints
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.PerPage
+import Data.Geo.OSM.Lens.PerPageL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @tracepoints@ element of a OSM file.
 newtype Tracepoints =
@@ -29,8 +31,7 @@ instance Show Tracepoints where
   show =
     showPickled []
 
-instance PerPage Tracepoints where
-  perPage (Tracepoints x) =
-    x
-  setPerPage a (Tracepoints _) =
-    tracepoints a
+instance PerPageL Tracepoints where
+  perPageL =
+    Lens $ \(Tracepoints perPage) -> store (\perPage -> Tracepoints perPage) perPage
+
