@@ -5,7 +5,7 @@ module Data.Geo.OSM
 , module Data.Geo.OSM.Area
 , module Data.Geo.OSM.Bound
 , module Data.Geo.OSM.Bounds
-, module Data.Geo.OSM.ChangesetE
+, module Data.Geo.OSM.Changeset
 , module Data.Geo.OSM.GpxFile
 , module Data.Geo.OSM.Home
 , module Data.Geo.OSM.Member
@@ -30,7 +30,7 @@ import Data.Geo.OSM.Api
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
-import Data.Geo.OSM.ChangesetE
+import Data.Geo.OSM.Changeset
 import Data.Geo.OSM.GpxFile
 import Data.Geo.OSM.Home
 import Data.Geo.OSM.Member

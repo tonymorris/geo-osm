@@ -15,7 +15,7 @@ import Data.Geo.OSM.UserE
 import Data.Geo.OSM.Preferences
 import Data.Geo.OSM.GpxFile
 import Data.Geo.OSM.Api
-import Data.Geo.OSM.ChangesetE
+import Data.Geo.OSM.Changeset
 import Data.Geo.OSM.NodeWayRelation
 
 -- | The children elements of the @osm@ element of a OSM file.
@@ -24,7 +24,7 @@ data OSMChildren =
   | Preferences Preferences
   | GpxFile GpxFile
   | Api Api
-  | ChangesetE ChangesetE
+  | Changeset Changeset
   | NWR [NodeWayRelation]
   deriving Eq
 
@@ -35,12 +35,12 @@ instance XmlPickler OSMChildren where
                    Preferences _ -> 1
                    GpxFile _     -> 2
                    Api _         -> 3
-                   ChangesetE _  -> 4
+                   Changeset _   -> 4
                    NWR _         -> 5) [xpWrap (UserE, \(UserE u) -> u) xpickle,
                                         xpWrap (Preferences, \(Preferences p) -> p) xpickle,
                                         xpWrap (GpxFile, \(GpxFile f) -> f) xpickle,
                                         xpWrap (Api, \(Api a) -> a) xpickle,
-                                        xpWrap (ChangesetE, \(ChangesetE c) -> c) xpickle,
+                                        xpWrap (Changeset, \(Changeset c) -> c) xpickle,
                                         xpWrap (NWR, \(NWR k) -> k) (xpList xpickle)]
 
 instance Show OSMChildren where
@@ -70,10 +70,10 @@ osmApi =
 
 -- | A @changeset@ element.
 osmChangeset ::
-  ChangesetE
+  Changeset
   -> OSMChildren
 osmChangeset =
-  ChangesetE
+  Changeset
 
 -- | A list of @node@, @way@ or @relation@ elements.
 osmNodeWayRelation ::
@@ -88,7 +88,7 @@ foldOSMChildren ::
   -> (Preferences -> a) -- ^ If a @preferences@ element.
   -> (GpxFile -> a) -- ^ If a @gpx_file@ element.
   -> (Api -> a) -- ^ If a @api@ element.
-  -> (ChangesetE -> a) -- ^ If a @changeset@ element.
+  -> (Changeset -> a) -- ^ If a @changeset@ element.
   -> ([NodeWayRelation] -> a) -- ^ If a list of @node@, @way@ or @relation@ elements.
   -> OSMChildren -- ^ The disjunctive type of child elements.
   -> a
@@ -100,7 +100,7 @@ foldOSMChildren _ _ z _ _ _ (GpxFile f) =
   z f
 foldOSMChildren _ _ _ z _ _ (Api a) =
   z a
-foldOSMChildren _ _ _ _ z _ (ChangesetE c) =
+foldOSMChildren _ _ _ _ z _ (Changeset c) =
   z c
 foldOSMChildren _ _ _ _ _ z (NWR k) =
   z k
