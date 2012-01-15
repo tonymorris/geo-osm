@@ -1,13 +1,13 @@
 -- | The children elements of the @osm@ element of a OSM file.
-module Data.Geo.OSM.OSMChildren
+module Data.Geo.OSM.Children
 (
-  OSMChildren
+  Children
 , osmUser
 , osmGpxFile
 , osmApi
 , osmChangeset
 , osmNodeWayRelation
-, foldOSMChildren
+, foldChildren
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
@@ -19,7 +19,7 @@ import Data.Geo.OSM.Changeset
 import Data.Geo.OSM.NodeWayRelation
 
 -- | The children elements of the @osm@ element of a OSM file.
-data OSMChildren =
+data Children =
   User User
   | Preferences Preferences
   | GpxFile GpxFile
@@ -28,7 +28,7 @@ data OSMChildren =
   | NWR [NodeWayRelation]
   deriving Eq
 
-instance XmlPickler OSMChildren where
+instance XmlPickler Children where
   xpickle =
     xpAlt (\r -> case r of
                    User _        -> 0
@@ -43,64 +43,64 @@ instance XmlPickler OSMChildren where
                                         xpWrap (Changeset, \(Changeset c) -> c) xpickle,
                                         xpWrap (NWR, \(NWR k) -> k) (xpList xpickle)]
 
-instance Show OSMChildren where
+instance Show Children where
   show =
     showPickled []
 
 -- | A @user@ element.
 osmUser ::
   User
-  -> OSMChildren
+  -> Children
 osmUser =
   User
 
 -- | A @gpx_file@ element.
 osmGpxFile ::
   GpxFile
-  -> OSMChildren
+  -> Children
 osmGpxFile =
   GpxFile
 
 -- | A @api@ element.
 osmApi ::
   Api
-  -> OSMChildren
+  -> Children
 osmApi =
   Api
 
 -- | A @changeset@ element.
 osmChangeset ::
   Changeset
-  -> OSMChildren
+  -> Children
 osmChangeset =
   Changeset
 
 -- | A list of @node@, @way@ or @relation@ elements.
 osmNodeWayRelation ::
   [NodeWayRelation]
-  -> OSMChildren
+  -> Children
 osmNodeWayRelation =
   NWR
 
 -- | Folds OSM child elements (catamorphism).
-foldOSMChildren ::
+foldChildren ::
   (User -> a) -- ^ If a @user@ element.
   -> (Preferences -> a) -- ^ If a @preferences@ element.
   -> (GpxFile -> a) -- ^ If a @gpx_file@ element.
   -> (Api -> a) -- ^ If a @api@ element.
   -> (Changeset -> a) -- ^ If a @changeset@ element.
   -> ([NodeWayRelation] -> a) -- ^ If a list of @node@, @way@ or @relation@ elements.
-  -> OSMChildren -- ^ The disjunctive type of child elements.
+  -> Children -- ^ The disjunctive type of child elements.
   -> a
-foldOSMChildren z _ _ _ _ _ (User u) =
+foldChildren z _ _ _ _ _ (User u) =
   z u
-foldOSMChildren _ z _ _ _ _ (Preferences p) =
+foldChildren _ z _ _ _ _ (Preferences p) =
   z p
-foldOSMChildren _ _ z _ _ _ (GpxFile f) =
+foldChildren _ _ z _ _ _ (GpxFile f) =
   z f
-foldOSMChildren _ _ _ z _ _ (Api a) =
+foldChildren _ _ _ z _ _ (Api a) =
   z a
-foldOSMChildren _ _ _ _ z _ (Changeset c) =
+foldChildren _ _ _ _ z _ (Changeset c) =
   z c
-foldOSMChildren _ _ _ _ _ z (NWR k) =
+foldChildren _ _ _ _ _ z (NWR k) =
   z k

@@ -10,7 +10,7 @@ module Data.Geo.OSM.Lens(
 , module Data.Geo.OSM.Lens.UidL
 , module Data.Geo.OSM.Lens.MinlonL
 , module Data.Geo.OSM.Lens.VL
-, module Data.Geo.OSM.Lens.NodeWayRelationsL
+, module Data.Geo.OSM.Lens.ChildrenL
 , module Data.Geo.OSM.Lens.IdL
 , module Data.Geo.OSM.Lens.MaxlatL
 , module Data.Geo.OSM.Lens.MinlatL
@@ -51,7 +51,7 @@ import Data.Geo.OSM.Lens.TracepointsL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.MinlonL
 import Data.Geo.OSM.Lens.VL
-import Data.Geo.OSM.Lens.NodeWayRelationsL
+import Data.Geo.OSM.Lens.ChildrenL
 import Data.Geo.OSM.Lens.IdL
 import Data.Geo.OSM.Lens.MaxlatL
 import Data.Geo.OSM.Lens.MinlatL

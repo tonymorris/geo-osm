@@ -14,7 +14,7 @@ module Data.Geo.OSM
 , module Data.Geo.OSM.Node
 , module Data.Geo.OSM.NodeWayRelation
 , module Data.Geo.OSM.OSM
-, module Data.Geo.OSM.OSMChildren
+, module Data.Geo.OSM.Children
 , module Data.Geo.OSM.Preferences
 , module Data.Geo.OSM.Relation
 , module Data.Geo.OSM.Tag
@@ -39,7 +39,7 @@ import Data.Geo.OSM.Nd
 import Data.Geo.OSM.Node
 import Data.Geo.OSM.NodeWayRelation
 import Data.Geo.OSM.OSM
-import Data.Geo.OSM.OSMChildren
+import Data.Geo.OSM.Children
 import Data.Geo.OSM.Preferences
 import Data.Geo.OSM.Relation
 import Data.Geo.OSM.Tag

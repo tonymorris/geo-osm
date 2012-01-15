@@ -23,18 +23,21 @@ import Text.XML.HXT.Core
 import Control.Monad hiding (mapM)
 import Data.Foldable
 import Data.Traversable
-import Data.Geo.OSM.OSMChildren
+import Data.Geo.OSM.Children
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
-import Data.Geo.OSM.Accessor.Version
-import Data.Geo.OSM.Accessor.Generator
-import Data.Geo.OSM.Accessor.BoundOrs
-import Data.Geo.OSM.Accessor.NodeWayRelations
+import Data.Geo.OSM.BoundOption
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
+import Data.Geo.OSM.Lens.VersionL
+import Data.Geo.OSM.Lens.GeneratorL
+import Data.Geo.OSM.Lens.BoundsL
+import Data.Geo.OSM.Lens.ChildrenL
 import Data.Monoid
 
 -- | The @osm@ element of a OSM file, which is the root element.
 data OSM =
-  OSM String (Maybe String) (Maybe (Either Bound Bounds)) OSMChildren
+  OSM String (Maybe String) (Maybe (Either Bound Bounds)) Children
   deriving Eq
 
 instance XmlPickler OSM where
@@ -49,40 +52,32 @@ instance Show OSM where
   show =
     showPickled []
 
-instance Version OSM String where
-  version (OSM x _ _ _) =
-    x
-  setVersion a (OSM _ b c d) =
-    osm a b c d
+instance VersionL OSM String where
+  versionL =
+    Lens $ \(OSM version generator bounds children) -> store (\version -> OSM version generator bounds children) version
 
-instance Generator OSM where
-  generator (OSM _ x _ _) =
-    x
-  setGenerator b (OSM a _  c d) =
-    osm a b c d
+instance BoundsL OSM where
+  boundsL =
+    Lens $ \(OSM version generator bounds children) -> store (\bounds -> OSM version generator (foldBoundOption (Just . Left) (Just . Right) Nothing bounds) children) $
+      case bounds of
+        Nothing        -> optionEmptyBound
+        Just (Left b)  -> optionBound b
+        Just (Right b) -> optionBounds b
 
-instance BoundOrs OSM where
-  boundOrs (OSM _ _ x _) n b bs =
-    case x
-    of Nothing -> n
-       Just (Left b') -> b b'
-       Just (Right b') -> bs b'
-  setBoundOrs c (OSM a b _ d) =
-    osm a b c d
+instance GeneratorL OSM where
+  generatorL =
+    Lens $ \(OSM version generator bounds children) -> store (\generator -> OSM version generator bounds children) generator
 
-instance NodeWayRelations OSM where
-  nwrs (OSM _ _ _ x) =
-    let t = const []
-    in foldOSMChildren t t t t t id x
-  setNwrs d (OSM a b c _) =
-    osm a b c (osmNodeWayRelation d)
+instance ChildrenL OSM where
+  childrenL =
+    Lens $ \(OSM version generator bounds children) -> store (\children -> OSM version generator bounds children) children
 
 -- | Constructs a osm with a version, bound or bounds, and node attributes and way or relation elements.
 osm ::
   String -- ^ The @version@ attribute.
   -> Maybe String -- ^ The @generator@ attribute.
   -> Maybe (Either Bound Bounds) -- ^ The @bound@ or @bounds@ elements.
-  -> OSMChildren -- ^ The child elements.
+  -> Children -- ^ The child elements.
   -> OSM
 osm =
   OSM
