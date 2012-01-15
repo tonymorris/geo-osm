@@ -1,68 +1,30 @@
 -- | OpenStreetMap API v0.6 DTD <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
-module Data.Geo.OSM(
-                module Data.Geo.OSM.Api,
-                module Data.Geo.OSM.Area,
-                module Data.Geo.OSM.Bound,
-                module Data.Geo.OSM.Bounds,
-                module Data.Geo.OSM.ChangesetE,
-                module Data.Geo.OSM.GpxFile,
-                module Data.Geo.OSM.Home,
-                module Data.Geo.OSM.Member,
-                module Data.Geo.OSM.MemberType,
-                module Data.Geo.OSM.Nd,
-                module Data.Geo.OSM.Node,
-                module Data.Geo.OSM.NodeWayRelation,
-                module Data.Geo.OSM.OSM,
-                module Data.Geo.OSM.OSMChildren,
-                module Data.Geo.OSM.Preferences,
-                module Data.Geo.OSM.Relation,
-                module Data.Geo.OSM.Tag,
-                module Data.Geo.OSM.Tracepoints,
-                module Data.Geo.OSM.UserE,
-                module Data.Geo.OSM.VersionE,
-                module Data.Geo.OSM.Way,
-                module Data.Geo.OSM.Waynodes,
-                module Data.Geo.OSM.Accessor.AccountCreated,
-                module Data.Geo.OSM.Accessor.Ar,
-                module Data.Geo.OSM.Accessor.BoundOrs,
-                module Data.Geo.OSM.Accessor.Box,
-                module Data.Geo.OSM.Accessor.Changeset,
-                module Data.Geo.OSM.Accessor.DisplayName,
-                module Data.Geo.OSM.Accessor.Generator,
-                module Data.Geo.OSM.Accessor.Hm,
-                module Data.Geo.OSM.Accessor.Id,
-                module Data.Geo.OSM.Accessor.K,
-                module Data.Geo.OSM.Accessor.Lat,
-                module Data.Geo.OSM.Accessor.Lon,
-                module Data.Geo.OSM.Accessor.Maximum,
-                module Data.Geo.OSM.Accessor.Maxlat,
-                module Data.Geo.OSM.Accessor.Maxlon,
-                module Data.Geo.OSM.Accessor.Members,
-                module Data.Geo.OSM.Accessor.Minimum,
-                module Data.Geo.OSM.Accessor.Minlat,
-                module Data.Geo.OSM.Accessor.Minlon,
-                module Data.Geo.OSM.Accessor.Mtype,
-                module Data.Geo.OSM.Accessor.Name,
-                module Data.Geo.OSM.Accessor.Nds,
-                module Data.Geo.OSM.Accessor.NodeWayRelations,
-                module Data.Geo.OSM.Accessor.Origin,
-                module Data.Geo.OSM.Accessor.Pending,
-                module Data.Geo.OSM.Accessor.PerPage,
-                module Data.Geo.OSM.Accessor.Ref,
-                module Data.Geo.OSM.Accessor.Role,
-                module Data.Geo.OSM.Accessor.Tags,
-                module Data.Geo.OSM.Accessor.Timestamp,
-                module Data.Geo.OSM.Accessor.Tpoints,
-                module Data.Geo.OSM.Accessor.Uid,
-                module Data.Geo.OSM.Accessor.User,
-                module Data.Geo.OSM.Accessor.Version,
-                module Data.Geo.OSM.Accessor.V,
-                module Data.Geo.OSM.Accessor.Visible,
-                module Data.Geo.OSM.Accessor.Wnodes,
-                module Data.Geo.OSM.Accessor.Zoom
-              ) where
-
-
+module Data.Geo.OSM
+(
+  module Data.Geo.OSM.Api
+, module Data.Geo.OSM.Area
+, module Data.Geo.OSM.Bound
+, module Data.Geo.OSM.Bounds
+, module Data.Geo.OSM.ChangesetE
+, module Data.Geo.OSM.GpxFile
+, module Data.Geo.OSM.Home
+, module Data.Geo.OSM.Member
+, module Data.Geo.OSM.MemberType
+, module Data.Geo.OSM.Nd
+, module Data.Geo.OSM.Node
+, module Data.Geo.OSM.NodeWayRelation
+, module Data.Geo.OSM.OSM
+, module Data.Geo.OSM.OSMChildren
+, module Data.Geo.OSM.Preferences
+, module Data.Geo.OSM.Relation
+, module Data.Geo.OSM.Tag
+, module Data.Geo.OSM.Tracepoints
+, module Data.Geo.OSM.UserE
+, module Data.Geo.OSM.VersionE
+, module Data.Geo.OSM.Way
+, module Data.Geo.OSM.Waynodes
+, module Data.Geo.OSM.Lens
+) where
 
 import Data.Geo.OSM.Api
 import Data.Geo.OSM.Area
@@ -86,41 +48,4 @@ import Data.Geo.OSM.UserE
 import Data.Geo.OSM.VersionE
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Waynodes
-import Data.Geo.OSM.Accessor.AccountCreated
-import Data.Geo.OSM.Accessor.Ar
-import Data.Geo.OSM.Accessor.BoundOrs
-import Data.Geo.OSM.Accessor.Box
-import Data.Geo.OSM.Accessor.Changeset
-import Data.Geo.OSM.Accessor.DisplayName
-import Data.Geo.OSM.Accessor.Generator
-import Data.Geo.OSM.Accessor.Hm
-import Data.Geo.OSM.Accessor.Id
-import Data.Geo.OSM.Accessor.K
-import Data.Geo.OSM.Accessor.Lat
-import Data.Geo.OSM.Accessor.Lon
-import Data.Geo.OSM.Accessor.Maximum
-import Data.Geo.OSM.Accessor.Maxlat
-import Data.Geo.OSM.Accessor.Maxlon
-import Data.Geo.OSM.Accessor.Members
-import Data.Geo.OSM.Accessor.Minimum
-import Data.Geo.OSM.Accessor.Minlat
-import Data.Geo.OSM.Accessor.Minlon
-import Data.Geo.OSM.Accessor.Mtype
-import Data.Geo.OSM.Accessor.Name
-import Data.Geo.OSM.Accessor.Nds
-import Data.Geo.OSM.Accessor.NodeWayRelations
-import Data.Geo.OSM.Accessor.Origin
-import Data.Geo.OSM.Accessor.Pending
-import Data.Geo.OSM.Accessor.PerPage
-import Data.Geo.OSM.Accessor.Ref
-import Data.Geo.OSM.Accessor.Role
-import Data.Geo.OSM.Accessor.Tags
-import Data.Geo.OSM.Accessor.Timestamp
-import Data.Geo.OSM.Accessor.Tpoints
-import Data.Geo.OSM.Accessor.Uid
-import Data.Geo.OSM.Accessor.User
-import Data.Geo.OSM.Accessor.Version
-import Data.Geo.OSM.Accessor.V
-import Data.Geo.OSM.Accessor.Visible
-import Data.Geo.OSM.Accessor.Wnodes
-import Data.Geo.OSM.Accessor.Zoom
+import Data.Geo.OSM.Lens

@@ -23,6 +23,7 @@ Library
   Build-Depends:      base < 5 && >= 3
                       , hxt >= 9
                       , containers
+                      , data-lens
 
   GHC-Options:        -Wall
                       -fno-warn-name-shadowing
