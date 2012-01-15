@@ -7,8 +7,10 @@ module Data.Geo.OSM.Version
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Minimum
-import Data.Geo.OSM.Accessor.Maximum
+import Data.Geo.OSM.Lens.MinimumL
+import Data.Geo.OSM.Lens.MaximumL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @version@ element of a OSM file.
 data Version =
@@ -31,14 +33,11 @@ instance Show Version where
   show =
     showPickled []
 
-instance Minimum Version where
-  minimum (Version x _) =
-    x
-  setMinimum a (Version _ b) =
-    version a b
+instance MinimumL Version where
+  minimumL =
+    Lens $ \(Version minimum maximum) -> store (\minimum -> Version minimum maximum) minimum
 
-instance Maximum Version where
-  maximum (Version _ x) =
-    x
-  setMaximum b (Version a _) =
-    version a b
+instance MaximumL Version where
+  maximumL =
+    Lens $ \(Version minimum maximum) -> store (\maximum -> Version minimum maximum) maximum
+
