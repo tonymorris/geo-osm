@@ -7,9 +7,11 @@ module Data.Geo.OSM.Member
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.MemberType
-import Data.Geo.OSM.Accessor.Mtype
-import Data.Geo.OSM.Accessor.Ref
-import Data.Geo.OSM.Accessor.Role
+import Data.Geo.OSM.Lens.TypeL
+import Data.Geo.OSM.Lens.RefL
+import Data.Geo.OSM.Lens.RoleL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @member@ element of a OSM file.
 data Member = 
@@ -25,23 +27,17 @@ instance Show Member where
   show =
     showPickled []
 
-instance Mtype Member where
-  mtype (Member x _ _) =
-    x
-  setMtype a (Member _ b c) =
-    member a b c
+instance TypeL Member where
+  typeL =
+    Lens $ \(Member typ ref role) -> store (\typ -> Member typ ref role) typ
 
-instance Ref Member where
-  ref (Member _ x _) =
-    x
-  setRef b (Member a _ c) =
-    member a b c
+instance RefL Member where
+  refL =
+    Lens $ \(Member typ ref role) -> store (\ref -> Member typ ref role) ref
 
-instance Role Member where
-  role (Member _ _ x) =
-    x
-  setRole c (Member a b _) =
-    member a b c
+instance RoleL Member where
+  roleL =
+    Lens $ \(Member typ ref role) -> store (\role -> Member typ ref role) role
 
 -- | Constructs a member with a type, ref and role.
 member ::
