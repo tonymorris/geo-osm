@@ -10,16 +10,19 @@ module Data.Geo.OSM.Node
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.NWRCommon
 import Data.Geo.OSM.Tag
-import Data.Geo.OSM.Accessor.Id
-import Data.Geo.OSM.Accessor.Tags
-import Data.Geo.OSM.Accessor.Changeset
-import Data.Geo.OSM.Accessor.Visible
-import Data.Geo.OSM.Accessor.User
-import Data.Geo.OSM.Accessor.Uid
-import Data.Geo.OSM.Accessor.Timestamp
-import Data.Geo.OSM.Accessor.Lat
-import Data.Geo.OSM.Accessor.Lon
-import Prelude hiding (id)
+import Data.Geo.OSM.Lens.LatL
+import Data.Geo.OSM.Lens.LonL
+import Data.Geo.OSM.Lens.IdL
+import Data.Geo.OSM.Lens.TagsL
+import Data.Geo.OSM.Lens.ChangesetL
+import Data.Geo.OSM.Lens.VisibleL
+import Data.Geo.OSM.Lens.UserL
+import Data.Geo.OSM.Lens.UidL
+import Data.Geo.OSM.Lens.TimestampL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
+import Control.Category
+import Prelude hiding ((.))
 
 -- | The @node@ element of a OSM file.
 data Node =
@@ -35,59 +38,47 @@ instance Show Node where
   show =
     showPickled []
 
-instance Lat Node where
-  lat (Node x _ _) =
-    x
-  setLat a (Node _ b c) =
-    Node a b c
+instance LatL Node where
+  latL =
+    Lens $ \(Node lat lon common) -> store (\lat -> Node lat lon common) lat
 
-instance Lon Node where
-  lon (Node _ x _) =
-    x
-  setLon b (Node a _ c) =
-    Node a b c
+instance LonL Node where
+  lonL =
+    Lens $ \(Node lat lon common) -> store (\lon -> Node lat lon common) lon
 
-instance Id Node where
-  id' (Node _ _ x) =
-    id' x
-  setId c (Node a b cc) =
-    Node a b (nwrCommon c (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+-- not exported
+commonL ::
+  Lens Node NWRCommon
+commonL =
+  Lens (\(Node lat lon common) -> store (\common -> Node lat lon common) common)
 
-instance Tags Node where
-  tags (Node _ _ x) =
-    tags x
-  setTags c (Node a b cc) =
-    Node a b (nwrCommon (id' cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+instance IdL Node where
+  idL =
+    idL . commonL
 
-instance Changeset Node where
-  changeset (Node _ _ x) =
-    changeset x
-  setChangeset c (Node a b cc) =
-    Node a b (nwrCommon (id' cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
+instance TagsL Node where
+  tagsL =
+    tagsL . commonL
 
-instance Visible Node where
-  visible (Node _ _ x) =
-    visible x
-  setVisible c (Node a b cc) =
-    Node a b (nwrCommon (id' cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
+instance ChangesetL Node where
+  changesetL =
+    changesetL . commonL
 
-instance User Node (Maybe String) where
-  user (Node _ _ x) =
-    user x
-  setUser c (Node a b cc) =
-    Node a b (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
+instance VisibleL Node where
+  visibleL = 
+    visibleL . commonL
 
-instance Uid Node where
-  uid (Node _ _ x) =
-    uid x
-  setUid c (Node a b cc) =
-    Node a b (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
+instance UserL Node (Maybe String) where
+  userL =
+    userL . commonL
 
-instance Timestamp Node (Maybe String) where
-  timestamp (Node _ _ x) =
-    timestamp x
-  setTimestamp c (Node a b cc) =
-    Node a b (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
+instance UidL Node where
+  uidL =
+    uidL . commonL
+
+instance TimestampL Node (Maybe String) where
+  timestampL =
+    timestampL . commonL
 
 -- | Constructs a node with a lat, lon, id, list of tags, changeset, visible, user&uid and timestamp.
 node ::

@@ -12,10 +12,12 @@ import Data.Geo.OSM.Version
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.Waynodes
--- import Data.Geo.OSM.Accessor.Version
-import Data.Geo.OSM.Accessor.Ar
-import Data.Geo.OSM.Accessor.Tpoints
-import Data.Geo.OSM.Accessor.Wnodes
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
+import Data.Geo.OSM.Lens.VersionL
+import Data.Geo.OSM.Lens.AreaL
+import Data.Geo.OSM.Lens.TracepointsL
+import Data.Geo.OSM.Lens.WaynodesL
 
 -- | The @api@ element of a OSM file.
 data Api =
@@ -39,27 +41,20 @@ instance XmlPickler Api where
 instance Show Api where
   show =
     showPickled []
-{-
-instance Version Api Version where
-  version (Api x _ _ _) =
-    x
-  setVersion a (Api _ b c d) =
-    api a b c d
--}
-instance Ar Api where
-  ar (Api _ x _ _) =
-    x
-  setAr b (Api a _ c d) =
-    api a b c d
 
-instance Tpoints Api where
-  tpoints (Api _ _ x _) =
-    x
-  setTpoints c (Api a b _ d) =
-    api a b c d
+instance VersionL Api Version where
+  versionL =
+    Lens $ \(Api version area tracepoints waynodes) -> store (\version -> Api version area tracepoints waynodes) version
 
-instance Wnodes Api where
-  wnodes (Api _ _ _ x) =
-    x
-  setWnodes d (Api a b c _) =
-    api a b c d
+instance AreaL Api where
+  areaL =
+    Lens $ \(Api version area tracepoints waynodes) -> store (\area -> Api version area tracepoints waynodes) area
+
+instance TracepointsL Api where
+  tracepointsL =
+    Lens $ \(Api version area tracepoints waynodes) -> store (\tracepoints -> Api version area tracepoints waynodes) tracepoints
+
+instance WaynodesL Api where
+  waynodesL =
+    Lens $ \(Api version area tracepoints waynodes) -> store (\waynodes -> Api version area tracepoints waynodes) waynodes
+

@@ -11,15 +11,18 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Member
 import Data.Geo.OSM.NWRCommon
 import Data.Geo.OSM.Tag
-import Data.Geo.OSM.Accessor.Id
-import Data.Geo.OSM.Accessor.Tags
-import Data.Geo.OSM.Accessor.Changeset
-import Data.Geo.OSM.Accessor.Visible
-import Data.Geo.OSM.Accessor.User
-import Data.Geo.OSM.Accessor.Uid
-import Data.Geo.OSM.Accessor.Timestamp
-import Data.Geo.OSM.Accessor.Members
-import Prelude hiding (id)
+import Data.Geo.OSM.Lens.IdL
+import Data.Geo.OSM.Lens.TagsL
+import Data.Geo.OSM.Lens.ChangesetL
+import Data.Geo.OSM.Lens.VisibleL
+import Data.Geo.OSM.Lens.UserL
+import Data.Geo.OSM.Lens.UidL
+import Data.Geo.OSM.Lens.TimestampL
+import Data.Geo.OSM.Lens.MemberL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
+import Control.Category
+import Prelude hiding ((.))
 
 -- | The @relation@ element of a OSM file.
 data Relation =
@@ -35,53 +38,43 @@ instance Show Relation where
   show =
     showPickled []
 
-instance Members Relation where
-  members (Relation x _) =
-    x
-  setMembers a (Relation _ c) =
-    Relation a c
+instance MemberL Relation where
+  memberL =
+    Lens $ \(Relation members common) -> store (\members -> Relation members common) members
 
-instance Id Relation where
-  id' (Relation _ x) =
-    id' x
-  setId c (Relation a cc) =
-    Relation a (nwrCommon c (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+-- not exported
+commonL ::
+  Lens Relation NWRCommon
+commonL =
+  Lens (\(Relation members common) -> store (\common -> Relation members common) common)
 
-instance Tags Relation where
-  tags (Relation _ x) =
-    tags x
-  setTags c (Relation a cc) =
-    Relation a (nwrCommon (id' cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+instance IdL Relation where
+  idL =
+    idL . commonL
 
-instance Changeset Relation where
-  changeset (Relation _ x) =
-    changeset x
-  setChangeset c (Relation a cc) =
-    Relation a (nwrCommon (id' cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
+instance TagsL Relation where
+  tagsL =
+    tagsL . commonL
 
-instance Visible Relation where
-  visible (Relation _ x) =
-    visible x
-  setVisible c (Relation a cc) =
-    Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
+instance ChangesetL Relation where
+  changesetL =
+    changesetL . commonL
 
-instance User Relation (Maybe String) where
-  user (Relation _ x) =
-    user x
-  setUser c (Relation a cc) =
-    Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
+instance VisibleL Relation where
+  visibleL = 
+    visibleL . commonL
 
-instance Uid Relation where
-  uid (Relation _ x) =
-    uid x
-  setUid c (Relation a cc) =
-    Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
+instance UserL Relation (Maybe String) where
+  userL =
+    userL . commonL
 
-instance Timestamp Relation (Maybe String) where
-  timestamp (Relation _ x) =
-    timestamp x
-  setTimestamp c (Relation a cc) =
-    Relation a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
+instance UidL Relation where
+  uidL =
+    uidL . commonL
+
+instance TimestampL Relation (Maybe String) where
+  timestampL =
+    timestampL . commonL
 
 -- | Constructs a relation with a list of members, id, list of tags, changeset, visible, user&uid and timestamp.
 relation ::

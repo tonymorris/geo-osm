@@ -11,15 +11,18 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Nd
 import Data.Geo.OSM.NWRCommon
 import Data.Geo.OSM.Tag
-import Data.Geo.OSM.Accessor.Id
-import Data.Geo.OSM.Accessor.Tags
-import Data.Geo.OSM.Accessor.Changeset
-import Data.Geo.OSM.Accessor.Visible
-import Data.Geo.OSM.Accessor.User
-import Data.Geo.OSM.Accessor.Uid
-import Data.Geo.OSM.Accessor.Timestamp
-import Data.Geo.OSM.Accessor.Nds
-import Prelude hiding (id)
+import Data.Geo.OSM.Lens.NdL
+import Data.Geo.OSM.Lens.IdL
+import Data.Geo.OSM.Lens.TagsL
+import Data.Geo.OSM.Lens.ChangesetL
+import Data.Geo.OSM.Lens.VisibleL
+import Data.Geo.OSM.Lens.UserL
+import Data.Geo.OSM.Lens.UidL
+import Data.Geo.OSM.Lens.TimestampL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
+import Control.Category
+import Prelude hiding ((.))
 
 -- | The @way@ element of a OSM file.
 data Way =
@@ -35,53 +38,43 @@ instance Show Way where
   show =
     showPickled []
 
-instance Nds Way where
-  nds (Way x _) =
-    x
-  setNds a (Way _ c) =
-    Way a c
+instance NdL Way where
+  ndL =
+    Lens $ \(Way nds common) -> store (\nds -> Way nds common) nds
 
-instance Id Way where
-  id' (Way _ x) =
-    id' x
-  setId c (Way a cc) =
-    Way a (nwrCommon c (tags cc) (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+-- not exported
+commonL ::
+  Lens Way NWRCommon
+commonL =
+  Lens (\(Way nds common) -> store (\common -> Way nds common) common)
 
-instance Tags Way where
-  tags (Way _ x) =
-    tags x
-  setTags c (Way a cc) =
-    Way a (nwrCommon (id' cc) c (changeset cc) (visible cc) (user cc, uid cc) (timestamp cc))
+instance IdL Way where
+  idL =
+    idL . commonL
 
-instance Changeset Way where
-  changeset (Way _ x) =
-    changeset x
-  setChangeset c (Way a cc) =
-    Way a (nwrCommon (id' cc) (tags cc) c (visible cc) (user cc, uid cc) (timestamp cc))
+instance TagsL Way where
+  tagsL =
+    tagsL . commonL
 
-instance Visible Way where
-  visible (Way _ x) =
-    visible x
-  setVisible c (Way a cc) =
-    Way a (nwrCommon (id' cc) (tags cc) (changeset cc) c (user cc, uid cc) (timestamp cc))
+instance ChangesetL Way where
+  changesetL =
+    changesetL . commonL
 
-instance User Way (Maybe String) where
-  user (Way _ x) =
-    user x
-  setUser c (Way a cc) =
-    Way a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (c, uid cc) (timestamp cc))
+instance VisibleL Way where
+  visibleL = 
+    visibleL . commonL
 
-instance Uid Way where
-  uid (Way _ x) =
-    uid x
-  setUid c (Way a cc) =
-    Way a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, c) (timestamp cc))
+instance UserL Way (Maybe String) where
+  userL =
+    userL . commonL
 
-instance Timestamp Way (Maybe String) where
-  timestamp (Way _ x) =
-    timestamp x
-  setTimestamp c (Way a cc) =
-    Way a (nwrCommon (id' cc) (tags cc) (changeset cc) (visible cc) (user cc, uid cc) c)
+instance UidL Way where
+  uidL =
+    uidL . commonL
+
+instance TimestampL Way (Maybe String) where
+  timestampL =
+    timestampL . commonL
 
 -- | Constructs a way with a list of nds, id, list of tags, changeset, visible, user&uid and timestamp.
 way ::
