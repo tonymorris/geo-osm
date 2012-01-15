@@ -7,9 +7,11 @@ module Data.Geo.OSM.User
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Home
-import Data.Geo.OSM.Accessor.Hm
-import Data.Geo.OSM.Accessor.DisplayName
-import Data.Geo.OSM.Accessor.AccountCreated
+import Data.Geo.OSM.Lens.HomeL
+import Data.Geo.OSM.Lens.DisplayNameL
+import Data.Geo.OSM.Lens.AccountCreatedL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @user@ element of a OSM file.
 data User =
@@ -33,20 +35,15 @@ instance Show User where
   show =
     showPickled []
 
-instance Hm User where
-  hm (User x _ _) =
-    x
-  setHm a (User _ b c) =
-    user a b c
+instance HomeL User where
+  homeL =
+    Lens $ \(User home displayName accountCreated) -> store (\home -> User home displayName accountCreated) home
 
-instance DisplayName User where
-  displayName (User _ x _) =
-    x
-  setDisplayName b (User a _ c) =
-    user a b c
+instance DisplayNameL User where
+  displayNameL =
+    Lens $ \(User home displayName accountCreated) -> store (\displayName -> User home displayName accountCreated) displayName
 
-instance AccountCreated User where
-  accountCreated (User _ _ x) =
-    x
-  setAccountCreated c (User a b _) =
-    user a b c
+instance AccountCreatedL User where
+  accountCreatedL =
+    Lens $ \(User home displayName accountCreated) -> store (\accountCreated -> User home displayName accountCreated) accountCreated
+
