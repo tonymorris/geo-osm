@@ -20,7 +20,7 @@ module Data.Geo.OSM
 , module Data.Geo.OSM.Tag
 , module Data.Geo.OSM.Tracepoints
 , module Data.Geo.OSM.User
-, module Data.Geo.OSM.VersionE
+, module Data.Geo.OSM.Version
 , module Data.Geo.OSM.Way
 , module Data.Geo.OSM.Waynodes
 , module Data.Geo.OSM.Lens
@@ -45,7 +45,7 @@ import Data.Geo.OSM.Relation
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.User
-import Data.Geo.OSM.VersionE
+import Data.Geo.OSM.Version
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Waynodes
 import Data.Geo.OSM.Lens

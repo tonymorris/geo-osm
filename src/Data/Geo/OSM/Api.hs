@@ -8,23 +8,23 @@ module Data.Geo.OSM.Api
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.VersionE
+import Data.Geo.OSM.Version
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.Waynodes
-import Data.Geo.OSM.Accessor.Version
+-- import Data.Geo.OSM.Accessor.Version
 import Data.Geo.OSM.Accessor.Ar
 import Data.Geo.OSM.Accessor.Tpoints
 import Data.Geo.OSM.Accessor.Wnodes
 
 -- | The @api@ element of a OSM file.
 data Api =
-  Api VersionE Area Tracepoints Waynodes
+  Api Version Area Tracepoints Waynodes
   deriving Eq
 
 -- | Constructs a @api@ with version, area, tracepoints and waynodes.
 api ::
-  VersionE -- ^ The @version@ element.
+  Version -- ^ The @version@ element.
   -> Area -- ^ The @area@ element.
   -> Tracepoints -- ^ The @tracepoints@ element.
   -> Waynodes -- ^ The @waynodes@ element.
@@ -39,13 +39,13 @@ instance XmlPickler Api where
 instance Show Api where
   show =
     showPickled []
-
-instance Version Api VersionE where
+{-
+instance Version Api Version where
   version (Api x _ _ _) =
     x
   setVersion a (Api _ b c d) =
     api a b c d
-
+-}
 instance Ar Api where
   ar (Api _ x _ _) =
     x
