@@ -1,20 +1,21 @@
 {-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
 
 -- | The @osm@ element of a OSM file, which is the root element. <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
-module Data.Geo.OSM.OSM(
-                    OSM,
-                    osm,
-                    readOsmFile,
-                    readOsmFiles,
-                    interactOSMIO,
-                    interactsOSMIO,
-                    interactOSMIO',
-                    interactsOSMIO',
-                    interactOSM,
-                    interactsOSM,
-                    interactOSM',
-                    interactsOSM'
-                  ) where
+module Data.Geo.OSM.OSM
+(
+  OSM
+, osm
+, readOsmFile
+, readOsmFiles
+, interactOSMIO
+, interactsOSMIO
+, interactOSMIO'
+, interactsOSMIO'
+, interactOSM
+, interactsOSM
+, interactOSM'
+, interactsOSM'
+) where
 
 import Prelude hiding (mapM, foldr)
 
@@ -32,7 +33,8 @@ import Data.Geo.OSM.Accessor.NodeWayRelations
 import Data.Monoid
 
 -- | The @osm@ element of a OSM file, which is the root element.
-data OSM = OSM String (Maybe String) (Maybe (Either Bound Bounds)) OSMChildren
+data OSM =
+  OSM String (Maybe String) (Maybe (Either Bound Bounds)) OSMChildren
   deriving Eq
 
 instance XmlPickler OSM where
@@ -76,11 +78,12 @@ instance NodeWayRelations OSM where
     osm a b c (osmNodeWayRelation d)
 
 -- | Constructs a osm with a version, bound or bounds, and node attributes and way or relation elements.
-osm :: String -- ^ The @version@ attribute.
-       -> Maybe String -- ^ The @generator@ attribute.
-       -> Maybe (Either Bound Bounds) -- ^ The @bound@ or @bounds@ elements.
-       -> OSMChildren -- ^ The child elements.
-       -> OSM
+osm ::
+  String -- ^ The @version@ attribute.
+  -> Maybe String -- ^ The @generator@ attribute.
+  -> Maybe (Either Bound Bounds) -- ^ The @bound@ or @bounds@ elements.
+  -> OSMChildren -- ^ The child elements.
+  -> OSM
 osm =
   OSM
 
