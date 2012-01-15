@@ -7,7 +7,9 @@ module Data.Geo.OSM.Waynodes
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Maximum
+import Data.Geo.OSM.Lens.MaximumL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @waynodes@ element of a OSM file.
 newtype Waynodes =
@@ -29,8 +31,6 @@ instance Show Waynodes where
   show =
     showPickled []
 
-instance Maximum Waynodes where
-  maximum (Waynodes x) =
-    x
-  setMaximum a (Waynodes _) =
-    waynodes a
+instance MaximumL Waynodes where
+  maximumL =
+    Lens $ \(Waynodes maximum) -> store (\maximum -> Waynodes maximum) maximum
