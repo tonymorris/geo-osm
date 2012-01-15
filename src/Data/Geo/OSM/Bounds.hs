@@ -6,11 +6,13 @@ module Data.Geo.OSM.Bounds
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.Minlat
-import Data.Geo.OSM.Accessor.Maxlat
-import Data.Geo.OSM.Accessor.Minlon
-import Data.Geo.OSM.Accessor.Maxlon
-import Data.Geo.OSM.Accessor.Origin
+import Data.Geo.OSM.Lens.MinlatL
+import Data.Geo.OSM.Lens.MaxlatL
+import Data.Geo.OSM.Lens.MinlonL
+import Data.Geo.OSM.Lens.MaxlonL
+import Data.Geo.OSM.Lens.OriginL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @bounds@ element of a OSM file.
 data Bounds =
@@ -26,35 +28,25 @@ instance Show Bounds where
   show =
     showPickled []
 
-instance Minlat Bounds where
-  minlat (Bounds x _ _ _ _) =
-    x
-  setMinlat a (Bounds _ b c d e) =
-    bounds a b c d e
+instance MinlatL Bounds where
+  minlatL =
+    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\minlat -> Bounds minlat minlon maxlat maxlon origin) minlat
 
-instance Minlon Bounds where
-  minlon (Bounds _ x _ _ _) =
-    x
-  setMinlon b (Bounds a _ c d e) =
-    bounds a b c d e
+instance MinlonL Bounds where
+  minlonL =
+    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\minlon -> Bounds minlat minlon maxlat maxlon origin) minlon
 
-instance Maxlat Bounds where
-  maxlat (Bounds _ _ x _ _) =
-    x
-  setMaxlat c (Bounds a b _ d e) =
-    bounds a b c d e
+instance MaxlatL Bounds where
+  maxlatL =
+    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\maxlat -> Bounds minlat minlon maxlat maxlon origin) maxlat
 
-instance Maxlon Bounds where
-  maxlon (Bounds _ _ _ x _) =
-    x
-  setMaxlon d (Bounds a b c _ e) =
-    bounds a b c d e
+instance MaxlonL Bounds where
+  maxlonL =
+    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\maxlon -> Bounds minlat minlon maxlat maxlon origin) maxlon
 
-instance Origin Bounds where
-  origin (Bounds _ _ _ _ x) =
-    x
-  setOrigin e (Bounds a b c d _) =
-    bounds a b c d e
+instance OriginL Bounds where
+  originL =
+    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\origin -> Bounds minlat minlon maxlat maxlon origin) origin
 
 -- | Constructs a bounds with a minlat, minlon, maxlat, maxlon and origin attributes.
 bounds ::
