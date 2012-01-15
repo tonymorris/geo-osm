@@ -11,7 +11,7 @@ module Data.Geo.OSM.OSMChildren
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.UserE
+import Data.Geo.OSM.User
 import Data.Geo.OSM.Preferences
 import Data.Geo.OSM.GpxFile
 import Data.Geo.OSM.Api
@@ -20,7 +20,7 @@ import Data.Geo.OSM.NodeWayRelation
 
 -- | The children elements of the @osm@ element of a OSM file.
 data OSMChildren =
-  UserE UserE
+  User User
   | Preferences Preferences
   | GpxFile GpxFile
   | Api Api
@@ -31,12 +31,12 @@ data OSMChildren =
 instance XmlPickler OSMChildren where
   xpickle =
     xpAlt (\r -> case r of
-                   UserE _       -> 0
+                   User _        -> 0
                    Preferences _ -> 1
                    GpxFile _     -> 2
                    Api _         -> 3
                    Changeset _   -> 4
-                   NWR _         -> 5) [xpWrap (UserE, \(UserE u) -> u) xpickle,
+                   NWR _         -> 5) [xpWrap (User, \(User u) -> u) xpickle,
                                         xpWrap (Preferences, \(Preferences p) -> p) xpickle,
                                         xpWrap (GpxFile, \(GpxFile f) -> f) xpickle,
                                         xpWrap (Api, \(Api a) -> a) xpickle,
@@ -49,10 +49,10 @@ instance Show OSMChildren where
 
 -- | A @user@ element.
 osmUser ::
-  UserE
+  User
   -> OSMChildren
 osmUser =
-  UserE
+  User
 
 -- | A @gpx_file@ element.
 osmGpxFile ::
@@ -84,7 +84,7 @@ osmNodeWayRelation =
 
 -- | Folds OSM child elements (catamorphism).
 foldOSMChildren ::
-  (UserE -> a) -- ^ If a @user@ element.
+  (User -> a) -- ^ If a @user@ element.
   -> (Preferences -> a) -- ^ If a @preferences@ element.
   -> (GpxFile -> a) -- ^ If a @gpx_file@ element.
   -> (Api -> a) -- ^ If a @api@ element.
@@ -92,7 +92,7 @@ foldOSMChildren ::
   -> ([NodeWayRelation] -> a) -- ^ If a list of @node@, @way@ or @relation@ elements.
   -> OSMChildren -- ^ The disjunctive type of child elements.
   -> a
-foldOSMChildren z _ _ _ _ _ (UserE u) =
+foldOSMChildren z _ _ _ _ _ (User u) =
   z u
 foldOSMChildren _ z _ _ _ _ (Preferences p) =
   z p
