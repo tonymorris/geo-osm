@@ -7,7 +7,9 @@ module Data.Geo.OSM.Preferences
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Tag
-import Data.Geo.OSM.Accessor.Tags
+import Data.Geo.OSM.Lens.TagsL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @preferences@ element of a OSM file.
 newtype Preferences =
@@ -29,8 +31,7 @@ instance Show Preferences where
   show =
     showPickled []
 
-instance Tags Preferences where
-  tags (Preferences x) =
-    x
-  setTags a (Preferences _) =
-    preferences a
+instance TagsL Preferences where
+  tagsL =
+    Lens $ \(Preferences tags) -> store (\tags -> Preferences tags) tags
+

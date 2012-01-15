@@ -7,7 +7,9 @@ module Data.Geo.OSM.Changeset
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Tag
-import Data.Geo.OSM.Accessor.Tags
+import Data.Geo.OSM.Lens.TagsL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @changeset@ element of a OSM file.
 newtype Changeset =
@@ -29,8 +31,7 @@ instance Show Changeset where
   show =
     showPickled []
 
-instance Tags Changeset where
-  tags (Changeset x) =
-    x
-  setTags a (Changeset _) =
-    changeset a
+instance TagsL Changeset where
+  tagsL =
+    Lens $ \(Changeset tags) -> store (\tags -> Changeset tags) tags
+

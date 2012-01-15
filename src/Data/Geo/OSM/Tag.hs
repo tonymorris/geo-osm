@@ -7,8 +7,10 @@ module Data.Geo.OSM.Tag
 
 
 import Text.XML.HXT.Arrow.Pickle
-import Data.Geo.OSM.Accessor.K
-import Data.Geo.OSM.Accessor.V
+import Data.Geo.OSM.Lens.KL
+import Data.Geo.OSM.Lens.VL
+import Data.Lens.Common
+import Control.Comonad.Trans.Store
 
 -- | The @tag@ element of a OSM file.
 data Tag =
@@ -23,17 +25,13 @@ instance Show Tag where
   show =
     showPickled []
 
-instance K Tag where
-  k (Tag x _) =
-    x
-  setK a (Tag _ b) =
-    tag a b
+instance KL Tag where
+  kL =
+    Lens $ \(Tag k v) -> store (\k -> Tag k v) k
 
-instance V Tag where
-  v (Tag _ x) =
-    x
-  setV b (Tag a _) =
-    tag a b
+instance VL Tag where
+  vL =
+    Lens $ \(Tag k v) -> store (\v -> Tag k v) v
 
 -- | Constructs a tag with a key and value.
 tag ::
