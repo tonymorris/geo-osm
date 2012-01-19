@@ -1,3 +1,5 @@
+{-# LANGUAGE TypeSynonymInstances, MultiParamTypeClasses #-}
+
 -- | The @waynodes@ element of a OSM file.
 module Data.Geo.OSM.Waynodes
 (
@@ -10,6 +12,7 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.MaximumL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
+import Control.Newtype
 
 -- | The @waynodes@ element of a OSM file.
 newtype Waynodes =
@@ -34,3 +37,10 @@ instance Show Waynodes where
 instance MaximumL Waynodes where
   maximumL =
     Lens $ \(Waynodes maximum) -> store (\maximum -> Waynodes maximum) maximum
+
+instance Newtype Waynodes String where
+  pack = 
+    Waynodes
+  unpack (Waynodes x) =
+    x
+

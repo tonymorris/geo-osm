@@ -1,3 +1,5 @@
+{-# LANGUAGE TypeSynonymInstances, MultiParamTypeClasses #-}
+
 -- | The @area@ element of a OSM file.
 module Data.Geo.OSM.Area
 (
@@ -9,6 +11,7 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.MaximumL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
+import Control.Newtype
 
 -- | The @area@ element of a OSM file.
 newtype Area =
@@ -33,3 +36,9 @@ instance Show Area where
 instance MaximumL Area where
   maximumL =
     Lens $ \(Area maximum) -> store (\maximum -> Area maximum) maximum
+
+instance Newtype Area String where
+  pack = 
+    Area
+  unpack (Area x) =
+    x

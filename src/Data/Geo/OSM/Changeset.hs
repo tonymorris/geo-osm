@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses #-}
+
 -- | The @changeset@ element of a OSM file.
 module Data.Geo.OSM.Changeset
 (
@@ -10,6 +12,7 @@ import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Lens.TagsL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
+import Control.Newtype
 
 -- | The @changeset@ element of a OSM file.
 newtype Changeset =
@@ -34,4 +37,10 @@ instance Show Changeset where
 instance TagsL Changeset where
   tagsL =
     Lens $ \(Changeset tags) -> store (\tags -> Changeset tags) tags
+
+instance Newtype Changeset [Tag] where
+  pack = 
+    Changeset
+  unpack (Changeset x) =
+    x
 

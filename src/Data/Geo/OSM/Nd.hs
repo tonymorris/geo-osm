@@ -1,3 +1,5 @@
+{-# LANGUAGE TypeSynonymInstances, MultiParamTypeClasses #-}
+
 -- | The @nd@ element of a OSM file.
 module Data.Geo.OSM.Nd
 (
@@ -9,6 +11,7 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.RefL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
+import Control.Newtype
 
 -- | The @nd@ element of a OSM file.
 newtype Nd =
@@ -26,6 +29,12 @@ instance Show Nd where
 instance RefL Nd where
   refL =
     Lens $ \(Nd ref) -> store (\ref -> Nd ref) ref
+
+instance Newtype Nd String where
+  pack = 
+    Nd
+  unpack (Nd x) =
+    x
 
 -- | Constructs a nd with a ref.
 nd ::

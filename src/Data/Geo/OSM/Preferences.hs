@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses #-}
+
 -- | The @preferences@ element of a OSM file.
 module Data.Geo.OSM.Preferences
 (
@@ -10,6 +12,7 @@ import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Lens.TagsL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
+import Control.Newtype
 
 -- | The @preferences@ element of a OSM file.
 newtype Preferences =
@@ -34,4 +37,10 @@ instance Show Preferences where
 instance TagsL Preferences where
   tagsL =
     Lens $ \(Preferences tags) -> store (\tags -> Preferences tags) tags
+
+instance Newtype Preferences [Tag] where
+  pack = 
+    Preferences
+  unpack (Preferences x) =
+    x
 
