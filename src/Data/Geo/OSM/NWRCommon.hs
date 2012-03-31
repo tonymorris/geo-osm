@@ -18,6 +18,7 @@ import Data.Geo.OSM.Lens.VisibleL
 import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.TimestampL
+import Data.Geo.OSM.Lens.VersionL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
 
@@ -72,6 +73,10 @@ instance UidL NWRCommon where
 instance TimestampL NWRCommon (Maybe String) where
   timestampL =
     Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\timestamp -> NWRCommon id tags changeset visible (user, uid) timestamp version) timestamp
+
+instance VersionL NWRCommon (Maybe String) where
+  versionL =
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\version -> NWRCommon id tags changeset visible (user, uid) timestamp version) version
 
 -- | Constructs with id, list of tags, changeset, visible, user&uid and timestamp.
 nwrCommon ::
