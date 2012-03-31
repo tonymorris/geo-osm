@@ -85,6 +85,7 @@ way ::
   -> Bool -- ^ The @visible@ attribute.
   -> (Maybe String, Maybe String) -- ^ The @user@ and @uid@ attributes.
   -> Maybe String -- ^ The @timestamp@ attribute.
+  -> Maybe String -- ^ The @version@ attribute.
   -> Way
 way =
-  (. nwrCommon) . (.) . (.) . (.) . (.) . (.) . Way
+  (. nwrCommon) . (.) . (.) . (.) . (.) . (.) . (.) . Way
