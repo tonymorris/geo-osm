@@ -90,6 +90,7 @@ node ::
   -> Bool -- ^ The @visible@ attribute.
   -> (Maybe String, Maybe String) -- ^ The @user@ and @uid@ attributes.
   -> Maybe String -- ^ The @timestamp@ attribute.
+  -> Maybe String -- ^ The @version@ attribute.
   -> Node
 node =
-  flip flip nwrCommon . (((.) . (.) . (.) . (.) . (.) . (.)) .) . Node
+  flip flip nwrCommon . (((.) . (.) . (.) . (.) . (.) . (.) . (.)) .) . Node
