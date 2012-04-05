@@ -21,7 +21,7 @@ data Member =
 instance XmlPickler Member where
   xpickle =
     xpElem "member" (xpWrap (\(mtype', mref', mrole') -> member mtype' mref' mrole', \(Member mtype' mref' mrole') -> (mtype', mref', mrole'))
-                    (xpTriple xpickle (xpAttr "ref" xpText) (xpAttr "role" xpText)))
+                    (xpTriple xpickle (xpAttr "ref" xpText) (xpAttr "role" xpText0)))
 
 instance Show Member where
   show =
