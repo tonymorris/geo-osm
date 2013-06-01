@@ -3,9 +3,15 @@ module Data.Geo.OSM.NodeWayRelation
 (
   NodeWayRelation
 , foldNodeWayRelation
+, asNode
+, asWay
+, asRelation
+, nodes
+, ways
+, relations
+, node'
 , way'
 , relation'
-, node'
 , isNode
 , isWay
 , isRelation
@@ -15,6 +21,7 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Node
 import Data.Geo.OSM.Way
 import Data.Geo.OSM.Relation
+import Data.Maybe
 
 -- | The @node@, @way@, or @relation@ element of a OSM file.
 data NodeWayRelation =
@@ -49,6 +56,61 @@ instance Show NodeWayRelation where
   show =
     showPickled []
 
+asNode ::
+  NodeWayRelation
+  -> Maybe Node
+asNode (N n) =
+  Just n
+asNode (W _) =
+  Nothing
+asNode (R _) =
+  Nothing
+
+asWay ::
+  NodeWayRelation
+  -> Maybe Way
+asWay (N _) =
+  Nothing
+asWay (W w) =
+  Just w
+asWay (R _) =
+  Nothing
+
+asRelation ::
+  NodeWayRelation
+  -> Maybe Relation
+asRelation (N _) =
+  Nothing
+asRelation (W _) =
+  Nothing
+asRelation (R r) =
+  Just r
+
+nodes ::
+  [NodeWayRelation]
+  -> [Node]
+nodes =
+  mapMaybe asNode
+
+ways ::
+  [NodeWayRelation]
+  -> [Way]
+ways =
+  mapMaybe asWay
+
+relations ::
+  [NodeWayRelation]
+  -> [Relation]
+relations =
+  mapMaybe asRelation
+
+-- | Construct a @node@ element value.
+node' ::
+  Node
+  -> NodeWayRelation
+node' =
+  N
+
 -- | Construct a @way@ element value.
 way' ::
   Way
@@ -62,13 +124,6 @@ relation' ::
   -> NodeWayRelation
 relation' =
   R
-
--- | Construct a @node@ element value.
-node' ::
-  Node
-  -> NodeWayRelation
-node' =
-  N
 
 -- | Returns whether the @node@, @way@ or @relation@ element is a node.
 isNode ::
