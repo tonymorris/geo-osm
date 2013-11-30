@@ -24,7 +24,7 @@ Library
                       , hxt >= 9
                       , containers
                       , data-lens
-                      , comonad-transformers
+                      , comonad >= 4
                       , newtype
 
   GHC-Options:        -Wall
