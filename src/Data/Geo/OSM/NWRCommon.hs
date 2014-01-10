@@ -21,6 +21,7 @@ import Data.Geo.OSM.Lens.TimestampL
 import Data.Geo.OSM.Lens.VersionL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
+import Prelude hiding (id)
 
 -- | The common attributes between the @node@, @way@ and @relation@ elements.
 data NWRCommon =
@@ -48,35 +49,35 @@ instance Show NWRCommon where
 
 instance IdL NWRCommon where
   idL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\id -> NWRCommon id tags changeset visible (user, uid) timestamp version) id
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\id' -> NWRCommon id' tags changeset visible (user, uid) timestamp version) id
 
 instance TagsL NWRCommon where
   tagsL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\tags -> NWRCommon id tags changeset visible (user, uid) timestamp version) tags
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\tags' -> NWRCommon id tags' changeset visible (user, uid) timestamp version) tags
 
 instance ChangesetL NWRCommon where
   changesetL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\changeset -> NWRCommon id tags changeset visible (user, uid) timestamp version) changeset
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\changeset' -> NWRCommon id tags changeset' visible (user, uid) timestamp version) changeset
 
 instance VisibleL NWRCommon where
   visibleL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\visible -> NWRCommon id tags changeset visible (user, uid) timestamp version) visible
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\visible' -> NWRCommon id tags changeset visible' (user, uid) timestamp version) visible
 
 instance UserL NWRCommon (Maybe String) where
   userL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\user -> NWRCommon id tags changeset visible (user, uid) timestamp version) user
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\user' -> NWRCommon id tags changeset visible (user', uid) timestamp version) user
 
 instance UidL NWRCommon where
   uidL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\uid -> NWRCommon id tags changeset visible (user, uid) timestamp version) uid
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\uid' -> NWRCommon id tags changeset visible (user, uid') timestamp version) uid
 
 instance TimestampL NWRCommon (Maybe String) where
   timestampL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\timestamp -> NWRCommon id tags changeset visible (user, uid) timestamp version) timestamp
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\timestamp' -> NWRCommon id tags changeset visible (user, uid) timestamp' version) timestamp
 
 instance VersionL NWRCommon (Maybe String) where
   versionL =
-    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\version -> NWRCommon id tags changeset visible (user, uid) timestamp version) version
+    Lens $ \(NWRCommon id tags changeset visible (user, uid) timestamp version) -> store (\version' -> NWRCommon id tags changeset visible (user, uid) timestamp version') version
 
 -- | Constructs with id, list of tags, changeset, visible, user&uid and timestamp.
 nwrCommon ::

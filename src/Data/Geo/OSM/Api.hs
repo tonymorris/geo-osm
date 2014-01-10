@@ -44,17 +44,17 @@ instance Show Api where
 
 instance VersionL Api Version where
   versionL =
-    Lens $ \(Api version area tracepoints waynodes) -> store (\version -> Api version area tracepoints waynodes) version
+    Lens $ \(Api version area tracepoints waynodes) -> store (\version' -> Api version' area tracepoints waynodes) version
 
 instance AreaL Api where
   areaL =
-    Lens $ \(Api version area tracepoints waynodes) -> store (\area -> Api version area tracepoints waynodes) area
+    Lens $ \(Api version area tracepoints waynodes) -> store (\area' -> Api version area' tracepoints waynodes) area
 
 instance TracepointsL Api where
   tracepointsL =
-    Lens $ \(Api version area tracepoints waynodes) -> store (\tracepoints -> Api version area tracepoints waynodes) tracepoints
+    Lens $ \(Api version area tracepoints waynodes) -> store (\tracepoints' -> Api version area tracepoints' waynodes) tracepoints
 
 instance WaynodesL Api where
   waynodesL =
-    Lens $ \(Api version area tracepoints waynodes) -> store (\waynodes -> Api version area tracepoints waynodes) waynodes
+    Lens $ \(Api version area tracepoints waynodes) -> store (\waynodes' -> Api version area tracepoints waynodes') waynodes
 

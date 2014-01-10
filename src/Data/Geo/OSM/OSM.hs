@@ -4,7 +4,11 @@
 module Data.Geo.OSM.OSM
 (
   OSM
-, osm
+, osmVersion
+, osmGenerator
+, osmBounds
+, osmChildren
+--, osmNote
 , readOsmFile
 , readOsmFiles
 , interactOSMIO
@@ -36,17 +40,33 @@ import Data.Geo.OSM.Lens.ChildrenL
 import Data.Monoid
 
 -- | The @osm@ element of a OSM file, which is the root element.
-data OSM =
-  OSM String (Maybe String) (Maybe (Either Bound Bounds)) Children
-  deriving Eq
+data OSM = OSM {
+    osmVersion :: String -- ^ The @version@ attribute.
+  , osmGenerator :: (Maybe String) -- ^ The @generator@ attribute.
+  , osmBounds :: (Maybe (Either Bound Bounds)) -- ^ The @bound@ or @bounds@ elements.
+  , osmChildren :: Children -- ^ The child elements.
+--  , osmNote :: Maybe String -- ^ A note from the generator
+--  , osmBase :: Maybe String -- ^ A timestamp
+} deriving Eq
+
+--instance XmlPickler OSM where
+--  xpickle =
+--    xpElem "osm" (xpWrap (\(version', generator', bound', nwr', note', base') -> OSM version' generator' bound' nwr' note' base', \(OSM version' generator' bound' nwr' note' base') -> (version', generator', bound', nwr', note', base'))
+--      (xp6Tuple (xpAttr "version" xpText)
+--                (xpOption (xpAttr "generator" xpText))
+--                (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))
+--                xpickle
+--                (xpOption $ xpElem "note" xpText)
+--                (xpOption $ xpElem "meta" $ xpAttr "osm_base" $ xpText)))
 
 instance XmlPickler OSM where
   xpickle =
-    xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> osm version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
+    xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> OSM version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
       (xp4Tuple (xpAttr "version" xpText)
                 (xpOption (xpAttr "generator" xpText))
                 (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))
                 xpickle))
+
 
 instance Show OSM where
   show =

@@ -4,7 +4,7 @@
 module Data.Geo.OSM.Tracepoints
 (
   Tracepoints
-, tracepoints
+, tracePerPage
 ) where
 
 
@@ -15,20 +15,13 @@ import Control.Comonad.Trans.Store
 import Control.Newtype
 
 -- | The @tracepoints@ element of a OSM file.
-newtype Tracepoints =
-  Tracepoints String
-  deriving Eq
-
--- | Constructs a @tracepoints@ with per_page.
-tracepoints ::
-  String -- ^ The @per_page@ attribute.
-  -> Tracepoints
-tracepoints =
-  Tracepoints
+newtype Tracepoints = Tracepoints {
+  tracePerPage :: String -- ^ The @per_page@ attribute.
+} deriving Eq
 
 instance XmlPickler Tracepoints where
   xpickle =
-    xpElem "tracepoints" (xpWrap (tracepoints, \(Tracepoints r) -> r) (xpAttr "per_page" xpText))
+    xpElem "tracepoints" (xpWrap (Tracepoints, tracePerPage) (xpAttr "per_page" xpText))
 
 instance Show Tracepoints where
   show =
@@ -36,7 +29,7 @@ instance Show Tracepoints where
 
 instance PerPageL Tracepoints where
   perPageL =
-    Lens $ \(Tracepoints perPage) -> store (\perPage -> Tracepoints perPage) perPage
+    Lens $ \(Tracepoints perPage) -> store (\perPage' -> Tracepoints perPage') perPage
 
 instance Newtype Tracepoints String where
   pack = 

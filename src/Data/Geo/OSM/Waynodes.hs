@@ -4,7 +4,7 @@
 module Data.Geo.OSM.Waynodes
 (
   Waynodes
-, waynodes
+, wayMaximum
 ) where
 
 
@@ -13,22 +13,16 @@ import Data.Geo.OSM.Lens.MaximumL
 import Data.Lens.Common
 import Control.Comonad.Trans.Store
 import Control.Newtype
+import Prelude hiding (maximum)
 
 -- | The @waynodes@ element of a OSM file.
-newtype Waynodes =
-  Waynodes String
-  deriving Eq
-
--- | Constructs a @waynodes@ with maximum.
-waynodes ::
-  String -- ^ The @maximum@ attribute.
-  -> Waynodes
-waynodes =
-  Waynodes
+newtype Waynodes = Waynodes {
+    wayMaximum :: String -- ^ The @maximum@ attribute.
+} deriving Eq
 
 instance XmlPickler Waynodes where
   xpickle =
-    xpElem "waynodes" (xpWrap (waynodes, \(Waynodes r) -> r) (xpAttr "maximum" xpText))
+    xpElem "waynodes" (xpWrap (Waynodes, wayMaximum) (xpAttr "maximum" xpText))
 
 instance Show Waynodes where
   show =
@@ -36,7 +30,7 @@ instance Show Waynodes where
 
 instance MaximumL Waynodes where
   maximumL =
-    Lens $ \(Waynodes maximum) -> store (\maximum -> Waynodes maximum) maximum
+    Lens $ \(Waynodes maximum) -> store (\maximum' -> Waynodes maximum') maximum
 
 instance Newtype Waynodes String where
   pack = 

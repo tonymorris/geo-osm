@@ -27,11 +27,11 @@ instance Show Tag where
 
 instance KL Tag where
   kL =
-    Lens $ \(Tag k v) -> store (\k -> Tag k v) k
+    Lens $ \(Tag k v) -> store (\k' -> Tag k' v) k
 
 instance VL Tag where
   vL =
-    Lens $ \(Tag k v) -> store (\v -> Tag k v) v
+    Lens $ \(Tag k v) -> store (\v' -> Tag k v') v
 
 -- | Constructs a tag with a key and value.
 tag ::

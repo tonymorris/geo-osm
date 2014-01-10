@@ -35,6 +35,7 @@ Library
   Exposed-Modules:    Data.Geo.OSM
                       Data.Geo.OSM.Api
                       Data.Geo.OSM.Area
+                      Data.Geo.OSM.Base
                       Data.Geo.OSM.Bound
                       Data.Geo.OSM.BoundOption
                       Data.Geo.OSM.Bounds
@@ -47,6 +48,7 @@ Library
                       Data.Geo.OSM.MemberType
                       Data.Geo.OSM.Nd
                       Data.Geo.OSM.Node
+                      Data.Geo.OSM.Note
                       Data.Geo.OSM.NodeWayRelation
                       Data.Geo.OSM.NWRCommon
                       Data.Geo.OSM.OSM

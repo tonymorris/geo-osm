@@ -16,7 +16,7 @@ import Control.Newtype
 
 -- | The @changeset@ element of a OSM file.
 newtype Changeset =
-  Changeset [Tag]
+  Changeset { unChageset :: [Tag] } -- ^ The list of tags (@tag@ elements).
   deriving Eq
 
 -- | Constructs a @changeset@ with tags.
@@ -28,7 +28,7 @@ changeset =
 
 instance XmlPickler Changeset where
   xpickle =
-    xpElem "changeset" (xpWrap (changeset, \(Changeset r) -> r) (xpList xpickle))
+    xpElem "changeset" (xpWrap (changeset, unChageset) (xpList xpickle))
 
 instance Show Changeset where
   show =
@@ -41,6 +41,6 @@ instance TagsL Changeset where
 instance Newtype Changeset [Tag] where
   pack = 
     Changeset
-  unpack (Changeset x) =
-    x
+  unpack =
+    unChageset
 
