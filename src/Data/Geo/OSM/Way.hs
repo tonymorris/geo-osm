@@ -5,6 +5,8 @@ module Data.Geo.OSM.Way
 (
   Way
 , way
+, wayGetNDs
+, wayGetCommon
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
@@ -25,9 +27,10 @@ import Control.Category
 import Prelude hiding ((.))
 
 -- | The @way@ element of a OSM file.
-data Way =
-  Way [Nd] NWRCommon
-  deriving Eq
+data Way = Way {
+  wayGetNDs :: [Nd],
+  wayGetCommon :: NWRCommon
+} deriving Eq
 
 instance XmlPickler Way where
   xpickle =

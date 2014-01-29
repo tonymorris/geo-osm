@@ -3,6 +3,9 @@ module Data.Geo.OSM.Tag
 (
   Tag
 , tag
+, tagGetKey
+, tagGetValue
+, tagToPair
 ) where
 
 
@@ -13,13 +16,14 @@ import Data.Lens.Common
 import Control.Comonad.Trans.Store
 
 -- | The @tag@ element of a OSM file.
-data Tag =
-  Tag String String
-  deriving Eq
+data Tag = Tag {
+  tagGetKey :: String,
+  tagGetValue :: String
+} deriving Eq
 
 instance XmlPickler Tag where
   xpickle =
-    xpElem "tag" (xpWrap (uncurry tag, \(Tag k' v') -> (k', v')) (xpPair (xpAttr "k" xpText) (xpAttr "v" xpText)))
+    xpElem "tag" (xpWrap (uncurry tag, tagToPair) (xpPair (xpAttr "k" xpText) (xpAttr "v" xpText)))
 
 instance Show Tag where
   show =
@@ -40,3 +44,6 @@ tag ::
   -> Tag
 tag =
   Tag
+
+tagToPair :: Tag -> (String, String)
+tagToPair (Tag k v) = (k, v) 

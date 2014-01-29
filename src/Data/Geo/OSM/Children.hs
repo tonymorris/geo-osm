@@ -8,6 +8,9 @@ module Data.Geo.OSM.Children
 , osmChangeset
 , osmNodeWayRelation
 , foldChildren
+, chGetNote
+, chGetBase
+, chGetNWR
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
@@ -28,9 +31,9 @@ data Children =
   | Api Api
   | Changeset Changeset
   | NWR {
-    chUnNote :: Maybe Note,  -- ^ A Note of the Generator.
-    chUnBase :: Maybe Base,  -- ^ Base of the Generated data
-    chUnNWR :: [NodeWayRelation]
+    chGetNote :: Maybe Note,  -- ^ A Note of the Generator.
+    chGetBase :: Maybe Base,  -- ^ Base of the Generated data
+    chGetNWR :: [NodeWayRelation]
   }
   deriving (Eq)
 

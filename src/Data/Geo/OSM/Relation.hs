@@ -5,6 +5,8 @@ module Data.Geo.OSM.Relation
 (
   Relation
 , relation
+, relGetMember
+, relGetCommon
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
@@ -25,9 +27,10 @@ import Control.Category
 import Prelude hiding ((.))
 
 -- | The @relation@ element of a OSM file.
-data Relation =
-  Relation [Member] NWRCommon
-  deriving Eq
+data Relation = Relation {
+  relGetMember :: [Member],
+  relGetCommon :: NWRCommon
+} deriving Eq
 
 instance XmlPickler Relation where
   xpickle =

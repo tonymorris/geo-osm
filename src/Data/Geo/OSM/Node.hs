@@ -5,6 +5,9 @@ module Data.Geo.OSM.Node
 (
   Node
 , node
+, nodeGetLat
+, nodeGetLon
+, nodeGetCommon
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
@@ -25,9 +28,11 @@ import Control.Category
 import Prelude hiding ((.))
 
 -- | The @node@ element of a OSM file.
-data Node =
-  Node String String NWRCommon
-  deriving Eq
+data Node = Node {
+  nodeGetLat :: String,
+  nodeGetLon :: String,
+  nodeGetCommon :: NWRCommon
+} deriving Eq
 
 instance XmlPickler Node where
   xpickle =

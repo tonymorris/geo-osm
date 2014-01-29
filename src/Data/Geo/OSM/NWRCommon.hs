@@ -5,6 +5,13 @@ module Data.Geo.OSM.NWRCommon
 (
   NWRCommon
 , nwrCommon
+, nwrCommonGetId
+, nwrCommonGetTags
+, nwrCommonGetChangeset
+, nwrCommonGetVisible
+, nwrCommonGetUser
+, nwrCommonGetTimestamp
+, nwrCommonGetVersion
 ) where
 
 import Text.XML.HXT.Arrow.Pickle
@@ -24,9 +31,15 @@ import Control.Comonad.Trans.Store
 import Prelude hiding (id)
 
 -- | The common attributes between the @node@, @way@ and @relation@ elements.
-data NWRCommon =
-  NWRCommon String [Tag] (Maybe String) Bool (Maybe String, Maybe String) (Maybe String) (Maybe String)
-  deriving Eq
+data NWRCommon = NWRCommon {
+  nwrCommonGetId :: String,
+  nwrCommonGetTags :: [Tag],
+  nwrCommonGetChangeset :: (Maybe String),
+  nwrCommonGetVisible :: Bool,
+  nwrCommonGetUser :: (Maybe String, Maybe String),
+  nwrCommonGetTimestamp :: (Maybe String),
+  nwrCommonGetVersion :: (Maybe String)
+} deriving Eq
 
 instance XmlPickler NWRCommon where
   xpickle =
