@@ -3,7 +3,4 @@ extra-package-dbs: []
 packages:
 - '.'
 
-extra-deps:
-- data-lens-2.11.1
-
 resolver: lts-7.7
