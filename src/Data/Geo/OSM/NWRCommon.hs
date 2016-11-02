@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, CPP #-}
 
 -- | The common attributes between the @node@, @way@ and @relation@ elements.
 module Data.Geo.OSM.NWRCommon
@@ -7,8 +7,12 @@ module Data.Geo.OSM.NWRCommon
 , nwrCommon
 ) where
 
-import Text.XML.HXT.Arrow.Pickle
+#if __GLASGOW_HASKELL__ >= 800
+import Control.Applicative ()
+#else
 import Control.Applicative
+#endif
+import Text.XML.HXT.Arrow.Pickle
 import Data.Char
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Lens.IdL
