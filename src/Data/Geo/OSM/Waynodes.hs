@@ -10,7 +10,7 @@ module Data.Geo.OSM.Waynodes
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.MaximumL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Control.Newtype
 

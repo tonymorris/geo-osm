@@ -9,7 +9,7 @@ module Data.Geo.OSM.Tag
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.KL
 import Data.Geo.OSM.Lens.VL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The @tag@ element of a OSM file.

@@ -27,7 +27,7 @@ import Data.Geo.OSM.Children
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
 import Data.Geo.OSM.BoundOption
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Data.Geo.OSM.Lens.VersionL
 import Data.Geo.OSM.Lens.GeneratorL

@@ -9,7 +9,7 @@ module Data.Geo.OSM.Area
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.MaximumL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Control.Newtype
 

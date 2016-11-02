@@ -12,7 +12,7 @@ import Data.Geo.OSM.Version
 import Data.Geo.OSM.Area
 import Data.Geo.OSM.Tracepoints
 import Data.Geo.OSM.Waynodes
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Data.Geo.OSM.Lens.VersionL
 import Data.Geo.OSM.Lens.AreaL

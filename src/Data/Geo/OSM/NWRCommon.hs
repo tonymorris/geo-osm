@@ -23,7 +23,7 @@ import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.TimestampL
 import Data.Geo.OSM.Lens.VersionL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The common attributes between the @node@, @way@ and @relation@ elements.

@@ -10,7 +10,7 @@ import Data.Geo.OSM.Home
 import Data.Geo.OSM.Lens.HomeL
 import Data.Geo.OSM.Lens.DisplayNameL
 import Data.Geo.OSM.Lens.AccountCreatedL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The @user@ element of a OSM file.

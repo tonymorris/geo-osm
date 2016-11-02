@@ -19,7 +19,7 @@ import Data.Geo.OSM.Lens.VisibleL
 import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.TimestampL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Control.Category
 import Prelude hiding ((.))

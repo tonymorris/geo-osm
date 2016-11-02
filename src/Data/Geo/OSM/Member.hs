@@ -10,7 +10,7 @@ import Data.Geo.OSM.MemberType
 import Data.Geo.OSM.Lens.TypeL
 import Data.Geo.OSM.Lens.RefL
 import Data.Geo.OSM.Lens.RoleL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The @member@ element of a OSM file.

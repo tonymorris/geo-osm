@@ -8,7 +8,7 @@ module Data.Geo.OSM.Bound
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.BoxL
 import Data.Geo.OSM.Lens.OriginL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The @bound@ element of a OSM file.

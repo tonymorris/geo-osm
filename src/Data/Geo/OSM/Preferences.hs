@@ -10,7 +10,7 @@ module Data.Geo.OSM.Preferences
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Lens.TagsL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Control.Newtype
 

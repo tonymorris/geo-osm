@@ -11,7 +11,7 @@ import Data.Geo.OSM.Lens.MaxlatL
 import Data.Geo.OSM.Lens.MinlonL
 import Data.Geo.OSM.Lens.MaxlonL
 import Data.Geo.OSM.Lens.OriginL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The @bounds@ element of a OSM file.

@@ -17,7 +17,7 @@ import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.PublicL
 import Data.Geo.OSM.Lens.PendingL
 import Data.Geo.OSM.Lens.TimestampL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 
 -- | The @gpx_file@ element of a OSM file.

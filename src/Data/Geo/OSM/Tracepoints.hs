@@ -10,7 +10,7 @@ module Data.Geo.OSM.Tracepoints
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.PerPageL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Control.Newtype
 

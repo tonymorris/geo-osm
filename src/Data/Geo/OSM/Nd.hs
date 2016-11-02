@@ -9,7 +9,7 @@ module Data.Geo.OSM.Nd
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.RefL
-import Data.Lens.Common
+import Control.Lens.Lens
 import Control.Comonad.Trans.Store
 import Control.Newtype
 
