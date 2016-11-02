@@ -2,9 +2,9 @@
 module Data.Geo.OSM.Lens.MemberL where
 
 import Data.Geo.OSM.Member
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class MemberL a where
   memberL ::
-    Lens a [Member]
+    Lens' a [Member]
 

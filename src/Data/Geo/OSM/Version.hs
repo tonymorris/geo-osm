@@ -1,3 +1,5 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 -- | The @version@ element of a OSM file.
 module Data.Geo.OSM.Version
 (
@@ -9,13 +11,15 @@ module Data.Geo.OSM.Version
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.MinimumL
 import Data.Geo.OSM.Lens.MaximumL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
 
 -- | The @version@ element of a OSM file.
-data Version =
-  Version String String
-  deriving Eq
+data Version = Version {
+  _versionMinimum :: String,
+  _versionMaximum :: String
+  } deriving Eq
+
+makeLenses ''Version
 
 -- | Constructs a @version@ with minimum and maximum.
 version ::
@@ -34,10 +38,7 @@ instance Show Version where
     showPickled []
 
 instance MinimumL Version where
-  minimumL =
-    Lens $ \(Version minimum maximum) -> store (\minimum -> Version minimum maximum) minimum
+  minimumL = versionMinimum
 
 instance MaximumL Version where
-  maximumL =
-    Lens $ \(Version minimum maximum) -> store (\maximum -> Version minimum maximum) maximum
-
+  maximumL = versionMaximum

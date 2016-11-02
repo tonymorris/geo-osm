@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 -- | The @user@ element of a OSM file.
 module Data.Geo.OSM.User
 (
@@ -10,13 +11,18 @@ import Data.Geo.OSM.Home
 import Data.Geo.OSM.Lens.HomeL
 import Data.Geo.OSM.Lens.DisplayNameL
 import Data.Geo.OSM.Lens.AccountCreatedL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
+
+
+import Control.Lens.TH
 
 -- | The @user@ element of a OSM file.
-data User =
-  User (Maybe Home) String String
-  deriving Eq
+data User = User {
+  _userHome :: Maybe Home,
+  _userDisplayName :: String,
+  _userAccountCreated :: String
+  } deriving Eq
+
+makeLenses ''User
 
 -- | Constructs a @user@ with an optional home, display_name and account_created.
 user ::
@@ -36,14 +42,10 @@ instance Show User where
     showPickled []
 
 instance HomeL User where
-  homeL =
-    Lens $ \(User home displayName accountCreated) -> store (\home -> User home displayName accountCreated) home
+  homeL = userHome
 
 instance DisplayNameL User where
-  displayNameL =
-    Lens $ \(User home displayName accountCreated) -> store (\displayName -> User home displayName accountCreated) displayName
+  displayNameL = userDisplayName
 
 instance AccountCreatedL User where
-  accountCreatedL =
-    Lens $ \(User home displayName accountCreated) -> store (\accountCreated -> User home displayName accountCreated) accountCreated
-
+  accountCreatedL = userAccountCreated

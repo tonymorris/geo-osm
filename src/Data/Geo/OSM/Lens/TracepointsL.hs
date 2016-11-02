@@ -2,9 +2,9 @@
 module Data.Geo.OSM.Lens.TracepointsL where
 
 import Data.Geo.OSM.Tracepoints
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class TracepointsL a where
   tracepointsL ::
-    Lens a Tracepoints
+    Lens' a Tracepoints
 

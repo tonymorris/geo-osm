@@ -2,9 +2,9 @@
 module Data.Geo.OSM.Lens.NdL where
 
 import Data.Geo.OSM.Nd
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class NdL a where
   ndL ::
-    Lens a [Nd]
+    Lens' a [Nd]
 

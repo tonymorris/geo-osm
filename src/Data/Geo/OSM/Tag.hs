@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 -- | The @tag@ element of a OSM file.
 module Data.Geo.OSM.Tag
 (
@@ -9,13 +10,16 @@ module Data.Geo.OSM.Tag
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.KL
 import Data.Geo.OSM.Lens.VL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
+
 
 -- | The @tag@ element of a OSM file.
-data Tag =
-  Tag String String
-  deriving Eq
+data Tag = Tag {
+  _tagKey :: String,
+  _tagValue :: String
+  } deriving Eq
+
+makeLenses ''Tag
 
 instance XmlPickler Tag where
   xpickle =
@@ -26,12 +30,11 @@ instance Show Tag where
     showPickled []
 
 instance KL Tag where
-  kL =
-    Lens $ \(Tag k v) -> store (\k -> Tag k v) k
+  kL = tagKey
 
 instance VL Tag where
-  vL =
-    Lens $ \(Tag k v) -> store (\v -> Tag k v) v
+  vL = tagValue
+
 
 -- | Constructs a tag with a key and value.
 tag ::

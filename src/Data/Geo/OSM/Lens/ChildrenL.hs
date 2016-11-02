@@ -2,9 +2,9 @@
 module Data.Geo.OSM.Lens.ChildrenL where
 
 import Data.Geo.OSM.Children
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class ChildrenL a where
   childrenL ::
-    Lens a Children
+    Lens' a Children
 

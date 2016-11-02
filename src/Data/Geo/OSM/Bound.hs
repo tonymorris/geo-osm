@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 -- | The @bound@ element of a OSM file.
 module Data.Geo.OSM.Bound
 (
@@ -8,13 +9,15 @@ module Data.Geo.OSM.Bound
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.BoxL
 import Data.Geo.OSM.Lens.OriginL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
 
 -- | The @bound@ element of a OSM file.
-data Bound =
-  Bound String (Maybe String)
-  deriving Eq
+data Bound = Bound {
+  _boundBox :: String,
+  _boundOrigin :: Maybe String
+  } deriving Eq
+makeLenses ''Bound
+
 
 instance XmlPickler Bound where
   xpickle =
@@ -25,12 +28,10 @@ instance Show Bound where
     showPickled []
 
 instance BoxL Bound where
-  boxL =
-    Lens $ \(Bound box origin) -> store (\box -> Bound box origin) box
+  boxL = boundBox
 
 instance OriginL Bound where
-  originL =
-    Lens $ \(Bound box origin) -> store (\origin -> Bound box origin) origin
+  originL = boundOrigin
 
 -- | Constructs a bound with a box and origin attributes.
 bound ::

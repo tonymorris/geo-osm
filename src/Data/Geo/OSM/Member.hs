@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 -- | The @member@ element of a OSM file.
 module Data.Geo.OSM.Member
 (
@@ -10,14 +11,16 @@ import Data.Geo.OSM.MemberType
 import Data.Geo.OSM.Lens.TypeL
 import Data.Geo.OSM.Lens.RefL
 import Data.Geo.OSM.Lens.RoleL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
 
 -- | The @member@ element of a OSM file.
-data Member = 
-  Member MemberType String String
-  deriving Eq
+data Member = Member {
+  _memberType :: MemberType,
+  _memberRef :: String,
+  _memberRole :: String
+  } deriving Eq
 
+makeLenses ''Member
 instance XmlPickler Member where
   xpickle =
     xpElem "member" (xpWrap (\(mtype', mref', mrole') -> member mtype' mref' mrole', \(Member mtype' mref' mrole') -> (mtype', mref', mrole'))
@@ -28,16 +31,13 @@ instance Show Member where
     showPickled []
 
 instance TypeL Member where
-  typeL =
-    Lens $ \(Member typ ref role) -> store (\typ -> Member typ ref role) typ
+  typeL = memberType
 
 instance RefL Member where
-  refL =
-    Lens $ \(Member typ ref role) -> store (\ref -> Member typ ref role) ref
+  refL = memberRef
 
 instance RoleL Member where
-  roleL =
-    Lens $ \(Member typ ref role) -> store (\role -> Member typ ref role) role
+  roleL = memberRole
 
 -- | Constructs a member with a type, ref and role.
 member ::

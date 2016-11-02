@@ -2,9 +2,9 @@
 module Data.Geo.OSM.Lens.WaynodesL where
 
 import Data.Geo.OSM.Waynodes
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class WaynodesL a where
   waynodesL ::
-    Lens a Waynodes
+    Lens' a Waynodes
 

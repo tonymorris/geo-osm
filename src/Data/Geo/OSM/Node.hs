@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, TemplateHaskell #-}
 
 -- | The @node@ element of a OSM file.
 module Data.Geo.OSM.Node
@@ -19,15 +19,19 @@ import Data.Geo.OSM.Lens.VisibleL
 import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.TimestampL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
-import Control.Category
-import Prelude hiding ((.))
+import Control.Lens.TH
 
 -- | The @node@ element of a OSM file.
-data Node =
-  Node String String NWRCommon
-  deriving Eq
+data Node = Node {
+  _nodeLat :: String,
+  _nodeLon :: String,
+  _nodeCommon :: NWRCommon
+  } deriving Eq
+
+makeLenses ''Node
+
+instance HasNWRCommon Node where
+  nWRCommon = nodeCommon
 
 instance XmlPickler Node where
   xpickle =
@@ -39,46 +43,31 @@ instance Show Node where
     showPickled []
 
 instance LatL Node where
-  latL =
-    Lens $ \(Node lat lon common) -> store (\lat -> Node lat lon common) lat
+  latL = nodeLat
 
 instance LonL Node where
-  lonL =
-    Lens $ \(Node lat lon common) -> store (\lon -> Node lat lon common) lon
-
--- not exported
-commonL ::
-  Lens Node NWRCommon
-commonL =
-  Lens (\(Node lat lon common) -> store (\common -> Node lat lon common) common)
+  lonL = nodeLon
 
 instance IdL Node where
-  idL =
-    idL . commonL
+  idL = commonId
 
 instance TagsL Node where
-  tagsL =
-    tagsL . commonL
+  tagsL = commonTags
 
 instance ChangesetL Node where
-  changesetL =
-    changesetL . commonL
+  changesetL = commonChangeset
 
 instance VisibleL Node where
-  visibleL = 
-    visibleL . commonL
+  visibleL = commonVisible
 
 instance UserL Node (Maybe String) where
-  userL =
-    userL . commonL
+  userL = nodeCommon . userL
 
 instance UidL Node where
-  uidL =
-    uidL . commonL
+  uidL = nodeCommon . uidL
 
 instance TimestampL Node (Maybe String) where
-  timestampL =
-    timestampL . commonL
+  timestampL = nodeCommon . timestampL
 
 -- | Constructs a node with a lat, lon, id, list of tags, changeset, visible, user&uid and timestamp.
 node ::

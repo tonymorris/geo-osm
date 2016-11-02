@@ -1,8 +1,8 @@
 -- | Values with a @zoom@ string accessor.
 module Data.Geo.OSM.Lens.ZoomL where
 
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class ZoomL a where
   zoomL ::
-    Lens a String
+    Lens' a String

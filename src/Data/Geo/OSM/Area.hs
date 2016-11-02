@@ -9,8 +9,8 @@ module Data.Geo.OSM.Area
 
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.MaximumL
-import Data.Lens.Common
-import Control.Comonad.Trans.Store
+import Control.Lens.Lens
+
 import Control.Newtype
 
 -- | The @area@ element of a OSM file.
@@ -35,10 +35,10 @@ instance Show Area where
 
 instance MaximumL Area where
   maximumL =
-    Lens $ \(Area maximum) -> store (\maximum -> Area maximum) maximum
+    lens unpack (const pack)
 
 instance Newtype Area String where
-  pack = 
+  pack =
     Area
   unpack (Area x) =
     x

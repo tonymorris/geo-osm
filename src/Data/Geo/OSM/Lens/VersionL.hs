@@ -3,9 +3,9 @@
 -- | Values with a @version@ accessor.
 module Data.Geo.OSM.Lens.VersionL where
 
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class VersionL a b | a -> b where
   versionL ::
-    Lens a b
+    Lens' a b
 
