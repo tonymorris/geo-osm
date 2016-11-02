@@ -2,9 +2,9 @@
 module Data.Geo.OSM.Lens.TagsL where
 
 import Data.Geo.OSM.Tag
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class TagsL a where
   tagsL ::
-    Lens a [Tag]
+    Lens' a [Tag]
 

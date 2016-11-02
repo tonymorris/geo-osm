@@ -23,7 +23,7 @@ Library
   Build-Depends:      base < 5 && >= 3
                       , hxt >= 9
                       , containers
-                      , data-lens
+                      , lens
                       , comonad >= 4
                       , newtype
 
@@ -97,4 +97,3 @@ Library
                       Data.Geo.OSM.Lens.VL
                       Data.Geo.OSM.Lens.WaynodesL
                       Data.Geo.OSM.Lens.ZoomL
-

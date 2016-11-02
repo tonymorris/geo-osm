@@ -3,9 +3,9 @@
 -- | Values with a @timestamp@ accessor.
 module Data.Geo.OSM.Lens.TimestampL where
 
-import Data.Lens.Common
+import Control.Lens.Lens
 
 class TimestampL a b | a -> b where
   timestampL ::
-    Lens a b
+    Lens' a b
 
