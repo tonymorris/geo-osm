@@ -11,7 +11,6 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Lens.TagsL
 import Control.Lens.Lens
-import Control.Comonad.Trans.Store
 import Control.Newtype
 
 -- | The @preferences@ element of a OSM file.
@@ -36,11 +35,10 @@ instance Show Preferences where
 
 instance TagsL Preferences where
   tagsL =
-    Lens $ \(Preferences tags) -> store (\tags -> Preferences tags) tags
+    lens unpack (const pack)
 
 instance Newtype Preferences [Tag] where
-  pack = 
+  pack =
     Preferences
   unpack (Preferences x) =
     x
-

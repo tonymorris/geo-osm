@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
+{-# LANGUAGE TemplateHaskell, MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
 
 -- | The @osm@ element of a OSM file, which is the root element. <http://wiki.openstreetmap.org/wiki/API_v0.6/DTD>
 module Data.Geo.OSM.OSM
@@ -27,8 +27,7 @@ import Data.Geo.OSM.Children
 import Data.Geo.OSM.Bound
 import Data.Geo.OSM.Bounds
 import Data.Geo.OSM.BoundOption
-import Control.Lens.Lens
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
 import Data.Geo.OSM.Lens.VersionL
 import Data.Geo.OSM.Lens.GeneratorL
 import Data.Geo.OSM.Lens.BoundsL
@@ -36,9 +35,14 @@ import Data.Geo.OSM.Lens.ChildrenL
 import Data.Monoid
 
 -- | The @osm@ element of a OSM file, which is the root element.
-data OSM =
-  OSM String (Maybe String) (Maybe (Either Bound Bounds)) Children
-  deriving Eq
+data OSM = OSM {
+  _osmVersion :: String,
+  _osmGenerator :: (Maybe String),
+  _osmBounds :: Maybe (Either Bound Bounds),
+  _osmChildren :: Children
+  } deriving Eq
+
+makeLenses ''OSM
 
 instance XmlPickler OSM where
   xpickle =
@@ -53,24 +57,17 @@ instance Show OSM where
     showPickled []
 
 instance VersionL OSM String where
-  versionL =
-    Lens $ \(OSM version generator bounds children) -> store (\version -> OSM version generator bounds children) version
+  versionL = osmVersion
 
 instance BoundsL OSM where
-  boundsL =
-    Lens $ \(OSM version generator bounds children) -> store (\bounds -> OSM version generator (foldBoundOption (Just . Left) (Just . Right) Nothing bounds) children) $
-      case bounds of
-        Nothing        -> optionEmptyBound
-        Just (Left b)  -> optionBound b
-        Just (Right b) -> optionBounds b
+  boundsL = osmBounds . _BoundOptions
 
 instance GeneratorL OSM where
-  generatorL =
-    Lens $ \(OSM version generator bounds children) -> store (\generator -> OSM version generator bounds children) generator
+  generatorL = osmGenerator
 
 instance ChildrenL OSM where
-  childrenL =
-    Lens $ \(OSM version generator bounds children) -> store (\children -> OSM version generator bounds children) children
+  childrenL = osmChildren
+
 
 -- | Constructs a osm with a version, bound or bounds, and node attributes and way or relation elements.
 osm ::

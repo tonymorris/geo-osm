@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 -- | The @bounds@ element of a OSM file.
 module Data.Geo.OSM.Bounds
 (
@@ -11,13 +12,18 @@ import Data.Geo.OSM.Lens.MaxlatL
 import Data.Geo.OSM.Lens.MinlonL
 import Data.Geo.OSM.Lens.MaxlonL
 import Data.Geo.OSM.Lens.OriginL
-import Control.Lens.Lens
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
 
 -- | The @bounds@ element of a OSM file.
-data Bounds =
-  Bounds String String String String (Maybe String)
-  deriving Eq
+data Bounds = Bounds {
+  _boundsMinLat :: String,
+  _boundsMinLon :: String,
+  _boundsMaxLat :: String,
+  _boundsMaxLon :: String,
+  _boundsOrigin :: Maybe String
+  } deriving Eq
+
+makeLenses ''Bounds
 
 instance XmlPickler Bounds where
   xpickle =
@@ -29,24 +35,19 @@ instance Show Bounds where
     showPickled []
 
 instance MinlatL Bounds where
-  minlatL =
-    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\minlat -> Bounds minlat minlon maxlat maxlon origin) minlat
+  minlatL = boundsMinLat
 
 instance MinlonL Bounds where
-  minlonL =
-    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\minlon -> Bounds minlat minlon maxlat maxlon origin) minlon
+  minlonL = boundsMinLon
 
 instance MaxlatL Bounds where
-  maxlatL =
-    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\maxlat -> Bounds minlat minlon maxlat maxlon origin) maxlat
+  maxlatL = boundsMaxLat
 
 instance MaxlonL Bounds where
-  maxlonL =
-    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\maxlon -> Bounds minlat minlon maxlat maxlon origin) maxlon
+  maxlonL = boundsMaxLon
 
 instance OriginL Bounds where
-  originL =
-    Lens $ \(Bounds minlat minlon maxlat maxlon origin) -> store (\origin -> Bounds minlat minlon maxlat maxlon origin) origin
+  originL = boundsOrigin
 
 -- | Constructs a bounds with a minlat, minlon, maxlat, maxlon and origin attributes.
 bounds ::

@@ -7,7 +7,7 @@ Description:          Parse OpenStreetMap http:\/\/osm.org/ files using HXT into
                       The Data.Geo.OSM module is the core module that exports all others.
 Homepage:             https://github.com/tonymorris/geo-osm
 Category:             Utils
-Author:               Tony Morris <ʇǝu˙sıɹɹoɯʇ@ןןǝʞsɐɥ>, Thomas DuBuisson
+Author:               Tony Morris <ʇǝu˙sıɹɹoɯʇ@ןןǝʞsɐɥ>, Thomas DuBuisson, Markus Barenhoff
 Maintainer:           Tony Morris, Thomas DuBuisson
 Copyright:            2009 -- 2012 Tony Morris, Thomas DuBuisson
 Build-Type:           Simple
@@ -24,7 +24,6 @@ Library
                       , hxt >= 9
                       , containers
                       , lens
-                      , comonad >= 4
                       , newtype
 
   GHC-Options:        -Wall

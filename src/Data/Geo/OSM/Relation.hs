@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
 
 -- | The @relation@ element of a OSM file.
@@ -19,15 +20,20 @@ import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.TimestampL
 import Data.Geo.OSM.Lens.MemberL
-import Control.Lens.Lens
-import Control.Comonad.Trans.Store
-import Control.Category
-import Prelude hiding ((.))
+
+
+import Control.Lens.TH
 
 -- | The @relation@ element of a OSM file.
-data Relation =
-  Relation [Member] NWRCommon
+data Relation = Relation {
+  _relationMembers :: [Member],
+  _relationCommon :: NWRCommon
+  }
   deriving Eq
+makeLenses ''Relation
+
+instance HasNWRCommon Relation where
+  nWRCommon = relationCommon
 
 instance XmlPickler Relation where
   xpickle =
@@ -39,42 +45,30 @@ instance Show Relation where
     showPickled []
 
 instance MemberL Relation where
-  memberL =
-    Lens $ \(Relation members common) -> store (\members -> Relation members common) members
-
--- not exported
-commonL ::
-  Lens Relation NWRCommon
-commonL =
-  Lens (\(Relation members common) -> store (\common -> Relation members common) common)
+  memberL = relationMembers
 
 instance IdL Relation where
-  idL =
-    idL . commonL
+  idL = commonId
 
 instance TagsL Relation where
-  tagsL =
-    tagsL . commonL
+  tagsL = commonTags
 
 instance ChangesetL Relation where
-  changesetL =
-    changesetL . commonL
+  changesetL = commonChangeset
 
 instance VisibleL Relation where
-  visibleL = 
-    visibleL . commonL
+  visibleL = commonVisible
 
 instance UserL Relation (Maybe String) where
-  userL =
-    userL . commonL
+  userL = relationCommon . userL
 
 instance UidL Relation where
-  uidL =
-    uidL . commonL
+  uidL = relationCommon . uidL
 
 instance TimestampL Relation (Maybe String) where
-  timestampL =
-    timestampL . commonL
+  timestampL = relationCommon . timestampL
+
+
 
 -- | Constructs a relation with a list of members, id, list of tags, changeset, visible, user&uid and timestamp.
 relation ::

@@ -11,7 +11,7 @@ module Data.Geo.OSM.Tracepoints
 import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.PerPageL
 import Control.Lens.Lens
-import Control.Comonad.Trans.Store
+
 import Control.Newtype
 
 -- | The @tracepoints@ element of a OSM file.
@@ -36,11 +36,10 @@ instance Show Tracepoints where
 
 instance PerPageL Tracepoints where
   perPageL =
-    Lens $ \(Tracepoints perPage) -> store (\perPage -> Tracepoints perPage) perPage
+    lens unpack (const pack)
 
 instance Newtype Tracepoints String where
-  pack = 
+  pack =
     Tracepoints
   unpack (Tracepoints x) =
     x
-

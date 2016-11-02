@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 -- | The @home@ element of a OSM file.
 module Data.Geo.OSM.Home
 (
@@ -9,13 +10,17 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Lens.LatL
 import Data.Geo.OSM.Lens.LonL
 import Data.Geo.OSM.Lens.ZoomL
-import Control.Lens.Lens
-import Control.Comonad.Trans.Store
+
+
+import Control.Lens.TH
 
 -- | The @home@ element of a OSM file.
-data Home =
-  Home String String String
-  deriving Eq
+data Home = Home {
+  _homeLat :: String,
+  _homeLon :: String,
+  _homeZoom :: String
+  } deriving Eq
+makeLenses ''Home
 
 -- | Constructs a @home@ with lat, lon and zoom.
 home ::
@@ -35,14 +40,10 @@ instance Show Home where
     showPickled []
 
 instance LatL Home where
-  latL =
-    Lens $ \(Home lat lon zoom) -> store (\lat -> Home lat lon zoom) lat
+  latL = homeLat
 
 instance LonL Home where
-  lonL =
-    Lens $ \(Home lat lon zoom) -> store (\lon -> Home lat lon zoom) lon
+  lonL = homeLon
 
 instance ZoomL Home where
-  zoomL =
-    Lens $ \(Home lat lon zoom) -> store (\zoom -> Home lat lon zoom) zoom
-
+  zoomL = homeZoom

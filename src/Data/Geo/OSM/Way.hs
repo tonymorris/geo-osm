@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, TemplateHaskell #-}
 
 -- | The @way@ element of a OSM file.
 module Data.Geo.OSM.Way
@@ -19,15 +19,20 @@ import Data.Geo.OSM.Lens.VisibleL
 import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.UidL
 import Data.Geo.OSM.Lens.TimestampL
-import Control.Lens.Lens
-import Control.Comonad.Trans.Store
 import Control.Category
 import Prelude hiding ((.))
+import Control.Lens.TH
 
 -- | The @way@ element of a OSM file.
-data Way =
-  Way [Nd] NWRCommon
-  deriving Eq
+data Way = Way {
+  _wayNd :: [Nd],
+  _wayCommon :: NWRCommon
+  } deriving Eq
+
+makeLenses ''Way
+
+instance HasNWRCommon Way where
+  nWRCommon = wayCommon
 
 instance XmlPickler Way where
   xpickle =
@@ -39,42 +44,28 @@ instance Show Way where
     showPickled []
 
 instance NdL Way where
-  ndL =
-    Lens $ \(Way nds common) -> store (\nds -> Way nds common) nds
-
--- not exported
-commonL ::
-  Lens Way NWRCommon
-commonL =
-  Lens (\(Way nds common) -> store (\common -> Way nds common) common)
+  ndL = wayNd
 
 instance IdL Way where
-  idL =
-    idL . commonL
+  idL = commonId
 
 instance TagsL Way where
-  tagsL =
-    tagsL . commonL
+  tagsL = commonTags
 
 instance ChangesetL Way where
-  changesetL =
-    changesetL . commonL
+  changesetL = commonChangeset
 
 instance VisibleL Way where
-  visibleL = 
-    visibleL . commonL
+  visibleL = commonVisible
 
 instance UserL Way (Maybe String) where
-  userL =
-    userL . commonL
+  userL = wayCommon . userL
 
 instance UidL Way where
-  uidL =
-    uidL . commonL
+  uidL = wayCommon . uidL
 
 instance TimestampL Way (Maybe String) where
-  timestampL =
-    timestampL . commonL
+  timestampL = wayCommon . timestampL
 
 -- | Constructs a way with a list of nds, id, list of tags, changeset, visible, user&uid and timestamp.
 way ::

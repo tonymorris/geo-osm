@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
+{-# LANGUAGE TemplateHaskell, MultiParamTypeClasses, TypeSynonymInstances, FlexibleInstances #-}
 
 -- | The @gpx_file@ element of a OSM file.
 module Data.Geo.OSM.GpxFile
@@ -17,13 +17,22 @@ import Data.Geo.OSM.Lens.UserL
 import Data.Geo.OSM.Lens.PublicL
 import Data.Geo.OSM.Lens.PendingL
 import Data.Geo.OSM.Lens.TimestampL
-import Control.Lens.Lens
-import Control.Comonad.Trans.Store
+import Control.Lens.TH
+
 
 -- | The @gpx_file@ element of a OSM file.
-data GpxFile =
-  GpxFile String String String String String Bool Bool String
-  deriving Eq
+data GpxFile = GpxFile {
+  _gpxFileId :: String,
+  _gpxFileName :: String,
+  _gpxFileLat :: String,
+  _gpxFileLon :: String,
+  _gpxFileUser :: String,
+  _gpxFilePublic ::Bool,
+  _gpxFilePending :: Bool,
+  _gpxFileTimestamp :: String
+  } deriving Eq
+
+makeLenses ''GpxFile
 
 -- | Constructs a @gpx_file@ with an id, name, lat, lon, user, public, pending and timestamp.
 gpxFile ::
@@ -52,34 +61,25 @@ instance Show GpxFile where
     showPickled []
 
 instance IdL GpxFile where
-  idL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\id -> GpxFile id name lat lon user public pending timestamp) id
+  idL = gpxFileId
 
 instance NameL GpxFile where
-  nameL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\name -> GpxFile id name lat lon user public pending timestamp) name
+  nameL = gpxFileName
 
 instance LatL GpxFile where
-  latL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\lat -> GpxFile id name lat lon user public pending timestamp) lat
+  latL = gpxFileLat
 
 instance LonL GpxFile where
-  lonL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\lon -> GpxFile id name lat lon user public pending timestamp) lon
+  lonL = gpxFileLon
 
 instance UserL GpxFile String where
-  userL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\user -> GpxFile id name lat lon user public pending timestamp) user
+  userL = gpxFileUser
 
 instance PublicL GpxFile where
-  publicL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\public -> GpxFile id name lat lon user public pending timestamp) public
+  publicL = gpxFilePublic
 
 instance PendingL GpxFile where
-  pendingL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\pending -> GpxFile id name lat lon user public pending timestamp) pending
+  pendingL = gpxFilePending
 
 instance TimestampL GpxFile String where
-  timestampL =
-    Lens $ \(GpxFile id name lat lon user public pending timestamp) -> store (\timestamp -> GpxFile id name lat lon user public pending timestamp) timestamp
-
+  timestampL = gpxFileTimestamp

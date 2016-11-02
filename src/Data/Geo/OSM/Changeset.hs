@@ -11,7 +11,6 @@ import Text.XML.HXT.Arrow.Pickle
 import Data.Geo.OSM.Tag
 import Data.Geo.OSM.Lens.TagsL
 import Control.Lens.Lens
-import Control.Comonad.Trans.Store
 import Control.Newtype
 
 -- | The @changeset@ element of a OSM file.
@@ -36,11 +35,10 @@ instance Show Changeset where
 
 instance TagsL Changeset where
   tagsL =
-    Lens $ \(Changeset tags) -> store (\tags -> Changeset tags) tags
+    lens unpack (const pack)
 
 instance Newtype Changeset [Tag] where
-  pack = 
+  pack =
     Changeset
   unpack (Changeset x) =
     x
-
