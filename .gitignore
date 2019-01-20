@@ -1,8 +1,14 @@
+# Mac OSX
+.DS_Store
+
 *~
 *#*
 
 # CABAL
 dist
+
+# Stack
+.stack-work/
 
 # Haskell Program Coverage
 .hpc
