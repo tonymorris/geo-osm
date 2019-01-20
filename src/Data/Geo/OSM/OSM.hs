@@ -30,6 +30,9 @@ import Data.Geo.OSM.BoundOption
 import Control.Lens.TH
 import Data.Geo.OSM.Lens.VersionL
 import Data.Geo.OSM.Lens.GeneratorL
+import Data.Geo.OSM.Lens.CopyrightL
+import Data.Geo.OSM.Lens.AttributionL
+import Data.Geo.OSM.Lens.LicenseL
 import Data.Geo.OSM.Lens.BoundsL
 import Data.Geo.OSM.Lens.ChildrenL
 import Data.Monoid
@@ -37,7 +40,10 @@ import Data.Monoid
 -- | The @osm@ element of a OSM file, which is the root element.
 data OSM = OSM {
   _osmVersion :: String,
-  _osmGenerator :: (Maybe String),
+  _osmGenerator :: Maybe String,
+  _osmCopyright :: Maybe String,
+  _osmAttribution :: Maybe String,
+  _osmLicense :: Maybe String,
   _osmBounds :: Maybe (Either Bound Bounds),
   _osmChildren :: Children
   } deriving Eq
@@ -46,9 +52,12 @@ makeLenses ''OSM
 
 instance XmlPickler OSM where
   xpickle =
-    xpElem "osm" (xpWrap (\(version', generator', bound', nwr') -> osm version' generator' bound' nwr', \(OSM version' generator' bound' nwr') -> (version', generator', bound', nwr'))
-      (xp4Tuple (xpAttr "version" xpText)
+    xpElem "osm" (xpWrap (\(version', generator', copyright', attribution', license', bound', nwr') -> osm version' generator' copyright' attribution' license' bound' nwr', \(OSM version' generator' copyright' attribution' license' bound' nwr') -> (version', generator', copyright', attribution', license', bound', nwr'))
+      (xp7Tuple (xpAttr "version" xpText)
                 (xpOption (xpAttr "generator" xpText))
+                (xpOption (xpAttr "copyright" xpText))
+                (xpOption (xpAttr "attribution" xpText))
+                (xpOption (xpAttr "license" xpText))
                 (xpOption (xpAlt (either (const 0) (const 1)) [xpWrap (Left, \(Left b) -> b) xpickle, xpWrap (Right, \(Right b) -> b) xpickle]))
                 xpickle))
 
@@ -65,6 +74,15 @@ instance BoundsL OSM where
 instance GeneratorL OSM where
   generatorL = osmGenerator
 
+instance CopyrightL OSM where
+  copyrightL = osmCopyright
+
+instance AttributionL OSM where
+  attributionL = osmAttribution
+
+instance LicenseL OSM where
+  licenseL = osmLicense
+
 instance ChildrenL OSM where
   childrenL = osmChildren
 
@@ -73,6 +91,9 @@ instance ChildrenL OSM where
 osm ::
   String -- ^ The @version@ attribute.
   -> Maybe String -- ^ The @generator@ attribute.
+  -> Maybe String -- ^ The @copyright@ attribute.
+  -> Maybe String -- ^ The @attribution@ attribute.
+  -> Maybe String -- ^ The @license@ attribute.
   -> Maybe (Either Bound Bounds) -- ^ The @bound@ or @bounds@ elements.
   -> Children -- ^ The child elements.
   -> OSM

@@ -59,16 +59,19 @@ Library
                       Data.Geo.OSM.Waynodes
                       Data.Geo.OSM.Lens.AccountCreatedL
                       Data.Geo.OSM.Lens.AreaL
+                      Data.Geo.OSM.Lens.AttributionL
                       Data.Geo.OSM.Lens.BoundsL
                       Data.Geo.OSM.Lens.BoxL
                       Data.Geo.OSM.Lens.ChangesetL
                       Data.Geo.OSM.Lens.ChildrenL
+                      Data.Geo.OSM.Lens.CopyrightL
                       Data.Geo.OSM.Lens.DisplayNameL
                       Data.Geo.OSM.Lens.GeneratorL
                       Data.Geo.OSM.Lens.HomeL
                       Data.Geo.OSM.Lens.IdL
                       Data.Geo.OSM.Lens.KL
                       Data.Geo.OSM.Lens.LatL
+                      Data.Geo.OSM.Lens.LicenseL
                       Data.Geo.OSM.Lens.LonL
                       Data.Geo.OSM.Lens.MaximumL
                       Data.Geo.OSM.Lens.MaxlatL
