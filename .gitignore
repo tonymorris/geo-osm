@@ -7,6 +7,9 @@
 # CABAL
 dist
 
+# Stack
+.stack-work/
+
 # Haskell Program Coverage
 .hpc
 
